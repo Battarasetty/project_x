@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Box, Typography, Switch, FormControlLabel } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
-import { getMainChartData, mainChartOptions } from "../constants/Data";
-import { fuse, shock1 } from "../assets";
+import {getMainChartData, mainChartOptions} from '../../constants/Data'
+import { fuse, shock1 } from "../../assets";
 
 const ChartComponent = () => {
   const [chartData, setChartData] = useState(getMainChartData());

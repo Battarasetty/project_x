@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { Arrow, Logo, currentCircle, defaultCircle } from "../assets";
+import { Arrow, Logo, currentCircle, defaultCircle } from "../../assets";
 
 const StatBox = () => {
   const reducedImageSize = "40px"; // Set your desired size

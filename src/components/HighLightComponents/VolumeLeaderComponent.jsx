@@ -12,8 +12,8 @@ import {
   USDT,
   XRP,
   etherum,
-} from "../assets";
-import CoinAvatarGroup from "./CoinAvatarGroup";
+} from "../../assets";
+import CoinAvatarGroup from "../CoinAvatarGroup";
 
 const VolumeLeaderComponent = () => {
   return (

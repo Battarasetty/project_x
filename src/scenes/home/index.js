@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Box, FormControlLabel, Grid, Switch } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { eye_x, ic_search, info, minus_x, plus_x, star } from '../../assets';
-import { ChartComponent, CoinAvatarGroup, DataGridCustomToolbar, StatBox, TrendingArticle, VolumeLeaderComponent } from '../../components';
+import { CoinAvatarGroup, DataGridCustomToolbar, SwitchWithLabel, } from '../../components';
+import HighlightComponentsContainer from '../../components/HighLightComponents/HighlightComponentsContainer';
 
 const Home = () => {
     const [page, setPage] = useState(0);
@@ -138,49 +139,17 @@ const Home = () => {
                     Yes! You can make money by following a pool creator. Start earning your yield today.{' '}
                     <span className="text-blue-500 font-normal underline ml-4">Know More</span>
                 </p>
-                <FormControlLabel
-                    label="HighLights"
-                    labelPlacement="start"
-                    control={<Switch color="primary" checked={showHighlights} onChange={() => setShowHighlights(!showHighlights)} />}
+                {/* SwitchWithLabel component */}
+                <SwitchWithLabel
+                    label="Highlights"
+                    checked={showHighlights}
+                    onChange={() => setShowHighlights(!showHighlights)}
                     className="ml-4"
                 />
             </div>
 
             {/* Cards */}
-            <Grid container style={{ marginTop: 0, gap: '16px' }}>
-                <Grid item xs={12} sm={6} md={4} style={{ flex: 1 }}>
-                    {/* First component - ChartComponent */}
-                    {showHighlights && (
-                        <div className="flex-grow">
-                            <ChartComponent />
-                        </div>
-                    )}
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} style={{ flex: 1 }}>
-                    {/* Second component - TrendingArticle */}
-                    {showHighlights && (
-                        <div className="flex-grow">
-                            <TrendingArticle />
-                        </div>
-                    )}
-                </Grid>
-                <Grid item xs={12} sm={6} md={2} style={{ flex: 1 }}>
-                    {/* Third component - VolumeLeaderComponent */}
-                    {showHighlights && (
-                        <div className="flex-grow">
-                            <VolumeLeaderComponent />
-                        </div>
-                    )}
-                </Grid>
-                <Grid item xs={12} sm={6} md={2} style={{ flex: 1 }}>
-                    {/* Fourth component - StatBox */}
-                    {showHighlights && (
-                        <div className="flex-grow">
-                            <StatBox />
-                        </div>
-                    )}
-                </Grid>
-            </Grid>
+            <HighlightComponentsContainer showHighlights={showHighlights} />
 
             {/* Fifth Table Component */}
             <div className={showHighlights ? 'mt-7' : ''}>
@@ -233,7 +202,7 @@ const Home = () => {
                 </Box>
             </div>
 
-          
+
 
         </div>
     );

@@ -8,7 +8,7 @@ import {
 } from "../../assets";
 import { mockDataToken } from "../../constants/Data";
 import ConnectWalletModal from "../../components/ConnectWalletModal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Topbar = () => {
   const [selectedOption2, setSelectedOption2] = useState("Ethereum");
@@ -46,12 +46,14 @@ const Topbar = () => {
       <div className="flex justify-between m-auto items-center p-3">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="flex flex-col items-center">
-            <img src={Logo} alt="" className="w-12 h-12 relative" />
-            <span className="text-sm font-medium text-[#3840CD] absolute top-[38px] left-[50px]">
-              BULL RUN
-            </span>
-          </div>
+          <Link to="/">
+            <div className="flex flex-col items-center">
+              <img src={Logo} alt="" className="w-12 h-12 relative" />
+              <span className="text-sm font-medium text-[#3840CD] absolute top-[38px] left-[50px]">
+                BULL RUN
+              </span>
+            </div>
+          </Link>
         </div>
 
         {/* Wallet */}

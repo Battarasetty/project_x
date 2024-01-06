@@ -11,7 +11,7 @@ import {
   nativeBitcoin,
   pool,
   portfolio,
-} from "../assets";
+} from "../../assets";
 
 const TrendingArticle = () => {
   const slides = [
