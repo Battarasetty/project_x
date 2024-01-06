@@ -7,11 +7,16 @@ import {
   Notification,
 } from "../../assets";
 import { mockDataToken } from "../../constants/Data";
+import ConnectWalletModal from "../../components/ConnectWalletModal";
+import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
-  const [selectedOption1, setSelectedOption1] = useState("Pool Participants");
   const [selectedOption2, setSelectedOption2] = useState("Ethereum");
   const [hasNotifications, setHasNotifications] = useState(true);
+  const [selectedOption1, setSelectedOption1] = useState("Pool Participants");
+  const [openModal, setOpenModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleDropdownChange1 = (event) => {
     setSelectedOption1(event.target.value);
@@ -22,7 +27,18 @@ const Topbar = () => {
   };
 
   const handleConnectWallet = () => {
+    setOpenModal(true);
     console.log("Connect Wallet clicked");
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
+  const handlePoolCreatorClick = () => {
+    console.log("Redirecting to Pool Creator");
+    navigate("/pool-creator");
+    handleClose();
   };
 
   return (
@@ -76,26 +92,17 @@ const Topbar = () => {
             <select
               value={selectedOption1}
               onChange={handleDropdownChange1}
-              className="p-2 border-solid border-2 rounded-lg bg-white text-black transition-all duration-300 focus:outline-none focus:border-blue-500"
-              style={{
-                boxShadow: "0px 0px 6px #00000029",
-              }}
+              className="dropdown-style"
             >
               <option value="Pool Participants">Pool Participants</option>
-              <option value="Etherum">Etherum</option>
-              <option value="Binance">Binance</option>
-              <option value="Avalanche">Avalanche</option>
-              <option value="Fantom">Fantom</option>
+              <option value="Etherum">Pool Creator</option>
             </select>
 
             {/* Dropdown 2 */}
             <select
               value={selectedOption2}
               onChange={handleDropdownChange2}
-              className="p-2 border-solid border-2 rounded-lg bg-white text-black transition-all duration-300 focus:outline-none focus:border-blue-500"
-              style={{
-                boxShadow: "0px 0px 6px #00000029",
-              }}
+              className="dropdown-style"
             >
               <option value="Ethereum">Ethereum</option>
               <option value="Binance">Binance</option>
@@ -113,6 +120,15 @@ const Topbar = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Modal Component */}
+      <div className="w-[80vw] mx-auto">
+        <ConnectWalletModal
+          open={openModal}
+          handleClose={handleClose}
+          onPoolCreatorClick={handlePoolCreatorClick}
+        />
       </div>
     </header>
   );

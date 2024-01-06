@@ -4,50 +4,60 @@ import { Logo } from "../assets";
 const FooterComponent = () => {
   return (
     <footer className="pt-8">
-      <div className="flex w-[70%] justify-center gap-[55px]">
-        <div className="mb-4 md:mb-0 md:ml-8">
+      <div className="flex gap-[55px]">
+        {/* Left Div */}
+        <div className="mb-4 flex-1 md:mb-0 md:ml-8">
           <img src={Logo} alt="" className="w-12 h-12 relative" />
           <span className="text-sm font-medium text-[#3840CD] mt-1">
             BULL RUN
           </span>{" "}
         </div>
-        <div className="mb-4 md:mb-0 md:ml-8">
-          <p className="font-bold">Product</p>
-          <p className="text-[12px]">App</p>
-          <p className="text-[12px]">Roadmap</p>
-          <p className="text-[12px]">Gitbook</p>
-        </div>
-        {/* 2nd Column: Company */}
-        <div className="mb-4 md:mb-0 md:ml-8">
-          <p className="font-bold">Company</p>
-          <p className="text-[12px]">About us</p>
-          <p className="text-[12px]">Roadmap</p>
-          <p className="text-[12px]">Team</p>
-        </div>
-        {/* 3rd Column: Support */}
-        <div className="mb-4 md:mb-0 md:ml-8">
-          <p className="font-bold">Company</p>
-          <p className="text-[12px]">Terms of use</p>
-          <p className="text-[12px]">Privacy Policy</p>
-          <p className="text-[12px]">Cookie</p>
-          <p className="text-[12px]">Policy Disclaimer</p>
-        </div>
-        {/* 4th Column: Social */}
-        <div className="md:ml-8">
-          <p className="font-bold">Support</p>
-          <p className="text-[12px]">Request Form</p>
-          <p className="text-[12px]">Contact Support</p>
-          <p className="text-[12px]">FAQ</p>
-        </div>
-        {/* 2nd Column: Company */}
-        <div className="mb-4 md:mb-0 md:ml-8">
-          <p className="font-bold">Social</p>
-          <p className="text-[12px]">X (Twitter)</p>
-          <p className="text-[12px]">Telegram</p>
-          <p className="text-[12px]">Instagram</p>
-          <p className="text-[12px]">Facebook</p>
-          <p className="text-[12px]">Reddit</p>
-          <p className="text-[12px]">LinkedIn</p>
+
+        {/* Right Div */}
+        <div className="flex mr-[140px] gap-[60px]">
+          {/* Product Column */}
+          <div className="mb-4 md:mb-0 md:ml-8 flex flex-col gap-3">
+            <p className="font-bold">Product</p>
+            <p className="text-[12px] text-[#ABB0C1]">App</p>
+            <p className="text-[12px] text-[#ABB0C1]">Roadmap</p>
+            <p className="text-[12px] text-[#ABB0C1]">Gitbook</p>
+          </div>
+
+          {/* Company Column */}
+          <div className="mb-4 md:mb-0 md:ml-8 flex flex-col gap-3">
+            <p className="font-bold">Company</p>
+            <p className="text-[12px] text-[#ABB0C1]">About us</p>
+            <p className="text-[12px] text-[#ABB0C1]">Roadmap</p>
+            <p className="text-[12px] text-[#ABB0C1]">Team</p>
+          </div>
+
+          <div className="mb-4 md:mb-0 md:ml-8 flex flex-col gap-3">
+            <p className="font-bold">Company</p>
+            <p className="text-[12px] text-[#ABB0C1]">Terms of use</p>
+            <p className="text-[12px] text-[#ABB0C1]">Privacy Policy</p>
+            <p className="text-[12px] text-[#ABB0C1]">Cookie</p>
+            <p className="text-[12px] text-[#ABB0C1]">Policy Disclaimer</p>
+          </div>
+
+          {/* Support Column */}
+          <div className="mb-4 md:mb-0 md:ml-8 flex flex-col gap-3">
+            <p className="font-bold">Support</p>
+            <p className="text-[12px] text-[#ABB0C1]">Terms of use</p>
+            <p className="text-[12px] text-[#ABB0C1]">Privacy Policy</p>
+            <p className="text-[12px] text-[#ABB0C1]">Cookie</p>
+            <p className="text-[12px] text-[#ABB0C1]">Policy Disclaimer</p>
+          </div>
+
+          {/* Social Column */}
+          <div className="md:ml-8 flex flex-col gap-3">
+            <p className="font-bold">Social</p>
+            <p className="text-[12px] text-[#ABB0C1]">X (Twitter)</p>
+            <p className="text-[12px] text-[#ABB0C1]">Telegram</p>
+            <p className="text-[12px] text-[#ABB0C1]">Instagram</p>
+            <p className="text-[12px] text-[#ABB0C1]">Facebook</p>
+            <p className="text-[12px] text-[#ABB0C1]">Reddit</p>
+            <p className="text-[12px] text-[#ABB0C1]">LinkedIn</p>
+          </div>
         </div>
       </div>
 
@@ -57,7 +67,7 @@ const FooterComponent = () => {
         style={{ backgroundColor: "#F8F9FB" }}
       >
         <p className="text-[8px]">
-          Copyright © 2024 Xbullrun. All rights reserved.
+          Copyright © 2024 Designed by Entitled<b>arts</b>. All rights reserved.
         </p>
       </div>
     </footer>

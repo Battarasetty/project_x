@@ -131,7 +131,7 @@ const Home = () => {
     const allRows = dummyData;
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <h1 className="text-3xl font-bold mb-4">Good to see you, PAL</h1>
             <div className="flex items-center mb-4 gap-[250px]">
                 <p className="text-[#838A9B]">

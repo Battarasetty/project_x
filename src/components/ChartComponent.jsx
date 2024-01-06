@@ -147,7 +147,7 @@ const ChartComponent = () => {
             >
               30D
             </h5>
-            <h5
+            {/* <h5
               className={`cursor-pointer text-[10px] font-semibold ${
                 selectedOption === "90D"
                   ? "bg-white rounded-lg p-0.5 text-black"
@@ -156,7 +156,7 @@ const ChartComponent = () => {
               onClick={() => handleOptionClick("90D")}
             >
               90D
-            </h5>
+            </h5> */}
             <h5
               className={`cursor-pointer text-[10px] font-semibold ${
                 selectedOption === "ALL"
