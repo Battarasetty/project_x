@@ -120,7 +120,7 @@ const ChartComponent = () => {
             <h5
               className={`cursor-pointer text-[10px] font-semibold ${
                 selectedOption === "24H"
-                  ? "bg-white rounded-lg p-0.5 text-black"
+                  ? "bg-white -lg p-0.5 text-black"
                   : "text-[#5D6880]"
               }`}
               onClick={() => handleOptionClick("24H")}

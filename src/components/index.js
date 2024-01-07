@@ -8,6 +8,8 @@ import ChartComponent from './HighLightComponents/ChartComponent';
 import VolumeLeaderComponent from './HighLightComponents/VolumeLeaderComponent';
 import TrendingArticle from './HighLightComponents/TrendingArticle';
 import StatBox from './HighLightComponents/StatBox';
+import CircularProgressBar from './CircularProgressBar';
+import AddTokenModal from './AddTokenModal';
 
 export {
     ChartComponent,
@@ -19,4 +21,6 @@ export {
     CoinAvatarGroup,
     EmailComponent,
     SwitchWithLabel,
+    CircularProgressBar,
+    AddTokenModal,
 }

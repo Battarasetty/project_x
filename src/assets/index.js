@@ -35,7 +35,10 @@ import plus_x from './plus_x.svg';
 import minus_x from './minus_x.svg';
 import eye_x from './eye_x.svg';
 import email_image from './email_image.png';
-
+import add_pool from './add_pool.svg';
+import blue_circle from './blue_circle.svg'
+import bike from './bike.svg';
+import person from './person.svg'
 
 
 export {
@@ -75,5 +78,9 @@ export {
     ic_search,
     star,
     info,
-    email_image
+    email_image,
+    add_pool,
+    blue_circle,
+    bike,
+    person,
 }
