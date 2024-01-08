@@ -4,7 +4,7 @@ import { Arrow, Logo, currentCircle, defaultCircle } from "../../assets";
 
 const StatBox = () => {
   const reducedImageSize = "40px"; // Set your desired size
-  const reducedFontSize = "9px"; // Set your desired font size
+  const reducedFontSize = "7px"; // Set your desired font size
 
   return (
     <Box
@@ -22,7 +22,7 @@ const StatBox = () => {
         </span>
       </div>
       <div className="flex items-center">
-        <img src={Logo} className="w-[130px] h-[130px]" alt="Logo" />
+        <img src={Logo} className="w-[120px] h-[130px]" alt="Logo" />
         <div
           style={{
             color: "#9124FD",
