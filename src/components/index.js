@@ -10,6 +10,10 @@ import TrendingArticle from './HighLightComponents/TrendingArticle';
 import StatBox from './HighLightComponents/StatBox';
 import CircularProgressBar from './CircularProgressBar';
 import AddTokenModal from './AddTokenModal';
+import PoolFormSection from './PoolFormSection';
+import PortfolioInfo from './PortfolioInfo';
+import PortfolioOverview from './PortfolioOverview';
+
 
 export {
     ChartComponent,
@@ -23,4 +27,7 @@ export {
     SwitchWithLabel,
     CircularProgressBar,
     AddTokenModal,
+    PoolFormSection,
+    PortfolioInfo,
+    PortfolioOverview
 }
