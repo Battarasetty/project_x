@@ -1,26 +1,49 @@
-import { FormControlLabel, Switch } from "@mui/material";
-import React, { useState } from "react";
-import { add_pool } from "../assets";
-import CircularProgressBar from "./CircularProgressBar";
-import AddTokenModal from "./AddTokenModal";
-
-const PoolFormSection = ({
-  showHighlights,
-  setShowHighlights,
-  handleSwitchChange,
-  formData,
-  handleInputChange,
-  isEthereumSelected,
-  openAddTokenModal,
-  poolPercentageLeft,
-  tokenHistory,
-  isApproveButtonDisabled,
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setSwitchValue,
+  setFormData,
+  setIsAddTokenModalOpen,
   setTokenHistory,
   setTokenDetails,
   setTokenValue,
   setPoolPercentageLeft,
-}) => {
-  const [isAddTokenModalOpen, setIsAddTokenModalOpen] = useState(false);
+  setIsApproveButtonDisabled,
+} from "../redux/poolFormSection/poolFormSectionSlice";
+import CircularProgressBar from "./CircularProgressBar";
+import AddTokenModal from "./AddTokenModal";
+import { FormControlLabel, Switch } from "@mui/material";
+import { add_pool } from "../assets";
+
+const PoolFormSection = () => {
+  const dispatch = useDispatch();
+  const isEthereumSelected = useSelector(
+    (state) => state.poolForm.isEthereumSelected
+  );
+  const formData = useSelector((state) => state.poolForm.formData);
+  const poolPercentageLeft = useSelector(
+    (state) => state.poolForm.poolPercentageLeft
+  );
+  const tokenHistory = useSelector((state) => state.poolForm.tokenHistory);
+  const isApproveButtonDisabled = poolPercentageLeft > 0;
+
+  const handleSwitchChange = () => {
+    dispatch(setSwitchValue(!isEthereumSelected));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const numericValue = value.replace(/[^0-9.]/g, "");
+
+    // Format the numeric value with a '$' symbol
+    const formattedValue = `$${numericValue}`;
+
+    dispatch(setFormData({ ...formData, [name]: formattedValue }));
+  };
+
+  const openAddTokenModal = () => {
+    dispatch(setIsAddTokenModalOpen(true));
+  };
 
   const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
     const newTokenEntry = {
@@ -29,12 +52,11 @@ const PoolFormSection = ({
       poolPercentageLeft,
     };
 
-    setTokenHistory((prevHistory) => [...prevHistory, newTokenEntry]);
-
-    setTokenDetails(selectedToken);
-    setTokenValue(enteredValue);
-    setPoolPercentageLeft(poolPercentageLeft);
-    setIsAddTokenModalOpen(false);
+    dispatch(setTokenHistory([...tokenHistory, newTokenEntry]));
+    dispatch(setTokenDetails(selectedToken));
+    dispatch(setTokenValue(enteredValue));
+    dispatch(setPoolPercentageLeft(poolPercentageLeft));
+    dispatch(setIsAddTokenModalOpen(false));
   };
 
   return (
@@ -260,8 +282,8 @@ const PoolFormSection = ({
         </form>
       </div>
       <AddTokenModal
-        open={isAddTokenModalOpen}
-        handleClose={() => setIsAddTokenModalOpen(false)}
+        open={useSelector((state) => state.poolForm.isAddTokenModalOpen)}
+        handleClose={() => dispatch(setIsAddTokenModalOpen(false))}
         onAddToken={handleAddToken}
         initialPoolPercentage={poolPercentageLeft}
       />

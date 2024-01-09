@@ -1,8 +1,14 @@
 import React from "react";
 import SwitchWithLabel from "./SwitchWithLabel"; // Import SwitchWithLabel
 import { eye_x, person } from "../assets";
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowHighlights } from '../redux/pool/poolSlice';
 
-const PortfolioInfo = ({ showHighlights, setShowHighlights }) => {
+const PortfolioInfo = () => {
+  const dispatch = useDispatch();
+
+const showHighlights = useSelector((state) => state.pool.showHighlights);
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-col gap-2">
@@ -20,7 +26,7 @@ const PortfolioInfo = ({ showHighlights, setShowHighlights }) => {
         <SwitchWithLabel
           label="Show Charts"
           checked={showHighlights}
-          onChange={() => setShowHighlights(!showHighlights)}
+          onChange={() => dispatch(setShowHighlights(!showHighlights))}
           className="ml-4"
         />
       </div>

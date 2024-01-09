@@ -14,25 +14,21 @@ import {
   plus_x,
 } from "../assets";
 import CircularProgressBar from "./CircularProgressBar";
+import { useSelector, useDispatch } from "react-redux";
+import { setPoolPercentageLeft } from "../redux/poolFormSection/poolFormSectionSlice";
 
-const AddTokenModal = ({
-  open,
-  handleClose,
-  onAddToken,
-  initialPoolPercentage,
-}) => {
+const AddTokenModal = ({ open, handleClose, onAddToken }) => {
+  const dispatch = useDispatch();
+  const poolPercentageLeft = useSelector(
+    (state) => state.poolForm.poolPercentageLeft
+  );
+
   const [allocationPercentage, setAllocationPercentage] = useState("");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedToken, setSelectedToken] = useState({
     name: "ETH",
     image: etherum,
   });
-
-  const [poolPercentage, setPoolPercentage] = useState(
-    initialPoolPercentage
-  );
-
-  // console.log(poolPercentage)
 
   const modalStyle = {
     position: "absolute",
@@ -60,7 +56,20 @@ const AddTokenModal = ({
   };
 
   const handleInputChange = (e) => {
-    setAllocationPercentage(e.target.value);
+    const enteredValue = parseFloat(e.target.value);
+    const roundedValue = Math.round(enteredValue * 100) / 100; // Round to two decimal places
+    setAllocationPercentage(roundedValue.toString());
+
+    // Dispatch the action to update poolPercentageLeft globally
+    if (
+      !isNaN(enteredValue) &&
+      roundedValue >= 0 &&
+      roundedValue <= poolPercentageLeft
+    ) {
+      const newPercentage =
+        Math.round((poolPercentageLeft - roundedValue) * 100) / 100; // Round to two decimal places
+      dispatch(setPoolPercentageLeft(newPercentage));
+    }
   };
 
   const handleDropdownClick = () => {
@@ -68,7 +77,6 @@ const AddTokenModal = ({
   };
 
   const handleTokenSelect = (token) => {
-    console.log(token)
     setSelectedToken(token);
     setDropdownOpen(false);
   };
@@ -81,33 +89,22 @@ const AddTokenModal = ({
     { name: "XRP", fullName: "Xrp", image: XRP },
     { name: "USDT", fullName: "Tether", image: USDT },
   ];
-  
 
   useEffect(() => {
-    setPoolPercentage(initialPoolPercentage);
-  }, [initialPoolPercentage]);
-
-  // useEffect(() => {
-  //   const enteredValue = parseFloat(allocationPercentage);
-  //   if (!isNaN(enteredValue) && enteredValue >= 0) {
-  //     setPoolPercentage((prevPercentage) => {
-  //       const updatedPoolPercentageLeft = initialPoolPercentage - enteredValue;
-  //       return updatedPoolPercentageLeft;
-  //     });
-  //   }
-  // }, [allocationPercentage, initialPoolPercentage]);
+    // No need to set poolPercentage as it's directly coming from the Redux store
+  }, [poolPercentageLeft]);
 
   const handleAddToken = () => {
     const enteredValue = parseFloat(allocationPercentage);
     if (
       !isNaN(enteredValue) &&
       enteredValue >= 0 &&
-      enteredValue <= poolPercentage
+      enteredValue <= poolPercentageLeft
     ) {
-      const newPercentage = poolPercentage - enteredValue;
-      setPoolPercentage(newPercentage);
+      const newPercentage = poolPercentageLeft - enteredValue;
       setAllocationPercentage("");
-      onAddToken(enteredValue, selectedToken, newPercentage); // Pass newPercentage instead of poolPercentage
+      dispatch(setPoolPercentageLeft(newPercentage));
+      onAddToken(enteredValue, selectedToken, newPercentage);
     } else {
       console.error("Invalid input. Please enter a valid value.");
     }
@@ -162,7 +159,7 @@ const AddTokenModal = ({
                   htmlFor="addToken"
                   className="ml-4 block text-xs text-[#ABB0C1]"
                 >
-                  Allowcation Percentage
+                  Allocation Percentage
                 </label>
                 <div className="relative">
                   <input
@@ -210,7 +207,7 @@ const AddTokenModal = ({
               </div>
 
               <div className="flex flex-col gap-6 items-center justify-center mt-5 mb-5">
-                <CircularProgressBar percentage={poolPercentage} />
+                <CircularProgressBar percentage={poolPercentageLeft} />
                 <p className="text-[12px] font-bold">Pool Percentage Left</p>
               </div>
 
