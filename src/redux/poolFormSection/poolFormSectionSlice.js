@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const poolFormSection = createSlice({
-  name: "pool",
+  name: "poolForm",
   initialState,
   reducers: {
     setSwitchValue: (state, action) => {

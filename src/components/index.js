@@ -13,7 +13,7 @@ import AddTokenModal from './AddTokenModal';
 import PoolFormSection from './PoolFormSection';
 import PortfolioInfo from './PortfolioInfo';
 import PortfolioOverview from './PortfolioOverview';
-
+import WhiteListModal from './WhiteListModal';
 
 export {
     ChartComponent,
@@ -29,5 +29,6 @@ export {
     AddTokenModal,
     PoolFormSection,
     PortfolioInfo,
-    PortfolioOverview
+    PortfolioOverview,
+    WhiteListModal
 }
