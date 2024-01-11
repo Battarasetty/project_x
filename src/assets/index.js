@@ -39,6 +39,7 @@ import add_pool from './add_pool.svg';
 import blue_circle from './blue_circle.svg'
 import bike from './bike.svg';
 import person from './person.svg'
+import copy from './copy.svg'
 
 
 export {
@@ -83,4 +84,5 @@ export {
     blue_circle,
     bike,
     person,
+    copy,
 }

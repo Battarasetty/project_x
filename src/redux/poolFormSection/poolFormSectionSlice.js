@@ -49,6 +49,9 @@ const poolFormSection = createSlice({
     setShowHighlights: (state, action) => {
       state.showHighlights = action.payload;
     },
+    setIsPoolFormOpen: (state, action) => {
+      state.isPoolFormOpen = action.payload;
+    },
   },
 });
 
@@ -62,6 +65,7 @@ export const {
   setTokenHistory,
   setIsApproveButtonDisabled,
   setShowHighlights,
+  setIsPoolFormOpen,
 } = poolFormSection.actions;
 
 export default poolFormSection.reducer;

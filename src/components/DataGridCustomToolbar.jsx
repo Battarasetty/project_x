@@ -36,7 +36,7 @@ const DataGridCustomToolbar = ({ searchInput, setSearchInput, setSearch }) => {
     <GridToolbarContainer>
       <FlexBetween alignItems="center" width="100%">
         <Typography sx={{ color: "#000000", fontWeight: 600 }}>
-          All Pools
+          Pool Assets
         </Typography>
         <FlexBetween alignItems="center" sx={{ display: "flex", gap: "10px" }}>
           {/* Existing Search TextField */}
@@ -44,7 +44,7 @@ const DataGridCustomToolbar = ({ searchInput, setSearchInput, setSearch }) => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search by Assets" aria-label="search" />
+            <StyledInputBase placeholder="Search by Pool" aria-label="search" />
             <img src={filterSearch} alt="" className="w-5 h-5" />
           </SearchContainer>
           <div className="flex items-center gap-2 p-2.5 border-none border-2 rounded-lg bg-blue-500 text-white">

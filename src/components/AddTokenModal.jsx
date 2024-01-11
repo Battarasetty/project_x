@@ -17,18 +17,28 @@ import CircularProgressBar from "./CircularProgressBar";
 import { useSelector, useDispatch } from "react-redux";
 import { setPoolPercentageLeft } from "../redux/poolFormSection/poolFormSectionSlice";
 
-const AddTokenModal = ({ open, handleClose, onAddToken }) => {
-  const dispatch = useDispatch();
-  const poolPercentageLeft = useSelector(
-    (state) => state.poolForm.poolPercentageLeft
-  );
-
+const AddTokenModal = ({
+  open,
+  handleClose,
+  onAddToken,
+  poolPercentageValue,
+}) => {
   const [allocationPercentage, setAllocationPercentage] = useState("");
+  const [currentPercentage, setCurrentPercentage] =
+    useState(poolPercentageValue);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedToken, setSelectedToken] = useState({
     name: "ETH",
     image: etherum,
   });
+
+  useEffect(() => {
+    console.log("currentPercentage:", currentPercentage);
+    // Update the local state when initialPoolPercentage changes
+    setCurrentPercentage(poolPercentageValue);
+  }, [poolPercentageValue]);
+
+  console.log(currentPercentage);
 
   const modalStyle = {
     position: "absolute",
@@ -57,18 +67,17 @@ const AddTokenModal = ({ open, handleClose, onAddToken }) => {
 
   const handleInputChange = (e) => {
     const enteredValue = parseFloat(e.target.value);
-    const roundedValue = Math.round(enteredValue * 100) / 100; // Round to two decimal places
+    const roundedValue = Math.round(enteredValue * 100) / 100;
     setAllocationPercentage(roundedValue.toString());
 
-    // Dispatch the action to update poolPercentageLeft globally
     if (
       !isNaN(enteredValue) &&
       roundedValue >= 0 &&
-      roundedValue <= poolPercentageLeft
+      roundedValue <= poolPercentageValue
     ) {
       const newPercentage =
-        Math.round((poolPercentageLeft - roundedValue) * 100) / 100; // Round to two decimal places
-      dispatch(setPoolPercentageLeft(newPercentage));
+        Math.round((poolPercentageValue - roundedValue) * 100) / 100;
+      setCurrentPercentage(newPercentage);
     }
   };
 
@@ -82,29 +91,27 @@ const AddTokenModal = ({ open, handleClose, onAddToken }) => {
   };
 
   const tokenList = [
-    { name: "ETH", fullName: "Ethereum", image: etherum },
-    { name: "BNB", fullName: "Binance", image: BNB },
-    { name: "SOL", fullName: "Solana", image: SOL },
-    { name: "AVAX", fullName: "Avalanche", image: AVAX },
-    { name: "XRP", fullName: "Xrp", image: XRP },
-    { name: "USDT", fullName: "Tether", image: USDT },
+    { name: "ETH", fullName: "Ethereum", image: etherum, color: "green" },
+    { name: "BNB", fullName: "Binance", image: BNB, color: "blue" },
+    { name: "SOL", fullName: "Solana", image: SOL, color: "red" },
+    { name: "AVAX", fullName: "Avalanche", image: AVAX, color: "purple" },
+    { name: "XRP", fullName: "Xrp", image: XRP, color: "orange" },
+    { name: "USDT", fullName: "Tether", image: USDT, color: "pink" },
   ];
-
-  useEffect(() => {
-    // No need to set poolPercentage as it's directly coming from the Redux store
-  }, [poolPercentageLeft]);
 
   const handleAddToken = () => {
     const enteredValue = parseFloat(allocationPercentage);
+
     if (
       !isNaN(enteredValue) &&
       enteredValue >= 0 &&
-      enteredValue <= poolPercentageLeft
+      enteredValue <= poolPercentageValue
     ) {
-      const newPercentage = poolPercentageLeft - enteredValue;
-      setAllocationPercentage("");
-      dispatch(setPoolPercentageLeft(newPercentage));
+      const newPercentage = poolPercentageValue - enteredValue;
+      console.log("newPercentage:", newPercentage);
+      setCurrentPercentage(newPercentage);
       onAddToken(enteredValue, selectedToken, newPercentage);
+      setAllocationPercentage(""); // Clear input after adding token
     } else {
       console.error("Invalid input. Please enter a valid value.");
     }
@@ -172,26 +179,25 @@ const AddTokenModal = ({ open, handleClose, onAddToken }) => {
                     onChange={handleInputChange}
                     className="text-sm px-4 py-4 mt-2 border bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500"
                   />
-                  <div
-                    className="absolute right-0 mt-2 bg-white border rounded-lg shadow-md"
-                    style={{ display: isDropdownOpen ? "block" : "none" }}
-                  >
-                    {/* List of tokens */}
-                    {tokenList.map((token) => (
-                      <div
-                        key={token.name}
-                        className="flex items-center gap-2 text-xs px-4 py-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() => handleTokenSelect(token)}
-                      >
-                        <img
-                          src={token.image}
-                          alt=""
-                          className="w-3 h-3 mr-2"
-                        />
-                        {token.name}
-                      </div>
-                    ))}
-                  </div>
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 bg-white border rounded-lg shadow-md">
+                      {/* List of tokens */}
+                      {tokenList.map((token) => (
+                        <div
+                          key={token.name}
+                          className="flex items-center gap-2 text-xs px-4 py-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleTokenSelect(token)}
+                        >
+                          <img
+                            src={token.image}
+                            alt=""
+                            className="w-3 h-3 mr-2"
+                          />
+                          {token.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   <div
                     className="absolute right-[10px] bottom-[10px] flex items-center gap-2 text-xs rounded-lg px-4 py-2 bg-[#ffffff] cursor-pointer focus:outline-none"
                     onClick={handleDropdownClick}
@@ -207,7 +213,7 @@ const AddTokenModal = ({ open, handleClose, onAddToken }) => {
               </div>
 
               <div className="flex flex-col gap-6 items-center justify-center mt-5 mb-5">
-                <CircularProgressBar percentage={poolPercentageLeft} />
+                <CircularProgressBar percentage={currentPercentage} />
                 <p className="text-[12px] font-bold">Pool Percentage Left</p>
               </div>
 

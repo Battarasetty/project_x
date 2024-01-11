@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setSwitchValue,
@@ -14,6 +14,7 @@ import CircularProgressBar from "./CircularProgressBar";
 import AddTokenModal from "./AddTokenModal";
 import { FormControlLabel, Switch } from "@mui/material";
 import { add_pool } from "../assets";
+import { setIsPoolFormOpen } from "../redux/poolFormSection/poolFormSectionSlice";
 
 const PoolFormSection = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ const PoolFormSection = () => {
   const poolPercentageLeft = useSelector(
     (state) => state.poolForm.poolPercentageLeft
   );
+  const [circularProgressBarColor, setCircularProgressBarColor] = useState();
+
+  console.log(poolPercentageLeft);
   const tokenHistory = useSelector((state) => state.poolForm.tokenHistory);
   const isApproveButtonDisabled = poolPercentageLeft > 0;
 
@@ -46,6 +50,8 @@ const PoolFormSection = () => {
   };
 
   const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
+    console.log("handleAddToken - enteredValue:", enteredValue);
+    console.log("handleAddToken - poolPercentageLeft:", poolPercentageLeft);
     const newTokenEntry = {
       enteredValue,
       selectedToken,
@@ -57,7 +63,18 @@ const PoolFormSection = () => {
     dispatch(setTokenValue(enteredValue));
     dispatch(setPoolPercentageLeft(poolPercentageLeft));
     dispatch(setIsAddTokenModalOpen(false));
+
+    const color = selectedToken.color; // Assuming you have a color property in your token object
+    setCircularProgressBarColor(color);
   };
+
+  // const handleApproveClick = () => {
+  //   dispatch(setIsApproveButtonDisabled(true));
+
+  //   setTimeout(() => {
+  //     dispatch(setIsApproveButtonDisabled(false));
+  //   }, 5000);
+  // };
 
   return (
     <>
@@ -235,7 +252,10 @@ const PoolFormSection = () => {
             </div>
 
             <div className="flex flex-col gap-4 items-center justify-center mt-5 mb-10">
-              <CircularProgressBar percentage={poolPercentageLeft} />
+              <CircularProgressBar
+                percentage={poolPercentageLeft}
+                color={circularProgressBarColor}
+              />
               <p className="text-[12px] font-bold">Pool Percentage Left</p>
             </div>
 
@@ -259,20 +279,31 @@ const PoolFormSection = () => {
                       : "bg-blue-500 text-white"
                   }`}
                   style={{ width: "20vw" }}
-                  onClick={() => {
-                    // Add logic here for the "Approve" button click
-                    if (!isApproveButtonDisabled) {
-                      // Only execute when the button is not disabled
-                      // Add your additional logic here
-                    }
-                  }}
+                  // onClick={handleApproveClick}
                   disabled={isApproveButtonDisabled}
                 >
                   Approve
                 </button>
                 <button
-                  className=" p-2 bg-[#F1F2F5] text-black rounded-lg"
+                  type="button"
+                  className={`p-2 rounded-lg ${
+                    isApproveButtonDisabled
+                      ? "bg-[#F1F2F5] text-black"
+                      : "bg-blue-500 text-white"
+                  }`}
                   style={{ width: "20vw" }}
+                  onClick={() => {
+                    // Add logic here for the "Deposit" button click
+                    if (!isApproveButtonDisabled) {
+                      // Only execute when the "Deposit" button is not disabled
+                      // Add your additional logic here
+                      // ...
+
+                      // Close the form or perform other actions
+                      dispatch(setIsPoolFormOpen(false));
+                    }
+                  }}
+                  disabled={isApproveButtonDisabled}
                 >
                   Deposit
                 </button>
@@ -285,7 +316,7 @@ const PoolFormSection = () => {
         open={useSelector((state) => state.poolForm.isAddTokenModalOpen)}
         handleClose={() => dispatch(setIsAddTokenModalOpen(false))}
         onAddToken={handleAddToken}
-        initialPoolPercentage={poolPercentageLeft}
+        poolPercentageValue={poolPercentageLeft} // Ensure you pass the correct prop here
       />
     </>
   );

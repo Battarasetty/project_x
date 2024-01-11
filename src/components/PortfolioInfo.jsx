@@ -10,7 +10,7 @@ const PortfolioInfo = () => {
 const showHighlights = useSelector((state) => state.pool.showHighlights);
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex mt-8 items-center justify-between">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
           <img src={person} alt="Person" className="w-5 h-5" />

@@ -1,43 +1,39 @@
 import React, { useState } from "react";
 import { Box, Typography, Switch, FormControlLabel } from "@mui/material";
-import { Line } from "react-chartjs-2";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { faker } from "@faker-js/faker";
-import {getMainChartData, mainChartOptions} from '../../constants/Data'
-import { fuse, shock1 } from "../../assets";
+import { getMainChartData, mainChartOptions } from "../constants/Data";
+import { fuse, shock1 } from "../assets";
 
-const ChartComponent = () => {
+const BigChartBox = () => {
   const [chartData, setChartData] = useState(getMainChartData());
 
   const handleChangeTimeRange = (event) => {
-    // Handle the switch button change here
     const newChartData = generateChartData(event.target.checked);
     setChartData(newChartData);
   };
 
   const generateChartData = (is24Hours) => {
-    // Modify this function to generate data based on the selected time range
-    // For simplicity, let's generate random data for demonstration purposes
     const labels = is24Hours
       ? Array.from({ length: 24 }, (_, i) => `${i}:00`)
       : Array.from({ length: 8 }, (_, i) => `${i * 3}:00`);
-
-    const data = {
-      labels,
-      datasets: [
-        {
-          label: "Views",
-          data: Array.from({ length: labels.length }, () =>
-            faker.datatype.number()
-          ),
-          backgroundColor: "#DDE0FD",
-          animation: false,
-        },
-      ],
-    };
-
+  
+    const data = labels.map((label) => ({
+      label,
+      Views: faker.datatype.number(),
+    }));
+  
     console.log("Main Chart Data:", data);
     return data;
   };
+  
 
   const [selectedImage, setSelectedImage] = useState("shock1");
 
@@ -63,9 +59,14 @@ const ChartComponent = () => {
       boxShadow="0px 0px 12px rgba(0, 0, 0, 0.09)"
       border="1px solid #F1F2F5"
       borderRadius="8px"
-      className="px-4 py-2 flex flex-col gap-1 w-full"
+      className="px-4 py-2 flex flex-col gap-1"
     >
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+      >
         <div className="flex items-center gap-[4px]">
           <div className="flex items-center justify-center gap-2 bg-[#F1F2F5] rounded-lg p-1">
             <h5
@@ -170,11 +171,21 @@ const ChartComponent = () => {
           </div>
         </div>
       </Box>
-      <Box>
-        <Line options={mainChartOptions} data={chartData} />
-      </Box>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={chartData}>
+          <XAxis dataKey="label" />
+          <YAxis />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="Views"
+            stroke="#5763F3"
+            dot={{ stroke: "#5763F3", strokeWidth: 2, r: 5 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </Box>
   );
 };
 
-export default ChartComponent;
+export default BigChartBox;
