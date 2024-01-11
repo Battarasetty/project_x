@@ -6,7 +6,7 @@ import {
   GridToolbarColumnsButton,
 } from "@mui/x-data-grid";
 import FlexBetween from "./FlexBetween";
-import { filterSearch, ic_search, insert } from "../assets";
+import { add_pool, filterSearch, ic_search, insert, minus_x } from "../assets";
 
 const SearchContainer = styled("div")({
   display: "flex",
@@ -31,30 +31,42 @@ const StyledInputBase = styled("input")({
   borderRadius: "0 8px 8px 0", // Adjust the border-radius as needed
 });
 
-const DataGridCustomToolbar = ({ searchInput, setSearchInput, setSearch }) => {
+const PoolSearchComponent = ({ searchInput, setSearchInput, setSearch }) => {
   return (
     <GridToolbarContainer>
       <FlexBetween alignItems="center" width="100%">
-        <Typography sx={{ color: "#000000", fontWeight: 600 }}>
-          All Pools
+        <Typography sx={{ color: "#000000", fontWeight: 600, fontSize: "14px" }}>
+          XBR random name 1, Pool Assets
         </Typography>
         <FlexBetween alignItems="center" sx={{ display: "flex", gap: "10px" }}>
           {/* Existing Search TextField */}
-          <SearchContainer>
+          <SearchContainer sx={{position: "relative"}}>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon sx={{color: "#ABB0C1"}} />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search by Pool" aria-label="search" />
+            <StyledInputBase
+              placeholder="Search by Pool/token"
+              aria-label="search"
+              sx={{marginRight: "10px"}}
+            />
             <img src={filterSearch} alt="" className="w-5 h-5" />
           </SearchContainer>
-          <div className="flex items-center gap-2 p-2.5 border-none border-2 rounded-lg bg-blue-500 text-white">
-            <img src={insert} alt="Add" className="w-3 h-3" />
-            <p> Create Pool</p>
+
+          <div className="flex items-center p-2.5 border-none rounded-lg">
+            <div className="flex items-center gap-2 bg-white text-blue-500 px-6 py-2 rounded-l-lg border-t border-b border-l border-blue-500">
+              <img src={add_pool} alt="Add" className="w-3 h-3" />
+              <p>Deposit</p>
+            </div>
+            <div className="flex items-center gap-2 bg-blue-500 text-white px-6 py-2 rounded-r-lg border-t border-b border-r border-blue-500">
+              <img src={minus_x} alt="Withdraw" className="w-3 h-3" />
+              <p>Withdraw</p>
+            </div>
           </div>
+
         </FlexBetween>
       </FlexBetween>
     </GridToolbarContainer>
   );
 };
 
-export default DataGridCustomToolbar;
+export default PoolSearchComponent;

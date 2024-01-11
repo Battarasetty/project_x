@@ -7,7 +7,7 @@ const data = [
   { name: "CAKE", value: 16.29, color: "#E4BB87" }, // Yellow
   { name: "EGOLD", value: 11.25, color: "#E07E66" }, // Orange
   { name: "GALA", value: 9.6, color: "#8347F3" }, // Teal
-  { name: "VTHOFLR", value: 7.45, color: "#4046CD" }, // Yellow
+  { name: "FLR", value: 7.45, color: "#4046CD" }, // Yellow
   // { name: "Tablet", value: 5.35, color: "#FF5722" }, // Orange
 ];
 
@@ -41,7 +41,7 @@ const ProgressCircle = () => {
           <div className="option flex gap-10 items-center" key={item.name}>
             <div className="flex items-center gap-2">
               <div
-                className={`dot w-4 h-4 flex items-center rounded-full`}
+                className={`dot w-2 h-2 flex items-center rounded-full`}
                 style={{ backgroundColor: item.color }}
               />
               <span className="text-xs">{item.name}</span>

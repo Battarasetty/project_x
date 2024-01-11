@@ -25,15 +25,29 @@ const PoolFormSection = () => {
   const poolPercentageLeft = useSelector(
     (state) => state.poolForm.poolPercentageLeft
   );
-  const [circularProgressBarColor, setCircularProgressBarColor] = useState();
-
+  const [circularProgressBarColor, setCircularProgressBarColor] = useState("");
+  console.log(circularProgressBarColor);
   console.log(poolPercentageLeft);
   const tokenHistory = useSelector((state) => state.poolForm.tokenHistory);
+  const latestTokenEntry =
+    tokenHistory.length > 0 ? tokenHistory[tokenHistory.length - 1] : null;
+  console.log(latestTokenEntry);
+
   const isApproveButtonDisabled = poolPercentageLeft > 0;
 
   const handleSwitchChange = () => {
     dispatch(setSwitchValue(!isEthereumSelected));
   };
+
+  const tokenColors = {
+    ETH: "green",
+    BNB: "blue",
+    SOL: "red",
+    AVAX: "purple",
+    XRP: "orange",
+    USDT: "pink",
+  };
+  console.log(tokenColors[circularProgressBarColor]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +78,8 @@ const PoolFormSection = () => {
     dispatch(setPoolPercentageLeft(poolPercentageLeft));
     dispatch(setIsAddTokenModalOpen(false));
 
-    const color = selectedToken.color; // Assuming you have a color property in your token object
+    const color = selectedToken.name;
+    console.log(color);
     setCircularProgressBarColor(color);
   };
 
@@ -252,9 +267,18 @@ const PoolFormSection = () => {
             </div>
 
             <div className="flex flex-col gap-4 items-center justify-center mt-5 mb-10">
-              <CircularProgressBar
+              {/* <CircularProgressBar
                 percentage={poolPercentageLeft}
                 color={circularProgressBarColor}
+              /> */}
+              <CircularProgressBar
+                percentage={poolPercentageLeft}
+                enteredValue={
+                  latestTokenEntry ? latestTokenEntry.enteredValue : null
+                }
+                selectedToken={
+                  latestTokenEntry ? latestTokenEntry.selectedToken : null
+                }
               />
               <p className="text-[12px] font-bold">Pool Percentage Left</p>
             </div>
@@ -273,6 +297,7 @@ const PoolFormSection = () => {
 
               <div className="flex items-center gap-10 justify-center mb-10 ">
                 <button
+                  type="button"
                   className={`p-2 rounded-lg ${
                     isApproveButtonDisabled
                       ? "bg-[#F1F2F5] text-black cursor-not-allowed"

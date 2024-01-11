@@ -40,6 +40,10 @@ import blue_circle from './blue_circle.svg'
 import bike from './bike.svg';
 import person from './person.svg'
 import copy from './copy.svg'
+import Polygon from './Polygon.svg'
+import info_main from './info_main.svg'
+
+
 
 
 export {
@@ -85,4 +89,6 @@ export {
     bike,
     person,
     copy,
+    Polygon,
+    info_main
 }
