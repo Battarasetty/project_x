@@ -27,14 +27,20 @@ const Topbar = () => {
 
   const [selectedOption2, setSelectedOption2] = useState("Ethereum");
   const [hasNotifications, setHasNotifications] = useState(true);
-  const [selectedOption1, setSelectedOption1] = useState("Pool Participants");
   const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
 
-    const handleDropdownChange1 = (event) => {
-      setSelectedOption1(event.target.value);
-    };
+  const [selectedOption, setSelectedOption] = useState("Pool Participants");
+
+  const handleDropdownChange = () => {
+    setSelectedOption(
+      selectedOption === "Pool Participants" ? "Pool Creator" : "Pool Participants"
+    );
+  };
+  
+
+  const options = ["Pool Participants", "Pool Creator"];
 
   const handleDropdownChange2 = (event) => {
     setSelectedOption2(event.target.value);
@@ -110,12 +116,19 @@ const Topbar = () => {
             <div className="flex items-center space-x-4">
               {/* Dropdown 1 */}
               <select
-                value={selectedOption1}
-                onChange={handleDropdownChange1}
+                value={selectedOption}
+                onChange={handleDropdownChange}
                 className="dropdown-style"
               >
-                <option value="Pool Participants">Pool Participants</option>
-                <option value="Etherum">Pool Creator</option>
+                {options.map((option) => (
+                  <option
+                    key={option}
+                    value={option}
+                    disabled={option === selectedOption}
+                  >
+                    {option}
+                  </option>
+                ))}
               </select>
 
               {/* Dropdown 2 */}

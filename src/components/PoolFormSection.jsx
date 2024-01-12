@@ -26,12 +26,12 @@ const PoolFormSection = () => {
     (state) => state.poolForm.poolPercentageLeft
   );
   const [circularProgressBarColor, setCircularProgressBarColor] = useState("");
-  console.log(circularProgressBarColor);
-  console.log(poolPercentageLeft);
+  // console.log(circularProgressBarColor);
+  // console.log(poolPercentageLeft);
   const tokenHistory = useSelector((state) => state.poolForm.tokenHistory);
   const latestTokenEntry =
     tokenHistory.length > 0 ? tokenHistory[tokenHistory.length - 1] : null;
-  console.log(latestTokenEntry);
+  // console.log(latestTokenEntry);
 
   const isApproveButtonDisabled = poolPercentageLeft > 0;
 
@@ -47,7 +47,7 @@ const PoolFormSection = () => {
     XRP: "orange",
     USDT: "pink",
   };
-  console.log(tokenColors[circularProgressBarColor]);
+  // console.log(tokenColors[circularProgressBarColor]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,8 +64,8 @@ const PoolFormSection = () => {
   };
 
   const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
-    console.log("handleAddToken - enteredValue:", enteredValue);
-    console.log("handleAddToken - poolPercentageLeft:", poolPercentageLeft);
+    // console.log("handleAddToken - enteredValue:", enteredValue);
+    // console.log("handleAddToken - poolPercentageLeft:", poolPercentageLeft);
     const newTokenEntry = {
       enteredValue,
       selectedToken,
@@ -79,7 +79,7 @@ const PoolFormSection = () => {
     dispatch(setIsAddTokenModalOpen(false));
 
     const color = selectedToken.name;
-    console.log(color);
+    // console.log(color);
     setCircularProgressBarColor(color);
   };
 
@@ -90,6 +90,19 @@ const PoolFormSection = () => {
   //     dispatch(setIsApproveButtonDisabled(false));
   //   }, 5000);
   // };
+
+  const handleDepositClick = (e) => {
+    // e.preventDefault();
+    // Add logic here for the "Deposit" button click
+    if (!isApproveButtonDisabled) {
+      // Only execute when the "Deposit" button is not disabled
+      // Add your additional logic here
+      // ...
+
+      // Close the form or perform other actions
+      dispatch(setIsPoolFormOpen(false));
+    }
+  };
 
   return (
     <>
@@ -310,24 +323,13 @@ const PoolFormSection = () => {
                   Approve
                 </button>
                 <button
-                  type="button"
                   className={`p-2 rounded-lg ${
                     isApproveButtonDisabled
                       ? "bg-[#F1F2F5] text-black"
                       : "bg-blue-500 text-white"
                   }`}
                   style={{ width: "20vw" }}
-                  onClick={() => {
-                    // Add logic here for the "Deposit" button click
-                    if (!isApproveButtonDisabled) {
-                      // Only execute when the "Deposit" button is not disabled
-                      // Add your additional logic here
-                      // ...
-
-                      // Close the form or perform other actions
-                      dispatch(setIsPoolFormOpen(false));
-                    }
-                  }}
+                  onClick={handleDepositClick}
                   disabled={isApproveButtonDisabled}
                 >
                   Deposit
@@ -341,7 +343,7 @@ const PoolFormSection = () => {
         open={useSelector((state) => state.poolForm.isAddTokenModalOpen)}
         handleClose={() => dispatch(setIsAddTokenModalOpen(false))}
         onAddToken={handleAddToken}
-        poolPercentageValue={poolPercentageLeft} // Ensure you pass the correct prop here
+        poolPercentageValue={poolPercentageLeft}
       />
     </>
   );

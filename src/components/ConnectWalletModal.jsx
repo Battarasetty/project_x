@@ -69,7 +69,7 @@ const ConnectWalletModal = ({ open, handleClose, onPoolCreatorClick }) => {
           >
             Choose any one to Proceed
           </Typography>
-          <Typography id="modal-modal-description " sx={{ mt: 1 }}>
+          <div id="modal-modal-description " sx={{ mt: 1 }}>
             <div
               className="flex items-center justify-between gap-5"
               style={{ borderTop: "1px solid #F1F2F5" }}
@@ -101,7 +101,7 @@ const ConnectWalletModal = ({ open, handleClose, onPoolCreatorClick }) => {
                 </h1>
               </div>
             </div>
-          </Typography>
+          </div>
         </Box>
       </div>
     </Modal>

@@ -118,7 +118,7 @@ export const getMainChartData = () => {
         ],
     };
 
-    console.log("Main Chart Data:", data);
+    // console.log("Main Chart Data:", data);
 
     return data;
 };

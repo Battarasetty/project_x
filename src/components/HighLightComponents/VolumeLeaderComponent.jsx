@@ -44,7 +44,7 @@ const VolumeLeaderComponent = () => {
           </div>
 
           <div className="flex justify-end border-t border-b mt-1 pt-1 pb-1">
-            <p className="flex items-center gap-1 justify-center mr-2">
+            <div className="flex items-center gap-1 justify-center mr-2">
               <p
                 style={{
                   fontWeight: "semibold",
@@ -54,18 +54,18 @@ const VolumeLeaderComponent = () => {
                 225.01%
               </p>
               <p className="text-[12px] text-[#838A9B]">APY</p>
-            </p>
+            </div>
 
             <div>
-              <p className="flex items-center justify-end text-[6px]">
+              <div className="flex items-center justify-end text-[6px]">
                 <p style={{ fontWeight: "bold" }}>$634,928.98:</p> 
                 <p>Volume</p>
-              </p>
-              <p className="text-[6px] flex items-center justify-end">
+              </div>
+              <div className="text-[6px] flex items-center justify-end">
                 <p style={{ fontWeight: "bold" }}>$235.03m:</p> 
                 <p>Total Pool</p>
                 Value
-              </p>
+              </div>
             </div>
           </div>
           <button

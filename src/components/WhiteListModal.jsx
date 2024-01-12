@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 
 const WhiteListModal = ({ open, handleClose, title, content }) => {
-  console.log(content);
+  // console.log(content);
   const modalStyle = {
     position: "absolute",
     top: "50%",

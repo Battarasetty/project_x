@@ -318,7 +318,9 @@ const PoolCreatorPage = () => {
           <div>{params.row.Yield}</div>
           <div className="text-xs flex items-center gap-1">
             <img src={Polygon} alt="arrow-icon-up" className="w-2 h-2" />
-            <div className="text-[#71C489] text-[10px]">{params.row["Yield Percentage"]}</div>
+            <div className="text-[#71C489] text-[10px]">
+              {params.row["Yield Percentage"]}
+            </div>
           </div>
         </div>
       ),
@@ -357,29 +359,29 @@ const PoolCreatorPage = () => {
               {/* Top Cards */}
               <div className="flex justify-between space-x-4">
                 <div
-                  className="flex-shrink-0 w-[20%] shadow p-4 bg-white  rounded-lg"
+                  className="flex-shrink-0 md:w-[20%] shadow p-4 bg-white rounded-lg"
                   style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
                 >
-                  <div className="text-leftflex flex-col items-center justify-center">
-                    <div className="text-sm mb-2 text-[#838A9B] font-semibold">
+                  <div className="text-left">
+                    <p className="text-sm mb-2 text-[#838A9B] font-semibold">
                       All-time profit
-                    </div>
+                    </p>
                     <div className="text-[#71C489] text-2xl mb-2 font-semibold">
                       + $208.02
                     </div>
-                    <div className="text-[#71C489] text-lg flex items-center gap-2 ">
+                    <div className="text-[#71C489] text-lg flex items-center gap-2">
                       <img
                         src={Polygon}
                         alt="arrow-icon-up"
                         className="w-3 h-3"
                       />
-                      <span> 01.5%</span>
+                      <span>01.5%</span>
                     </div>
                   </div>
                 </div>
 
                 <div
-                  className="flex-shrink-0 w-[20%] shadow p-4 bg-white  rounded-lg"
+                  className="flex-shrink-0 md:w-[20%]  shadow p-4 bg-white  rounded-lg"
                   style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
                 >
                   {" "}

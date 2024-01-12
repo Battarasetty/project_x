@@ -33,12 +33,12 @@ const AddTokenModal = ({
   });
 
   useEffect(() => {
-    console.log("currentPercentage:", currentPercentage);
+    // console.log("currentPercentage:", currentPercentage);
     // Update the local state when initialPoolPercentage changes
     setCurrentPercentage(poolPercentageValue);
   }, [poolPercentageValue]);
 
-  console.log(currentPercentage);
+  // console.log(currentPercentage);
 
   const modalStyle = {
     position: "absolute",
@@ -108,7 +108,7 @@ const AddTokenModal = ({
       enteredValue <= poolPercentageValue
     ) {
       const newPercentage = poolPercentageValue - enteredValue;
-      console.log("newPercentage:", newPercentage);
+      // console.log("newPercentage:", newPercentage);
       setCurrentPercentage(newPercentage);
       onAddToken(enteredValue, selectedToken, newPercentage);
       setAllocationPercentage(""); // Clear input after adding token
@@ -155,7 +155,7 @@ const AddTokenModal = ({
           >
             Add Token
           </Typography>
-          <Typography id="modal-modal-description " sx={{ mt: 1 }}>
+          <div id="modal-modal-description " sx={{ mt: 1 }}>
             <div
               className="flex flex-col items-center"
               style={{ borderTop: "1px solid #F1F2F5" }}
@@ -163,7 +163,6 @@ const AddTokenModal = ({
               <div className="pb-2 mt-5 col-span-2 sm:col-span-1 relative">
                 {/* Add Token */}
                 <label
-                  htmlFor="addToken"
                   className="ml-4 block text-xs text-[#ABB0C1]"
                 >
                   Allocation Percentage
@@ -235,7 +234,7 @@ const AddTokenModal = ({
                 </button>
               </div>
             </div>
-          </Typography>
+          </div>
         </Box>
       </div>
     </Modal>
