@@ -3,7 +3,7 @@ import { add_pool, bike, blue_circle } from "../assets";
 import { useDispatch } from "react-redux";
 import { setPoolFormOpen } from "../redux/pool/poolSlice";
 
-const PortfolioOverview = () => {
+const PortfolioOverview = ({ isPoolCreator }) => {
   const dispatch = useDispatch();
 
   const handleCreatePoolClick = () => {
@@ -38,18 +38,20 @@ const PortfolioOverview = () => {
           Portfolio <br /> Overview
         </h2>
       </div>
-      <div
-        className="flex gap-2 items-center pb-3"
-        style={{ paddingLeft: "20px", borderBottom: "1px solid #F1F2F5" }}
-      >
-        <img src={add_pool} alt="Add" className="font-bold w-2.5 h-2.5" />
-        <p
-          className="text-[#3840CD] text-xs font-semibold"
-          onClick={handleCreatePoolClick}
+      {isPoolCreator && (
+        <div
+          className="flex gap-2 items-center pb-3"
+          style={{ paddingLeft: "20px", borderBottom: "1px solid #F1F2F5" }}
         >
-          Create Pool
-        </p>
-      </div>
+          <img src={add_pool} alt="Add" className="font-bold w-2.5 h-2.5" />
+          <p
+            className="text-[#3840CD] text-xs font-semibold"
+            onClick={handleCreatePoolClick}
+          >
+            Create Pool
+          </p>
+        </div>
+      )}
     </div>
   );
 };

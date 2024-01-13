@@ -5,7 +5,12 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import { pool, portfolio } from "../assets";
 
-const ConnectWalletModal = ({ open, handleClose, onPoolCreatorClick }) => {
+const ConnectWalletModal = ({
+  open,
+  handleClose,
+  onPoolCreatorClick,
+  onPoolParticipantClick,
+}) => {
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -75,7 +80,10 @@ const ConnectWalletModal = ({ open, handleClose, onPoolCreatorClick }) => {
               style={{ borderTop: "1px solid #F1F2F5" }}
             >
               {/* Image Container 1 */}
-              <div className="border rounded-md flex flex-col gap-5 flex-1 items-center p-5 cursor-pointer">
+              <div
+                className="border rounded-md flex flex-col gap-5 flex-1 items-center p-5 cursor-pointer"
+                onClick={onPoolParticipantClick}
+              >
                 <img
                   src={portfolio}
                   alt="portfolio"
@@ -90,7 +98,10 @@ const ConnectWalletModal = ({ open, handleClose, onPoolCreatorClick }) => {
                 style={{ borderLeft: "1px solid #F1F2F5", height: "250px" }}
               ></div>
 
-              <div className="border rounded-md flex flex-1 flex-col gap-5 items-center p-5 cursor-pointer" onClick={onPoolCreatorClick}>
+              <div
+                className="border rounded-md flex flex-1 flex-col gap-5 items-center p-5 cursor-pointer"
+                onClick={onPoolCreatorClick}
+              >
                 <img
                   src={pool}
                   alt="pool"

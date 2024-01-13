@@ -35,10 +35,11 @@ const Topbar = () => {
 
   const handleDropdownChange = () => {
     setSelectedOption(
-      selectedOption === "Pool Participants" ? "Pool Creator" : "Pool Participants"
+      selectedOption === "Pool Participants"
+        ? "Pool Creator"
+        : "Pool Participants"
     );
   };
-  
 
   const options = ["Pool Participants", "Pool Creator"];
 
@@ -58,6 +59,12 @@ const Topbar = () => {
   const handlePoolCreatorClick = () => {
     console.log("Redirecting to Pool Creator");
     navigate("/pool-creator");
+    handleClose();
+  };
+
+  const handlePoolParticipantClick = () => {
+    console.log("Redirecting to Pool Creator");
+    navigate("/pool-participant");
     handleClose();
   };
 
@@ -161,6 +168,7 @@ const Topbar = () => {
             open={openModal}
             handleClose={handleClose}
             onPoolCreatorClick={handlePoolCreatorClick}
+            onPoolParticipantClick={handlePoolParticipantClick}
           />
         </div>
       </header>

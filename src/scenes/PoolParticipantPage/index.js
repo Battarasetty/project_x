@@ -34,7 +34,7 @@ import {
   star,
 } from "../../assets";
 
-const PoolCreatorPage = () => {
+const PoolParticipantPage = () => {
   const dispatch = useDispatch();
 
   const showHighlights = useSelector((state) => state.pool.showHighlights);
@@ -339,7 +339,7 @@ const PoolCreatorPage = () => {
     <>
       <div className="flex gap-5">
         {/* Left Side */}
-        <PortfolioOverview isPoolCreator={true} />
+        <PortfolioOverview isPoolCreator={false} />
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
@@ -349,141 +349,60 @@ const PoolCreatorPage = () => {
           />
           {/* Charts */}
           <div className="container mt-7">
-            <HighlightComponentsContainer showHighlights={showHighlights} isPoolCreator={true} />
+            <HighlightComponentsContainer showHighlights={showHighlights} isPoolCreator={false} />
           </div>
           {/* Pool Form  */}
-          {isPoolFormOpen ? (
-            <PoolFormSection />
-          ) : (
-            <div className="flex flex-col gap-6 mt-3">
-              {/* Top Cards */}
-              <div className="flex justify-between space-x-4">
-                <div
-                  className="flex-shrink-0 md:w-[20%] shadow p-4 bg-white rounded-lg"
-                  style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
-                >
-                  <div className="text-left">
-                    <p className="text-sm mb-2 text-[#838A9B] font-semibold">
-                      All-time profit
-                    </p>
-                    <div className="text-[#71C489] text-2xl mb-2 font-semibold">
-                      + $208.02
-                    </div>
-                    <div className="text-[#71C489] text-lg flex items-center gap-2">
-                      <img
-                        src={Polygon}
-                        alt="arrow-icon-up"
-                        className="w-3 h-3"
-                      />
-                      <span>01.5%</span>
-                    </div>
-                  </div>
-                </div>
 
-                <div
-                  className="flex-shrink-0 md:w-[20%]  shadow p-4 bg-white  rounded-lg"
-                  style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
-                >
-                  {" "}
-                  <div className="text-left">
-                    <div className="flex items-center justify-between ">
-                      <div className="text-sm mb-2 text-[#838A9B] font-semibold">
-                        Pool Sharing Income
-                      </div>
-                      <img src={copy} alt="copy" className="w-5 h-5 mb-2" />
-                    </div>
-                    <div className="text-[#3840CD] text-2xl mb-2 font-semibold ">
-                      $18.02
-                    </div>
-                    <div className="text-[#838A9B] text-lg">1/8 Followers</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Chart Details */}
-              <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-                <div className="flex flex-1">
-                  <ChartComponent className="w-full" />
-                </div>
-                <div className="flex flex-1 ">
-                  <Box
-                    backgroundColor="#FFFFFF"
-                    boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
-                    border="1px solid #F1F2F5"
-                    p="20px"
-                    borderRadius="10px"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    className="w-full relative"
-                  >
-                    <div className="flex items-center justify-center ">
-                      <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
-                        Allocation
-                      </h1>
-                      <img
-                        src={info_main}
-                        alt="info_main"
-                        className="w-3 h-3 absolute left-[83px]"
-                      />
-                    </div>
-                    <ProgressCircle size="30" colorLabel="color1" />
-                  </Box>
-                </div>
-              </div>
-
-              {/* Table */}
-              <div className={showHighlights ? "mt-7" : ""}>
-                <Box
-                  sx={{
-                    "& .MuiDataGrid-root": {
-                      border: "none",
-                      borderRadius: "5rem",
-                    },
-                    "& .MuiDataGrid-cell": {},
-                    "& .MuiDataGrid-columnHeaders": {
-                      backgroundColor: "white",
-                      color: "black",
-                    },
-                    "& .MuiDataGrid-virtualScroller": {
-                      backgroundColor: "white",
-                    },
-                    "& .MuiDataGrid-footerContainer": {
-                      backgroundColor: "white",
-                      color: "black",
-                      borderTop: "none",
-                    },
-                    "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                      color: `#ffedc2 !important`,
-                    },
+          <div className="flex flex-col gap-6 mt-3">
+            {/* Table */}
+            <div className={showHighlights ? "mt-7" : ""}>
+              <Box
+                sx={{
+                  "& .MuiDataGrid-root": {
+                    border: "none",
+                    borderRadius: "5rem",
+                  },
+                  "& .MuiDataGrid-cell": {},
+                  "& .MuiDataGrid-columnHeaders": {
+                    backgroundColor: "white",
+                    color: "black",
+                  },
+                  "& .MuiDataGrid-virtualScroller": {
+                    backgroundColor: "white",
+                  },
+                  "& .MuiDataGrid-footerContainer": {
+                    backgroundColor: "white",
+                    color: "black",
+                    borderTop: "none",
+                  },
+                  "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                    color: `#ffedc2 !important`,
+                  },
+                }}
+              >
+                <DataGrid
+                  loading={false}
+                  getRowId={(row) => row._id}
+                  rows={allRows}
+                  columns={columns}
+                  rowCount={dummyData.length}
+                  rowsPerPageOptions={[20, 50, 100]}
+                  pagination
+                  page={page}
+                  pageSize={pageSize}
+                  paginationMode="server"
+                  sortingMode="server"
+                  onPageChange={(newPage) => setPage(newPage)}
+                  onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                  onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+                  components={{ Toolbar: PoolSearchComponent }}
+                  componentsProps={{
+                    toolbar: { searchInput, setSearchInput, setSearch },
                   }}
-                >
-                  <DataGrid
-                    loading={false}
-                    getRowId={(row) => row._id}
-                    rows={allRows}
-                    columns={columns}
-                    rowCount={dummyData.length}
-                    rowsPerPageOptions={[20, 50, 100]}
-                    pagination
-                    page={page}
-                    pageSize={pageSize}
-                    paginationMode="server"
-                    sortingMode="server"
-                    onPageChange={(newPage) => setPage(newPage)}
-                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                    onSortModelChange={(newSortModel) =>
-                      setSort(...newSortModel)
-                    }
-                    components={{ Toolbar: PoolSearchComponent }}
-                    componentsProps={{
-                      toolbar: { searchInput, setSearchInput, setSearch },
-                    }}
-                  />
-                </Box>
-              </div>
+                />
+              </Box>
             </div>
-          )}
+          </div>
         </div>
       </div>
       {/* <AddTokenModal /> */}
@@ -491,4 +410,4 @@ const PoolCreatorPage = () => {
   );
 };
 
-export default PoolCreatorPage;
+export default PoolParticipantPage;

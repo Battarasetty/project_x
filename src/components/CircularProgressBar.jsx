@@ -98,7 +98,7 @@ const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
 
   const selectedTokenColor = tokenColorsWithValues[selectedToken]
     ? tokenColorsWithValues[selectedToken].color
-    : "gray"; // Default color if selectedToken is not found
+    : "#000000"; // Default color if selectedToken is not found
 
   return (
     <div className="w-50 h-40 relative">
@@ -107,7 +107,7 @@ const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
           cx="50"
           cy="50"
           r="45"
-          className="stroke-current text-gray-300"
+          className="stroke-current text-[#5864F3]"
           strokeWidth="10"
           fill="transparent"
           strokeDasharray={backgroundStrokeDasharray}

@@ -286,7 +286,7 @@ const Home = () => {
       </div>
 
       {/* Cards */}
-      <HighlightComponentsContainer showHighlights={showHighlights} />
+      <HighlightComponentsContainer showHighlights={showHighlights} isPoolCreator={true} />
 
       {/* Fifth Table Component */}
       <div className={showHighlights ? "mt-7" : ""}>
