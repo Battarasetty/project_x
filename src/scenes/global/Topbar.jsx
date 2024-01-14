@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Logo,
   Favorite,
@@ -13,6 +13,65 @@ import { useSelector } from "react-redux";
 import { WhiteListModal } from "../../components";
 
 const Topbar = () => {
+  const [walletAddress, setWalletAddress] = useState("");
+
+  const connectWallet = async () => {
+    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+      try {
+        // Metamask is installed
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setWalletAddress(accounts[0]);
+        console.log(accounts[0]);
+      } catch (error) {
+        console.error(err.message);
+      }
+    } else {
+      // Metamask is not installed
+      console.log("please install Metamask");
+    }
+  };
+
+  const getCurrentWalletConnected = async () => {
+    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          console.log(accounts[0]);
+        } else {
+          console.log("Connect the metamask using Connect Button");
+        }
+      } catch (error) {
+        console.error(err.message);
+      }
+    } else {
+      // Metamask is not installed
+      console.log("please install Metamask");
+    }
+  };
+
+  useEffect(() => {
+    getCurrentWalletConnected();
+    addWalletListener();
+  }, []);
+
+  const addWalletListener = async () => {
+    if (typeof window != "undefined" && typeof window.ethereum != "undefined") {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        setWalletAddress(accounts[0]);
+        console.log(accounts[0]);
+      });
+    } else {
+      // Metamask is not installed
+      setWalletAddress("");
+      console.log("please install Metamask");
+    }
+  };
+
   const whitelist = useSelector((state) => state.whitelist.whitelist);
   const [isWhitelistModalOpen, setWhitelistModalOpen] = useState(false);
 
@@ -153,10 +212,16 @@ const Topbar = () => {
 
               {/* Connect Wallet Button */}
               <button
-                className="p-2 border-solid border-2 rounded-lg bg-blue-500 text-white"
-                onClick={handleConnectWallet}
+                className="p-2 border-none border-2 rounded-lg bg-blue-500 text-white"
+                // onClick={handleConnectWallet}
+                onClick={connectWallet}
               >
-                Connect Wallet
+                {(walletAddress && walletAddress.length > 0)
+                  ? `Connected: ${walletAddress.substring(
+                      0,
+                      6
+                    )}...${walletAddress.substring(38)}`
+                  : "Connect Wallet"}
               </button>
             </div>
           </div>
