@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Arrow, Logo, currentCircle, defaultCircle } from "../../assets";
 
 const StatBox = () => {
-  const reducedImageSize = "40px"; // Set your desired size
-  const reducedFontSize = "7px"; // Set your desired font size
+  const [reducedFontSize, setReducedFontSize] = useState("7px");
+  const [reducedImageSize, setReducedImageSize] = useState("40px");
+  const [imageMargin, setImageMargin] = useState("55px");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newFontSize = window.innerWidth < 600 ? "4px" : "7px";
+      const newImageSize = window.innerWidth < 600 ? "10px" : "40px";
+      const newMargin = window.innerWidth < 600 ? "83px" : "55px";
+
+      setReducedFontSize(newFontSize);
+      setReducedImageSize(newImageSize);
+      setImageMargin(newMargin);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <Box
-    borderRadius="8px"
-    border="1px solid #F1F2F5"
+      borderRadius="8px"
+      border="1px solid #F1F2F5"
       className="px-3 pt-3 pb-2 flex flex-col gap-1"
       sx={{ backgroundColor: "#F1F2F5", boxShadow: "0px 0px 12px #F1F2F5" }}
     >
@@ -31,7 +52,7 @@ const StatBox = () => {
             height: reducedImageSize,
             marginLeft: "3px",
             fontSize: reducedFontSize,
-            marginBottom: "65px",
+            marginBottom: imageMargin,
             fontWeight: "600",
           }}
         >

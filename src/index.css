@@ -16,3 +16,12 @@ body,
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* Topbar.css */
+@media (min-width: 368px) {
+  /* Hide hamburger menu on screens larger than 767px */
+  .hamburger-menu {
+    display: none;
+  }
+}
+

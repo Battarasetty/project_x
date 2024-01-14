@@ -267,26 +267,33 @@ const Home = () => {
         Item added to whitelist!
       </Alert>
 
-      <h1 className="text-3xl font-bold mb-4">Good to see you, PAL</h1>
-      <div className="flex items-center mb-4 gap-[250px]">
-        <p className="text-[#838A9B]">
+      <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+        Good to see you, PAL
+      </h1>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-center sm:justify-between mb-4 sm:mb-6 space-y-4 sm:space-y-0 sm:space-x-4">
+        <p className="flex-1.5 text-[#838A9B] sm:text-left">
           Yes! You can make money by following a pool creator. Start earning
           your yield today.{" "}
-          <span className="text-blue-500 font-normal underline ml-4">
-            Know More
-          </span>
         </p>
         {/* SwitchWithLabel component */}
-        <SwitchWithLabel
-          label="Highlights"
-          checked={showHighlights}
-          onChange={() => setShowHighlights(!showHighlights)}
-          className="ml-4"
-        />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-blue-500 font-normal underline block sm:inline-block ml-0 sm:ml-4 sm:mt-0">
+            Know More
+          </span>
+          <SwitchWithLabel
+            label="Highlights"
+            checked={showHighlights}
+            onChange={() => setShowHighlights(!showHighlights)}
+            className="ml-0 sm:ml-4"
+          />
+        </div>
       </div>
 
       {/* Cards */}
-      <HighlightComponentsContainer showHighlights={showHighlights} isPoolCreator={true} />
+      <HighlightComponentsContainer
+        showHighlights={showHighlights}
+        isPoolCreator={true}
+      />
 
       {/* Fifth Table Component */}
       <div className={showHighlights ? "mt-7" : ""}>
@@ -316,7 +323,7 @@ const Home = () => {
             },
           }}
         >
-          <DataGrid
+          <DataGrid 
             loading={false}
             getRowId={(row) => row._id}
             rows={allRows}

@@ -42,6 +42,8 @@ import person from './person.svg'
 import copy from './copy.svg'
 import Polygon from './Polygon.svg'
 import info_main from './info_main.svg'
+import hamburger from './hamburger.svg'
+import clear from './clear.svg'
 
 
 
@@ -90,5 +92,7 @@ export {
     person,
     copy,
     Polygon,
-    info_main
+    info_main,
+    hamburger,
+    clear,
 }
