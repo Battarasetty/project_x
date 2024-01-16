@@ -1,13 +1,14 @@
 import React from "react";
 import SwitchWithLabel from "./SwitchWithLabel"; // Import SwitchWithLabel
 import { eye_x, person } from "../assets";
-import { useDispatch, useSelector } from 'react-redux';
-import { setShowHighlights } from '../redux/pool/poolSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { setShowHighlights } from "../redux/poolFormSection/poolFormSectionSlice";
 
 const PortfolioInfo = () => {
   const dispatch = useDispatch();
 
-const showHighlights = useSelector((state) => state.pool.showHighlights);
+  const showHighlights = useSelector((state) => state.poolForm.showHighlights);
+  console.log(showHighlights);
 
   return (
     <div className="flex mt-8 items-center justify-between">

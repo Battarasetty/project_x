@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, FormControlLabel, Grid, Switch } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { eye_x, ic_search, info, minus_x, plus_x, star } from "../../assets";
+import { AVAX, BNB, DOGE, DOT, LUNA, SHIBA, SOL, USDT, XRP, etherum, eye_x, ic_search, info, minus_x, plus_x, star } from "../../assets";
 import {
   CoinAvatarGroup,
   DataGridCustomToolbar,
@@ -36,12 +36,25 @@ const Home = () => {
     }, 3000);
   };
 
+  const dummyCoinData = [
+    { src: etherum, alt: "etherum", percentage: 55 },
+    { src: BNB, alt: "BNB", percentage: 55 },
+    { src: SOL, alt: "SOL", percentage: 55 },
+    { src: AVAX, alt: "Avax", percentage: 55 },
+    { src: XRP, alt: "Xrp", percentage: 55 },
+    { src: USDT, alt: "Usdt", percentage: 56 },
+    { src: DOT, alt: "Dot", percentage: 2 },
+    { src: DOGE, alt: "Doge", percentage: 2 },
+    { src: SHIBA, alt: "Shiba", percentage: 2 },
+    { src: LUNA, alt: "Luna", percentage: 2 },
+  ];
+
   const dummyData = [
     {
       _id: 1,
       "#": 1,
       "Pool ID": "XBR1084378",
-      Pools: <CoinAvatarGroup />,
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
       Tokens: 10,
       "Token PoolCap": "$384,321,120.12",
       "24 %": "18.7%",
@@ -55,7 +68,7 @@ const Home = () => {
       _id: 2,
       "#": 2,
       "Pool ID": "XBR1084379",
-      Pools: <CoinAvatarGroup />,
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
       Tokens: 15,
       "Token PoolCap": "$512,456,789.45",
       "24 %": "22.5%",
@@ -69,7 +82,7 @@ const Home = () => {
       _id: 3,
       "#": 3,
       "Pool ID": "XBR1084380",
-      Pools: <CoinAvatarGroup />,
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
       Tokens: 8,
       "Token PoolCap": "$240,987,654.32",
       "24 %": "15.2%",
@@ -83,7 +96,7 @@ const Home = () => {
       _id: 4,
       "#": 4,
       "Pool ID": "XBR1084381",
-      Pools: <CoinAvatarGroup />,
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
       Tokens: 12,
       "Token PoolCap": "$643,210,987.65",
       "24 %": "28.3%",
@@ -97,7 +110,7 @@ const Home = () => {
       _id: 5,
       "#": 5,
       "Pool ID": "XBR1084382",
-      Pools: <CoinAvatarGroup />,
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
       Tokens: 20,
       "Token PoolCap": "$820,123,456.78",
       "24 %": "35.6%",
@@ -111,7 +124,7 @@ const Home = () => {
       _id: 6,
       "#": 6,
       "Pool ID": "XBR1084383",
-      Pools: <CoinAvatarGroup />,
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
       Tokens: 18,
       "Token PoolCap": "$735,468,912.54",
       "24 %": "31.9%",
@@ -224,22 +237,16 @@ const Home = () => {
       headerName: "Action",
       flex: 1,
       renderCell: (params) => (
-        <div className="flex items-center justify-center">
-          <img
-            src={eye_x}
-            alt=""
-            className="w-5 h-5 ml-2 border-2 border-gray-300 bg-white p-2 rounded-lg"
-          />
-          <img
-            src={plus_x}
-            alt=""
-            className="w-5 h-5 ml-2 border-2 border-gray-300 bg-white p-2 rounded-lg"
-          />
-          <img
-            src={minus_x}
-            alt=""
-            className="w-5 h-5 ml-2 border-2 border-gray-300 bg-white p-2 rounded-lg"
-          />
+        <div className="flex items-center">
+          <div className="border-2 border-gray-300 bg-white p-1 rounded-lg">
+            <img src={eye_x} alt="" className="w-3 h-3 " />
+          </div>
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
+            <img src={plus_x} alt="" className="w-3 h-3" />
+          </div>
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
+            <img src={minus_x} alt="" className="w-3 h-3" />
+          </div>
         </div>
       ),
     },
@@ -323,7 +330,7 @@ const Home = () => {
             },
           }}
         >
-          <DataGrid 
+          <DataGrid
             loading={false}
             getRowId={(row) => row._id}
             rows={allRows}

@@ -6,6 +6,7 @@ import TrendingArticle from "./TrendingArticle";
 import { Grid } from "@mui/material";
 
 const HighlightComponentsContainer = ({ showHighlights }) => {
+  console.log(showHighlights)
   return (
     <Grid container style={{ marginTop: 0, gap: "16px" }}>
       <Grid item xs={12} sm={6} md={4} style={{ flex: 1 }}>

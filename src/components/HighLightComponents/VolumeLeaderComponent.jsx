@@ -16,6 +16,18 @@ import {
 import CoinAvatarGroup from "../CoinAvatarGroup";
 
 const VolumeLeaderComponent = () => {
+  const dummyCoinData = [
+    { src: etherum, alt: "etherum", percentage: 15 },
+    { src: BNB, alt: "BNB", percentage: 15 },
+    { src: SOL, alt: "SOL", percentage: 15 },
+    { src: AVAX, alt: "Avax", percentage: 15 },
+    { src: XRP, alt: "Xrp", percentage: 15 },
+    { src: USDT, alt: "Usdt", percentage: 15 },
+    { src: DOT, alt: "Dot", percentage: 2 },
+    { src: DOGE, alt: "Doge", percentage: 2 },
+    { src: SHIBA, alt: "Shiba", percentage: 2 },
+    { src: LUNA, alt: "Luna", percentage: 2 },
+  ];
   return (
     <Box
       bg="white"
@@ -34,7 +46,7 @@ const VolumeLeaderComponent = () => {
       <div className="mt-4">
         <div className="flex gap-1 flex-col">
           <div className="flex flex-col gap-1 items-start">
-            <CoinAvatarGroup />
+            <CoinAvatarGroup coinData={dummyCoinData} />
             <p
               className="text-[8px] text-[#000000] font-semibold ml-1"
               style={{ width: "128px" }}
@@ -58,11 +70,11 @@ const VolumeLeaderComponent = () => {
 
             <div>
               <div className="flex items-center justify-end text-[6px]">
-                <p style={{ fontWeight: "bold" }}>$634,928.98:</p> 
+                <p style={{ fontWeight: "bold" }}>$634,928.98:</p>
                 <p>Volume</p>
               </div>
               <div className="text-[6px] flex items-center justify-end">
-                <p style={{ fontWeight: "bold" }}>$235.03m:</p> 
+                <p style={{ fontWeight: "bold" }}>$235.03m:</p>
                 <p>Total Pool</p>
                 Value
               </div>

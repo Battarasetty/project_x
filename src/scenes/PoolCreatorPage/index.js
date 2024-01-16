@@ -37,10 +37,15 @@ import {
 const PoolCreatorPage = () => {
   const dispatch = useDispatch();
 
-  const showHighlights = useSelector((state) => state.pool.showHighlights);
-  const isPoolFormOpen = useSelector((state) => state.pool.isPoolFormOpen);
+  const showHighlights = useSelector((state) => state.poolForm.showHighlights);
+  const isPoolFormOpen = useSelector((state) => state.poolForm.isPoolFormOpen);
+  const poolCreatorOverviewData = useSelector(
+    (state) => state.poolForm.poolCreatorOverviewData
+  );
 
-  const marginTopValue = isPoolFormOpen ? "30px" : "62px";
+  console.log(showHighlights);
+  console.log(poolCreatorOverviewData);
+  // const marginTopValue = isPoolFormOpen ? "30px" : "62px";
 
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
@@ -342,19 +347,28 @@ const PoolCreatorPage = () => {
         <PortfolioOverview isPoolCreator={true} />
 
         {/* Right Side */}
-        <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
+        <div
+          // className={`mt-[${marginTopValue}]`}
+          style={{
+            marginTop:
+              !isPoolFormOpen && !poolCreatorOverviewData ? "32px" : "0",
+            height: !isPoolFormOpen && !poolCreatorOverviewData ? "84vh" : "100%",
+            width: "70%",
+          }}
+        >
           <PortfolioInfo
-            showHighlights={showHighlights}
-            setShowHighlights={(value) => dispatch(setShowHighlights(value))}
+          // showHighlights={showHighlights}
+          // setShowHighlights={(value) => dispatch(setShowHighlights(value))}
           />
           {/* Charts */}
           <div className="container mt-7">
-            <HighlightComponentsContainer showHighlights={showHighlights} isPoolCreator={true} />
+            <HighlightComponentsContainer showHighlights={showHighlights} />
           </div>
           {/* Pool Form  */}
-          {isPoolFormOpen ? (
-            <PoolFormSection />
-          ) : (
+          {isPoolFormOpen && <PoolFormSection />}
+
+          {/* Pool Overview Data */}
+          {poolCreatorOverviewData && (
             <div className="flex flex-col gap-6 mt-3">
               {/* Top Cards */}
               <div className="flex justify-between space-x-4">

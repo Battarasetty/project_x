@@ -1,18 +1,19 @@
 import React from "react";
 import { add_pool, bike, blue_circle } from "../assets";
 import { useDispatch } from "react-redux";
-import { setPoolFormOpen } from "../redux/pool/poolSlice";
+import { setIsPoolFormOpen, setPoolCreatorOverviewData } from "../redux/poolFormSection/poolFormSectionSlice";
 
 const PortfolioOverview = ({ isPoolCreator }) => {
   const dispatch = useDispatch();
 
   const handleCreatePoolClick = () => {
-    dispatch(setPoolFormOpen(true));
+    dispatch(setIsPoolFormOpen(true));
   };
 
   const handlePortfolioOverviewClick = () => {
     // Dispatch the action to set isPoolFormOpen to false
-    dispatch(setPoolFormOpen(false));
+    dispatch(setIsPoolFormOpen(false));
+    dispatch(setPoolCreatorOverviewData(false))
   };
 
   return (

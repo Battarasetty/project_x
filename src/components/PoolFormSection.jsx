@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setSwitchValue,
@@ -9,6 +9,7 @@ import {
   setTokenValue,
   setPoolPercentageLeft,
   setIsApproveButtonDisabled,
+  setPoolCreatorOverviewData,
 } from "../redux/poolFormSection/poolFormSectionSlice";
 import CircularProgressBar from "./CircularProgressBar";
 import AddTokenModal from "./AddTokenModal";
@@ -25,6 +26,9 @@ const PoolFormSection = () => {
   const poolPercentageLeft = useSelector(
     (state) => state.poolForm.poolPercentageLeft
   );
+  const [isApproveButtonDisabled, setIsApproveButtonDisabled] = useState(true);
+  const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
+
   const [circularProgressBarColor, setCircularProgressBarColor] = useState("");
   // console.log(circularProgressBarColor);
   // console.log(poolPercentageLeft);
@@ -32,8 +36,6 @@ const PoolFormSection = () => {
   const latestTokenEntry =
     tokenHistory.length > 0 ? tokenHistory[tokenHistory.length - 1] : null;
   // console.log(latestTokenEntry);
-
-  const isApproveButtonDisabled = poolPercentageLeft > 0;
 
   const handleSwitchChange = () => {
     dispatch(setSwitchValue(!isEthereumSelected));
@@ -48,6 +50,24 @@ const PoolFormSection = () => {
     USDT: "pink",
   };
   // console.log(tokenColors[circularProgressBarColor]);
+
+  useEffect(() => {
+    // Check poolPercentageLeft and set the initial state of buttons
+    setIsApproveButtonDisabled(poolPercentageLeft > 0);
+    setIsDepositButtonDisabled(true);
+  }, [poolPercentageLeft]);
+
+  const handleApproveClick = () => {
+    // Your logic for handling the approve click goes here
+    // For example, you might want to disable the approve button and enable the deposit button
+    setIsApproveButtonDisabled(true);
+    setIsDepositButtonDisabled(false);
+  };
+
+  const handleDepositClick = () => {
+    dispatch(setIsPoolFormOpen(false));
+    dispatch(setPoolCreatorOverviewData(true));
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,19 +110,6 @@ const PoolFormSection = () => {
   //     dispatch(setIsApproveButtonDisabled(false));
   //   }, 5000);
   // };
-
-  const handleDepositClick = (e) => {
-    // e.preventDefault();
-    // Add logic here for the "Deposit" button click
-    if (!isApproveButtonDisabled) {
-      // Only execute when the "Deposit" button is not disabled
-      // Add your additional logic here
-      // ...
-
-      // Close the form or perform other actions
-      dispatch(setIsPoolFormOpen(false));
-    }
-  };
 
   return (
     <>
@@ -308,7 +315,7 @@ const PoolFormSection = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-10 justify-center mb-10 ">
+              <div className="flex items-center gap-10 justify-center mb-10">
                 <button
                   type="button"
                   className={`p-2 rounded-lg ${
@@ -317,20 +324,20 @@ const PoolFormSection = () => {
                       : "bg-blue-500 text-white"
                   }`}
                   style={{ width: "20vw" }}
-                  // onClick={handleApproveClick}
+                  onClick={handleApproveClick}
                   disabled={isApproveButtonDisabled}
                 >
                   Approve
                 </button>
                 <button
                   className={`p-2 rounded-lg ${
-                    isApproveButtonDisabled
-                      ? "bg-[#F1F2F5] text-black"
+                    isDepositButtonDisabled
+                      ? "bg-[#F1F2F5] text-black cursor-not-allowed"
                       : "bg-blue-500 text-white"
                   }`}
                   style={{ width: "20vw" }}
                   onClick={handleDepositClick}
-                  disabled={isApproveButtonDisabled}
+                  disabled={isDepositButtonDisabled}
                 >
                   Deposit
                 </button>

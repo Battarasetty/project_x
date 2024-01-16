@@ -37,8 +37,8 @@ import {
 const PoolParticipantPage = () => {
   const dispatch = useDispatch();
 
-  const showHighlights = useSelector((state) => state.pool.showHighlights);
-  const isPoolFormOpen = useSelector((state) => state.pool.isPoolFormOpen);
+  const showHighlights = useSelector((state) => state.poolForm.showHighlights);
+  const isPoolFormOpen = useSelector((state) => state.poolForm.isPoolFormOpen);
 
   const marginTopValue = isPoolFormOpen ? "30px" : "62px";
 

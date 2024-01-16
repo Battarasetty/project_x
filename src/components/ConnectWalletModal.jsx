@@ -19,8 +19,8 @@ const ConnectWalletModal = ({
     width: 600, // Adjust the width to your desired value
     maxWidth: "90%", // Set a maximum width if needed
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
+    borderRadius: "10px",
     p: 4,
     zIndex: 1300,
   };
@@ -83,6 +83,16 @@ const ConnectWalletModal = ({
               <div
                 className="border rounded-md flex flex-col gap-5 flex-1 items-center p-5 cursor-pointer"
                 onClick={onPoolParticipantClick}
+                style={{
+                  border: "2px solid #F1F2F5",
+                  transition: "border-color 0.3s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.borderColor = "#5763F3";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.borderColor = "#F1F2F5";
+                }}
               >
                 <img
                   src={portfolio}
@@ -101,6 +111,16 @@ const ConnectWalletModal = ({
               <div
                 className="border rounded-md flex flex-1 flex-col gap-5 items-center p-5 cursor-pointer"
                 onClick={onPoolCreatorClick}
+                style={{
+                  border: "2px solid #F1F2F5",
+                  transition: "border-color 0.3s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.borderColor = "#5763F3";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.borderColor = "#F1F2F5";
+                }}
               >
                 <img
                   src={pool}

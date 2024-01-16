@@ -40,7 +40,13 @@ const Topbar = () => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
+
+        // Set the wallet address
         setWalletAddress(accounts[0]);
+
+        // Trigger handleConnectWallet function
+        handleConnectWallet();
+
         console.log(accounts[0]);
       } catch (error) {
         console.error(error.message);
@@ -313,7 +319,6 @@ const Topbar = () => {
                     </option>
                   ))}
                 </select>
-               
               </div>
 
               {/* Dropdown 2 */}
