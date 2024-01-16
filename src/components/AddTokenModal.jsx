@@ -22,6 +22,7 @@ const AddTokenModal = ({
   handleClose,
   onAddToken,
   poolPercentageValue,
+  tokenAllocations,
 }) => {
   const [allocationPercentage, setAllocationPercentage] = useState("");
   const [currentPercentage, setCurrentPercentage] =
@@ -87,6 +88,16 @@ const AddTokenModal = ({
 
   const handleTokenSelect = (token) => {
     setSelectedToken(token);
+
+    // If the selected token already has an allocation, pre-fill the input
+    const existingTokenAllocation = tokenAllocations.find(
+      (allocation) => allocation.name === token.name
+    );
+
+    if (existingTokenAllocation) {
+      setAllocationPercentage(existingTokenAllocation.value.toString());
+    }
+
     setDropdownOpen(false);
   };
 
@@ -162,9 +173,7 @@ const AddTokenModal = ({
             >
               <div className="pb-2 mt-5 col-span-2 sm:col-span-1 relative">
                 {/* Add Token */}
-                <label
-                  className="ml-4 block text-xs text-[#ABB0C1]"
-                >
+                <label className="ml-4 block text-xs text-[#ABB0C1]">
                   Allocation Percentage
                 </label>
                 <div className="relative">

@@ -33,6 +33,11 @@ const PoolFormSection = () => {
   // console.log(circularProgressBarColor);
   // console.log(poolPercentageLeft);
   const tokenHistory = useSelector((state) => state.poolForm.tokenHistory);
+
+  useEffect(() => {
+    console.log("Updated tokenHistory:", tokenHistory);
+  }, [tokenHistory]);
+
   const latestTokenEntry =
     tokenHistory.length > 0 ? tokenHistory[tokenHistory.length - 1] : null;
   // console.log(latestTokenEntry);
@@ -83,23 +88,43 @@ const PoolFormSection = () => {
     dispatch(setIsAddTokenModalOpen(true));
   };
 
-  const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
-    // console.log("handleAddToken - enteredValue:", enteredValue);
-    // console.log("handleAddToken - poolPercentageLeft:", poolPercentageLeft);
-    const newTokenEntry = {
-      enteredValue,
-      selectedToken,
-      poolPercentageLeft,
-    };
+  const [tokenAllocations, setTokenAllocations] = useState([]);
 
-    dispatch(setTokenHistory([...tokenHistory, newTokenEntry]));
+  const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
+    // Check if the token already exists in tokenHistory
+    const existingTokenIndex = tokenHistory.findIndex(
+      (entry) => entry.selectedToken.name === selectedToken.name
+    );
+
+    if (existingTokenIndex !== -1) {
+      // Update the existing entry if the token is found
+      const updatedTokenHistory = [...tokenHistory];
+      updatedTokenHistory[existingTokenIndex] = {
+        ...updatedTokenHistory[existingTokenIndex],
+        enteredValue:
+          parseFloat(updatedTokenHistory[existingTokenIndex].enteredValue) +
+          parseFloat(enteredValue),
+        poolPercentageLeft: poolPercentageLeft,
+      };
+
+      dispatch(setTokenHistory(updatedTokenHistory));
+    } else {
+      // Add a new entry if the token is not found
+      const newTokenEntry = {
+        enteredValue,
+        selectedToken,
+        poolPercentageLeft,
+      };
+
+      dispatch(setTokenHistory([...tokenHistory, newTokenEntry]));
+    }
+
     dispatch(setTokenDetails(selectedToken));
     dispatch(setTokenValue(enteredValue));
     dispatch(setPoolPercentageLeft(poolPercentageLeft));
     dispatch(setIsAddTokenModalOpen(false));
 
     const color = selectedToken.name;
-    // console.log(color);
     setCircularProgressBarColor(color);
   };
 
@@ -351,6 +376,7 @@ const PoolFormSection = () => {
         handleClose={() => dispatch(setIsAddTokenModalOpen(false))}
         onAddToken={handleAddToken}
         poolPercentageValue={poolPercentageLeft}
+        tokenAllocations={tokenAllocations}
       />
     </>
   );
