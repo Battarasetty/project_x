@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Polygon, USDT, info, info_main } from "../assets";
+import SwitchWithLabel from "./SwitchWithLabel";
 
 const WithdrawModal = ({ open, handleClose }) => {
   const modalStyle = {
@@ -85,15 +86,13 @@ const WithdrawModal = ({ open, handleClose }) => {
               style={{ borderTop: "1px solid #F1F2F5" }}
             >
               {/* Switch Token Balance  */}
-              <div className="flex items-center justify-center">
-                <label
-                  htmlFor="addToken"
-                  className="ml-4 mt-3 block text-[10px] text-[#838A9B]"
-                >
+              <div className="flex my-4 items-center justify-center">
+                <div className="ml-4 block text-[10px] text-[#838A9B]">
                   Select Fee Token XBR
-                </label>
-                <div className="flex items-center">
-                  <FormControlLabel
+                </div>
+                <SwitchWithLabel />
+
+                {/* <FormControlLabel
                     labelPlacement="start"
                     control={
                       <Switch
@@ -104,9 +103,9 @@ const WithdrawModal = ({ open, handleClose }) => {
                         }}
                       />
                     }
-                  />
-                </div>
+                  /> */}
               </div>
+
 
               <div className="w-[100%]">
                 <div className="">
