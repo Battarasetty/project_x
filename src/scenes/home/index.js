@@ -274,7 +274,7 @@ const Home = () => {
         Item added to whitelist!
       </Alert>
 
-      <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+      <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-3xl font-bold mb-2">
         Good to see you, PAL
       </h1>
       <div className="flex flex-col sm:flex-row sm:items-center justify-center sm:justify-between mb-4 sm:mb-6 space-y-4 sm:space-y-0 sm:space-x-4">

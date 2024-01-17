@@ -19,10 +19,12 @@ import { SwipeableDrawer } from "@mui/material";
 
 const Topbar = () => {
   const [walletAddress, setWalletAddress] = useState("");
-  const [selectedOption2, setSelectedOption2] = useState("Ethereum");
   const [hasNotifications, setHasNotifications] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Pool Participants");
+  const [arrowRotation, setArrowRotation] = useState(0);
+  const [arrowRotation2, setArrowRotation2] = useState(0);
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isWhitelistModalOpen, setWhitelistModalOpen] = useState(false);
   const [drawerState, setDrawerState] = useState({
@@ -123,11 +125,13 @@ const Topbar = () => {
 
   const handleDropdownChange = () => {
     setDropdownOpen(!isDropdownOpen);
+    setArrowRotation(isDropdownOpen ? 0 : 180); // Rotate 180 degrees when opening, reset to 0 when closing
   };
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setDropdownOpen(false);
+    setArrowRotation(0);
 
     // Redirect based on the selected option
     if (option === "Pool Creator") {
@@ -137,11 +141,22 @@ const Topbar = () => {
     }
   };
 
-  const options = ["Pool Participants", "Pool Creator"];
+  const [isDropdownOpen2, setDropdownOpen2] = useState(false); // Make sure you have this state variable
+  const [selectedOption2, setSelectedOption2] = useState("Ethereum"); // Make sure you have this state variable
+  const options2 = ["Ethereum", "Binance", "Avalanche", "Fantom", "Arbitrum"]; // Make sure you have this array
 
-  const handleDropdownChange2 = (event) => {
-    setSelectedOption2(event.target.value);
+  const handleDropdownChange2 = () => {
+    setDropdownOpen2(!isDropdownOpen2);
+    setArrowRotation2(isDropdownOpen2 ? 0 : 180);
   };
+
+  const handleOptionClick2 = (option) => {
+    setSelectedOption2(option);
+    setDropdownOpen2(false);
+    setArrowRotation2(0);
+  };
+
+  const options = ["Pool Participants", "Pool Creator"];
 
   const handleConnectWallet = () => {
     setOpenModal(true);
@@ -318,12 +333,29 @@ const Topbar = () => {
                 <div
                   className="flex items-center gap-[4px] cursor-pointer"
                   onClick={handleDropdownChange}
+                  style={{
+                    backgroundColor: "#ffffff",
+                    padding: "5px",
+                    borderRadius: "10px",
+                    border: `1px solid ${
+                      isDropdownOpen ? "#1890ff" : "#808080"
+                    }`, // Blue border color when open, grey when closed
+                  }}
                 >
                   <div className="dropdown-style cursor-pointer">
                     {selectedOption}
                   </div>
-                  <img src={Arrow_down} alt="arrow_down" className="w-3 h-3" />
+                  <img
+                    src={Arrow_down}
+                    alt="arrow_down"
+                    className="w-3 h-3"
+                    style={{
+                      fill: isDropdownOpen ? "#1890ff" : "#808080", // Set fill color dynamically
+                      transform: `rotate(${arrowRotation}deg)`, // Rotate the arrow
+                    }}
+                  />
                 </div>
+
                 {isDropdownOpen && (
                   <div className="absolute w-[145px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
                     {selectedOption === "Pool Participants" ? (
@@ -347,17 +379,47 @@ const Topbar = () => {
 
               {/* Dropdown 2 */}
               <div className={`relative ${isMobile ? "hidden" : "block"}`}>
-                <select
-                  value={selectedOption2}
-                  onChange={handleDropdownChange2}
-                  className="dropdown-style cursor-pointer"
+                <div
+                  className="flex items-center gap-[4px] cursor-pointer"
+                  onClick={handleDropdownChange2}
+                  style={{
+                    backgroundColor: "#ffffff",
+                    padding: "5px",
+                    borderRadius: "10px",
+                    border: `1px solid ${
+                      isDropdownOpen2 ? "#1890ff" : "#808080"
+                    }`, // Blue border color when open, grey when closed
+                  }}
                 >
-                  <option value="Ethereum">Ethereum</option>
-                  <option value="Binance">Binance</option>
-                  <option value="Avalanche">Avalanche</option>
-                  <option value="Fantom">Fantom</option>
-                  <option value="Arbitrum">Arbitrum</option>
-                </select>
+                  <div className="dropdown-style cursor-pointer">
+                    {selectedOption2}
+                  </div>
+                  <img
+                    src={Arrow_down}
+                    alt="arrow_down"
+                    className={`w-3 h-3 ${
+                      isDropdownOpen2 ? "text-blue-500" : "text-gray-500"
+                    }`}
+                    style={{
+                      fill: isDropdownOpen2 ? "#1890ff" : "#808080",
+                      transform: `rotate(${arrowRotation2}deg)`,
+                    }}
+                  />{" "}
+                </div>
+
+                {isDropdownOpen2 && (
+                  <div className="absolute w-[145px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
+                    {options2.map((option, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleOptionClick2(option)}
+                        className="p-2 cursor-pointer transition-all hover:bg-gray-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Connect Wallet */}

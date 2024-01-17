@@ -9,6 +9,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { Polygon, USDT, info_main } from "../assets";
 import ProgressCircle from "./ProgressCircle";
+import SwitchWithLabel from "./SwitchWithLabel";
 
 const DepositModalComponent = ({ open, handleClose }) => {
   const modalStyle = {
@@ -86,15 +87,13 @@ const DepositModalComponent = ({ open, handleClose }) => {
               style={{ borderTop: "1px solid #F1F2F5" }}
             >
               {/* Switch Token Balance  */}
-              <div className="flex items-center justify-center">
-                <label
-                  htmlFor="addToken"
-                  className="ml-4 mt-3 block text-[10px] text-[#838A9B]"
-                >
+              <div className="flex my-4 items-center justify-center">
+                <div className="ml-4 block text-[10px] text-[#838A9B]">
                   Select Fee Token XBR
-                </label>
-                <div className="flex items-center">
-                  <FormControlLabel
+                </div>
+                <SwitchWithLabel />
+
+                {/* <FormControlLabel
                     labelPlacement="start"
                     control={
                       <Switch
@@ -105,15 +104,14 @@ const DepositModalComponent = ({ open, handleClose }) => {
                         }}
                       />
                     }
-                  />
-                </div>
+                  /> */}
               </div>
 
               <div className="w-[100%]">
                 <div className="">
                   {/* Top Container */}
                   <p className="text-[#ABB0C1] text-[12px] ml-4">
-                    Enter Withdrawal Amount
+                    Enter Deposit Amount
                   </p>
                   <div className="flex items-center justify-between  text-sm px-4 py-1 mt-1 border-none bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500">
                     <div className="flex flex-col mt-3">
@@ -140,7 +138,7 @@ const DepositModalComponent = ({ open, handleClose }) => {
                     <img src={info_main} className="w-2 h-2" />
                   </div>
                   <div className="flex-col py-3 items-center text-sm mt-1 border-none bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500">
-                    <ProgressCircle />
+                    <ProgressCircle isDeposit="true" />
                   </div>
                 </div>
 

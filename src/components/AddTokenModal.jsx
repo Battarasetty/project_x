@@ -11,6 +11,7 @@ import {
   XRP,
   add_pool,
   etherum,
+  info,
   plus_x,
 } from "../assets";
 import CircularProgressBar from "./CircularProgressBar";
@@ -188,18 +189,18 @@ const AddTokenModal = ({
                     className="text-sm px-4 py-4 mt-2 border bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500"
                   />
                   {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 bg-white border rounded-lg shadow-md">
+                    <div className="absolute right-0 mt-2 mr-3 bg-white border rounded-lg shadow-md">
                       {/* List of tokens */}
                       {tokenList.map((token) => (
                         <div
                           key={token.name}
-                          className="flex items-center gap-2 text-xs px-4 py-2 cursor-pointer hover:bg-gray-200"
+                          className="flex items-center gap-2 text-xs px-2 py-2 cursor-pointer hover:bg-gray-200"
                           onClick={() => handleTokenSelect(token)}
                         >
                           <img
                             src={token.image}
                             alt=""
-                            className="w-3 h-3 mr-2"
+                            className="w-5 h-5 mr-2"
                           />
                           {token.name}
                         </div>
@@ -213,7 +214,7 @@ const AddTokenModal = ({
                     <img
                       src={selectedToken.image}
                       alt=""
-                      className="w-3 h-3 mr-2"
+                      className="w-5 h-5 mr-2"
                     />
                     {selectedToken.name}
                   </div>
@@ -222,7 +223,10 @@ const AddTokenModal = ({
 
               <div className="flex flex-col gap-6 items-center justify-center mt-5 mb-5">
                 <CircularProgressBar percentage={currentPercentage} />
-                <p className="text-[12px] font-bold">Pool Percentage Left</p>
+                <div className="flex items-center gap-2 text-[12px] font-bold">
+                  Pool Percentage Left
+                  <img src={info} alt="" className="w-2 h-2" />
+                </div>{" "}
               </div>
 
               {/* Buttons */}

@@ -14,8 +14,9 @@ import {
 import CircularProgressBar from "./CircularProgressBar";
 import AddTokenModal from "./AddTokenModal";
 import { FormControlLabel, Switch } from "@mui/material";
-import { add_pool } from "../assets";
+import { add_pool, filterSearch, ic_search, info } from "../assets";
 import { setIsPoolFormOpen } from "../redux/poolFormSection/poolFormSectionSlice";
+import SwitchWithLabel from "./SwitchWithLabel";
 
 const PoolFormSection = () => {
   const dispatch = useDispatch();
@@ -145,33 +146,40 @@ const PoolFormSection = () => {
           </h2>
           <div className="border-b my-1"></div>
 
-          <div className="">
-            <label className="text-[10px] text-[#838A9B]">
+          <div className="flex items-center mb-4 mt-2">
+            <div className="block text-[10px] text-[#838A9B]">
               Select Fee Token XBR
-            </label>
-            <FormControlLabel
-              labelPlacement="start"
-              control={
-                <Switch
-                  color="primary"
-                  checked={isEthereumSelected}
-                  onChange={handleSwitchChange}
-                />
-              }
-              sx={{ fontSize: "6px", color: "#838A9B" }}
-            />
+            </div>
+            <SwitchWithLabel />
+
+            {/* <FormControlLabel
+                    labelPlacement="start"
+                    control={
+                      <Switch
+                        sx={{
+                          transform: "scale(0.6)", // Adjust the scale factor as needed
+                          color: "#838A9B",
+                          marginTop: "12px",
+                        }}
+                      />
+                    }
+                  /> */}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {/* First Row */}
             <div className="mb-4 pb-2 col-span-2 sm:col-span-1">
               {/* Pool Creation Fee */}
-              <label
-                htmlFor="poolCreationFee"
-                className="block text-xs font-semibold text-[#000000]"
-              >
-                Pool Creation Fee*
-              </label>
+              <div className="flex items-center gap-1">
+                <label
+                  htmlFor="poolCreationFee"
+                  className="block text-xs font-semibold text-[#000000]"
+                >
+                  Pool Creation Fee*
+                </label>
+                <img src={info} alt="" className="w-2 h-2" />
+              </div>
+
               <input
                 type="text"
                 id="poolCreationFee"
@@ -184,12 +192,15 @@ const PoolFormSection = () => {
 
             <div className="mb-4 pb-2 col-span-2 sm:col-span-1">
               {/* Staking Fee */}
-              <label
-                htmlFor="stakingFee"
-                className="block text-xs font-semibold text-[#000000]"
-              >
-                Staking Fee*
-              </label>
+              <div className="flex items-center gap-1">
+                <label
+                  htmlFor="stakingFee"
+                  className="block text-xs font-semibold text-[#000000]"
+                >
+                  Staking Fee*
+                </label>
+                <img src={info} alt="" className="w-2 h-2" />
+              </div>
               <input
                 type="text"
                 value={formData.stakingFee}
@@ -203,12 +214,15 @@ const PoolFormSection = () => {
             {/* Second Row */}
             <div className="mb-4 pb-2 col-span-2 sm:col-span-1">
               {/* Initial Pool Investment */}
-              <label
-                htmlFor="initialInvestment"
-                className="block text-xs font-semibold text-[#000000]"
-              >
-                Initial Pool Investment*
-              </label>
+              <div className="flex items-center gap-1">
+                <label
+                  htmlFor="initialInvestment"
+                  className="block text-xs font-semibold text-[#000000]"
+                >
+                  Initial Pool Investment*
+                </label>
+                <img src={info} alt="" className="w-2 h-2" />
+              </div>
               <input
                 type="text"
                 value={formData.initialInvestment}
@@ -221,12 +235,15 @@ const PoolFormSection = () => {
 
             <div className="mb-4 pb-2 col-span-2 sm:col-span-1">
               {/* Pool Sharing in % */}
-              <label
-                htmlFor="poolSharingPercentage"
-                className="block text-xs font-semibold text-[#000000]"
-              >
-                Pool Sharing in %*
-              </label>
+              <div className="flex items-center gap-1">
+                <label
+                  htmlFor="poolSharingPercentage"
+                  className="block text-xs font-semibold text-[#000000]"
+                >
+                  Pool Sharing in %*
+                </label>
+                <img src={info} alt="" className="w-2 h-2" />
+              </div>
               <input
                 type="text"
                 id="poolSharingPercentage"
@@ -239,22 +256,33 @@ const PoolFormSection = () => {
 
             <div className="mb-4 pb-2 col-span-2 sm:col-span-1 relative">
               {/* Add Token */}
-              <label
-                htmlFor="addToken"
-                className="block text-xs font-semibold text-[#000000]"
-              >
-                Add Token
-              </label>
+              <div className="flex items-center gap-1">
+                <label
+                  htmlFor="addToken"
+                  className="block text-xs font-semibold text-[#000000]"
+                >
+                  Add Token
+                </label>
+                <img src={info} alt="" className="w-2 h-2" />
+              </div>
               <div className="flex items-center">
-                <input
-                  type="text"
-                  id="addToken"
-                  name="addToken"
-                  placeholder="Search by name or contract address"
-                  value={formData.addToken}
-                  onChange={handleInputChange}
-                  className="w-full text-sm px-4 py-3 mt-2 border bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="addToken"
+                    name="addToken"
+                    placeholder="Search by name or contract address"
+                    value={formData.addToken}
+                    onChange={handleInputChange}
+                    className="w-[520px] text-sm px-4 py-3 mt-2 border bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500 pl-8"
+                  />
+                  <img
+                    src={ic_search}
+                    alt=""
+                    className="absolute left-2 bottom-[2px] transform -translate-y-1/2 w-5 h-5"
+                  />
+                </div>
+
                 <div>
                   <button
                     type="button"
@@ -325,11 +353,14 @@ const PoolFormSection = () => {
                   latestTokenEntry ? latestTokenEntry.selectedToken : null
                 }
               />
-              <p className="text-[12px] font-bold">Pool Percentage Left</p>
+              <div className="flex items-center gap-2 text-[12px] font-bold">
+                Pool Percentage Left
+                <img src={info} alt="" className="w-2 h-2" />
+              </div>
             </div>
 
             <div className="" style={{ width: "69.3vw" }}>
-              <div className="mb-10 px-4 pb-10 pt-4 bg-[#F1F2F5] rounded-md  shadow">
+              <div className="mb-10 px-4 pb-10 pt-5 bg-[#F1F2F5] rounded-md  shadow">
                 <p className="text-[10px] font-normal text-[#838A9B] mb-2">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.

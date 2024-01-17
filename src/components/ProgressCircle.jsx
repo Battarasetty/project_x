@@ -38,7 +38,7 @@ const ProgressCircle = () => {
       </div>
       <div className="options flex flex-col gap-2  justify-center text-base">
         {data.map((item) => (
-          <div className="option flex gap-10 items-center" key={item.name}>
+          <div className="option flex items-center justify-between gap-10" key={item.name}>
             <div className="flex items-center gap-2">
               <div
                 className={`dot w-2 h-2 flex items-center rounded-full`}
@@ -47,6 +47,7 @@ const ProgressCircle = () => {
               <span className="text-xs">{item.name}</span>
             </div>
             <p className="text-xs text-right">{item.value}%</p>
+
           </div>
         ))}
       </div>

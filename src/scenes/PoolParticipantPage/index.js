@@ -41,6 +41,7 @@ import {
 import { addToWhitelist } from "../../redux/whitelistSlice/whitelistSlice";
 import DepositModalComponent from "../../components/DepositModalComponent";
 import { useNavigate } from "react-router-dom";
+import WithdrawModal from "../../components/WithdrawModal";
 
 const PoolParticipantPage = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,15 @@ const PoolParticipantPage = () => {
 
     // Your existing logic for handling the "+" icon click
     setShowDepositModal(true);
+  };
+
+  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
+
+
+  const handleWithdrawClick = (event) => {
+    event.stopPropagation();
+
+    setWithdrawModalOpen(true);
   };
 
   const dummyCoinData = [
@@ -303,7 +313,9 @@ const PoolParticipantPage = () => {
           >
             <img src={plus_x} alt="" className="w-3 h-3" />
           </div>
-          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg"
+            onClick={(event) => handleWithdrawClick(event)}
+          >
             <img src={minus_x} alt="" className="w-3 h-3" />
           </div>
         </div>
@@ -317,6 +329,8 @@ const PoolParticipantPage = () => {
     // Redirect to the details page with the selected pool participant's ID
     navigate(`/pool-participant/${params.row._id}`);
   };
+
+
 
   return (
     <>
@@ -394,6 +408,12 @@ const PoolParticipantPage = () => {
       <DepositModalComponent
         open={showDepositModal}
         handleClose={() => setShowDepositModal(false)}
+      />
+
+      {/* Render your WithdrawModal component */}
+      <WithdrawModal
+        open={withdrawModalOpen}
+        handleClose={() => setWithdrawModalOpen(false)}
       />
     </>
   );
