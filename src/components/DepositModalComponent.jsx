@@ -7,9 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Polygon, USDT, info, info_main } from "../assets";
+import { Polygon, USDT, info_main } from "../assets";
+import ProgressCircle from "./ProgressCircle";
 
-const WithdrawModal = ({ open, handleClose }) => {
+const DepositModalComponent = ({ open, handleClose }) => {
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -77,7 +78,7 @@ const WithdrawModal = ({ open, handleClose }) => {
               fontSize: "20px",
             }}
           >
-            Withdrawal
+            Deposit
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 1 }}>
             <div
@@ -133,111 +134,13 @@ const WithdrawModal = ({ open, handleClose }) => {
                 <div className="mt-3">
                   {/* Top Container */}
                   <div className="flex items-center gap-2">
-                    <p className="text-[#ABB0C1] text-[12px] ml-4">P/L Ratio</p>
+                    <p className="text-[#ABB0C1] text-[12px] ml-4">
+                      Asset Allocation
+                    </p>
                     <img src={info_main} className="w-2 h-2" />
                   </div>
                   <div className="flex-col py-3 items-center text-sm mt-1 border-none bg-[#F1F2F5] rounded-lg focus:outline-none focus:border-blue-500">
-                    {/* Column Headers */}
-                    <div className="flex items-center justify-between px-4 py-1">
-                      <div
-                        className={`flex-1 text-center text-[10px] ${
-                          selectedColumn === "24h"
-                            ? "border-white border bg-white rounded-lg"
-                            : "text-[#ABB0C1]"
-                        }`}
-                        onClick={() => handleColumnClick("24h")}
-                      >
-                        24h
-                      </div>
-                      <div
-                        className={`flex-1 text-center text-[10px] ${
-                          selectedColumn === "7D"
-                            ? "border-white border bg-white rounded-lg"
-                            : "text-[#ABB0C1]"
-                        }`}
-                        onClick={() => handleColumnClick("7D")}
-                      >
-                        7D
-                      </div>
-                      <div
-                        className={`flex-1 text-center text-[10px] ${
-                          selectedColumn === "30D"
-                            ? "border-white border bg-white rounded-lg"
-                            : "text-[#ABB0C1]"
-                        }`}
-                        onClick={() => handleColumnClick("30D")}
-                      >
-                        30D
-                      </div>
-                      <div
-                        className={`flex-1 text-center text-[10px] ${
-                          selectedColumn === "90D"
-                            ? "border-white border bg-white rounded-lg"
-                            : "text-[#ABB0C1]"
-                        }`}
-                        onClick={() => handleColumnClick("90D")}
-                      >
-                        90D
-                      </div>
-                      <div
-                        className={`flex-1 text-center text-[10px] ${
-                          selectedColumn === "ALL"
-                            ? "border-white border bg-white rounded-lg"
-                            : "text-[#ABB0C1]"
-                        }`}
-                        onClick={() => handleColumnClick("ALL")}
-                      >
-                        ALL
-                      </div>
-                      <div
-                        className={`flex-1 flex items-center gap-2 text-center ${
-                          selectedColumn === "YEILD"
-                            ? "border-white border bg-white rounded-lg"
-                            : "text-[#ABB0C1]"
-                        }`}
-                        onClick={() => handleColumnClick("YEILD")}
-                      >
-                        <span className="text-[10px]">YEILD</span>
-                        <span className="text-[10px]">(YDT)</span>
-                      </div>
-                    </div>
-
-                    {/* Table Data */}
-                    <div className="flex items-center justify-between px-4 py-1 mt-1">
-                      {/* Dummy Data for Column 1 */}
-                      <div className="flex-1 text-center text-[10px]">
-                        18.7%
-                      </div>
-
-                      {/* Dummy Data for Column 2 */}
-                      <div className="flex-1 text-center text-[10px]">
-                        20.5%
-                      </div>
-
-                      {/* Dummy Data for Column 3 */}
-                      <div className="flex-1 text-center text-[10px]">
-                        15.2%
-                      </div>
-
-                      {/* Dummy Data for Column 4 */}
-                      <div className="flex-1 text-center text-[10px]">
-                        22.1%
-                      </div>
-
-                      {/* Dummy Data for Column 5 */}
-                      <div className="flex-1 text-center text-[10px]">
-                        17.3%
-                      </div>
-
-                      {/* Dummy Data for Column 5 */}
-                      <div className="flex-1 text-center">
-                        <div className="text-[10px]">$1,282.87</div>
-                        <div className="flex items-center justify-center gap-1">
-                          <img src={Polygon} alt="" className="w-2 h-2" />
-                          <p className="text-[8px]">21.5%</p>
-                        </div>
-                      </div>
-                    </div>
+                    <ProgressCircle />
                   </div>
                 </div>
 
@@ -247,7 +150,7 @@ const WithdrawModal = ({ open, handleClose }) => {
                     <div className="flex justify-between items-center">
                       <div className=" flex-col flex">
                         <div className="flex items-center gap-1">
-                          <label className="text-[10px]">Unstaking Fee*</label>
+                          <label className="text-[10px]">staking Fee*</label>
                           <img src={info_main} className="w-2 h-2" />
                         </div>
                         <p className="text-[8px] text-[#ABB0C1]">
@@ -325,7 +228,7 @@ const WithdrawModal = ({ open, handleClose }) => {
                   style={{ width: "210px" }}
                   className="px-6 py-3 bg-[#5763F3] text-white rounded-md text-xs font-semibold focus:outline-none"
                 >
-                  Withdrawal
+                  Deposit
                 </button>
               </div>
             </div>
@@ -336,4 +239,4 @@ const WithdrawModal = ({ open, handleClose }) => {
   );
 };
 
-export default WithdrawModal;
+export default DepositModalComponent;

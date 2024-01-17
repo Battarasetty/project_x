@@ -5,11 +5,10 @@ import StatBox from "./StatBox";
 import TrendingArticle from "./TrendingArticle";
 import { Grid } from "@mui/material";
 
-const HighlightComponentsContainer = ({ showHighlights }) => {
-  console.log(showHighlights)
+const HighlightComponentsContainer = ({ showHighlights, isPoolCreator }) => {
   return (
     <Grid container style={{ marginTop: 0, gap: "16px" }}>
-      <Grid item xs={12} sm={6} md={4} style={{ flex: 1 }}>
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} style={{ flex: 1 }}>
         {/* First component - ChartComponent */}
         {showHighlights && (
           <div className="flex-grow">
@@ -17,7 +16,7 @@ const HighlightComponentsContainer = ({ showHighlights }) => {
           </div>
         )}
       </Grid>
-      <Grid item xs={12} sm={6} md={4} style={{ flex: 1 }}>
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} style={{ flex: 1 }}>
         {/* Second component - TrendingArticle */}
         {showHighlights && (
           <div className="flex-grow">
@@ -25,7 +24,7 @@ const HighlightComponentsContainer = ({ showHighlights }) => {
           </div>
         )}
       </Grid>
-      <Grid item xs={12} sm={6} md={2} style={{ flex: 1 }}>
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 2 : 2.5} style={{ flex: 1 }}>
         {/* Third component - VolumeLeaderComponent */}
         {showHighlights && (
           <div className="flex-grow">
@@ -33,14 +32,16 @@ const HighlightComponentsContainer = ({ showHighlights }) => {
           </div>
         )}
       </Grid>
-      <Grid item xs={12} sm={6} md={2} style={{ flex: 1 }}>
-        {/* Fourth component - StatBox */}
-        {showHighlights && (
-          <div className="flex-grow">
-            <StatBox />
-          </div>
-        )}
-      </Grid>
+      {isPoolCreator && (
+        <Grid item xs={12} sm={6} md={2} style={{ flex: 1 }}>
+          {/* Fourth component - StatBox */}
+          {showHighlights && (
+            <div className="flex-grow">
+              <StatBox />
+            </div>
+          )}
+        </Grid>
+      )}
     </Grid>
   );
 };

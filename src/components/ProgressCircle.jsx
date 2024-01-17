@@ -13,10 +13,10 @@ const data = [
 
 const ProgressCircle = () => {
   return (
-    <div className="flex mt-[8px]">
+    <div className="flex">
       <div className="pieChartBox h-full flex gap-6 items-center justify-between mr-[40px] ">
         <div className="chart flex items-center justify-center w-[180px] h-[180px]">
-          <ResponsiveContainer width="99%" height={350}>
+          <ResponsiveContainer width="90%" height={350}>
             <PieChart>
               <Tooltip
                 contentStyle={{ background: "white", borderRadius: "5px" }}

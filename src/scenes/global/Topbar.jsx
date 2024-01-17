@@ -7,6 +7,8 @@ import {
   Notification,
   hamburger,
   clear,
+  Arrow,
+  Arrow_down,
 } from "../../assets";
 import { mockDataToken } from "../../constants/Data";
 import ConnectWalletModal from "../../components/ConnectWalletModal";
@@ -117,13 +119,22 @@ const Topbar = () => {
   const closeWhitelistModal = () => {
     setWhitelistModalOpen(false);
   };
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownChange = () => {
-    setSelectedOption(
-      selectedOption === "Pool Participants"
-        ? "Pool Creator"
-        : "Pool Participants"
-    );
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setDropdownOpen(false);
+
+    // Redirect based on the selected option
+    if (option === "Pool Creator") {
+      navigate("/pool-creator");
+    } else if (option === "Pool Participants") {
+      navigate("/pool-participant");
+    }
   };
 
   const options = ["Pool Participants", "Pool Creator"];
@@ -281,11 +292,11 @@ const Topbar = () => {
                   <img src={Favorite} alt="Favorite Icon" className="w-4 h-4" />
                   <p className="text-sm text-[#202020]">Whitelist</p>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 hover:scale-110 cursor-pointer">
                   <img src={pie} alt="Pie Icon" className="w-4 h-4" />
                   <p className="text-sm">Portfolio</p>
                 </div>
-                <div className="relative">
+                <div className="relative hover:scale-110 cursor-pointer">
                   <img
                     src={hasNotifications ? Notification_bold : Notification}
                     alt="Notification Icon"
@@ -304,21 +315,34 @@ const Topbar = () => {
             >
               {/* Dropdown 1 */}
               <div className={`relative ${isMobile ? "hidden" : "block"}`}>
-                <select
-                  value={selectedOption}
-                  onChange={handleDropdownChange}
-                  className="dropdown-style cursor-pointer"
+                <div
+                  className="flex items-center gap-[4px] cursor-pointer"
+                  onClick={handleDropdownChange}
                 >
-                  {options.map((option) => (
-                    <option
-                      key={option}
-                      value={option}
-                      disabled={option === selectedOption}
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                  <div className="dropdown-style cursor-pointer">
+                    {selectedOption}
+                  </div>
+                  <img src={Arrow_down} alt="arrow_down" className="w-3 h-3" />
+                </div>
+                {isDropdownOpen && (
+                  <div className="absolute w-[145px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
+                    {selectedOption === "Pool Participants" ? (
+                      <div
+                        onClick={() => handleOptionClick("Pool Creator")}
+                        className="p-2 cursor-pointer transition-all hover:bg-gray-100"
+                      >
+                        Pool Creator
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => handleOptionClick("Pool Participants")}
+                        className="p-2 cursor-pointer transition-all hover:bg-gray-100"
+                      >
+                        Pool Participant
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Dropdown 2 */}

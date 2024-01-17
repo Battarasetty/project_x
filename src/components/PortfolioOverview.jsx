@@ -19,7 +19,7 @@ const PortfolioOverview = ({ isPoolCreator }) => {
   return (
     <div
       className="flex mt-[60px] flex-col "
-      style={{ width: "20%", gap: "24px", paddingRight: "20px" }}
+      style={{ width: "15%", gap: "24px", paddingRight: "20px" }}
     >
       <div
         className="flex items-center gap-2 cursor-pointer"

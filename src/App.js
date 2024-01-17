@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import Topbar from "./scenes/global/Topbar";
 import Home from "./scenes/home";
-import { EmailComponent } from "./components";
+import { EmailComponent, PoolParticipantDetailsComponent } from "./components";
 import FooterComponent from "./components/FooterComponent";
 import PoolCreatorPage from "./scenes/PoolCreatorPage";
 import PoolParticipantPage from "./scenes/PoolParticipantPage";
@@ -19,6 +19,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/pool-creator" element={<PoolCreatorPage />} />
           <Route path="/pool-participant" element={<PoolParticipantPage />} />
+          {/* Add a new route for PoolParticipantDetailsComponent */}
+          <Route
+            path="/pool-participant/:id"
+            element={<PoolParticipantDetailsComponent />}
+          />
         </Routes>
       </div>
       <div className="">

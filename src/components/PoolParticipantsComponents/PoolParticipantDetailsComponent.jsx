@@ -16,11 +16,16 @@ import {
   PoolSearchComponent,
   ProgressCircle,
 } from "../../components";
+
 import { DataGrid } from "@mui/x-data-grid";
 import {
   AVAX,
   BNB,
+  DOGE,
+  DOT,
+  LUNA,
   Polygon,
+  SHIBA,
   SOL,
   USDT,
   XRP,
@@ -33,25 +38,27 @@ import {
   plus_x,
   star,
 } from "../../assets";
+import { addToWhitelist } from "../../redux/whitelistSlice/whitelistSlice";
+import DepositModalComponent from "../../components/DepositModalComponent";
+import { useNavigate } from "react-router-dom";
 
-const PoolCreatorPage = () => {
+const PoolParticipantDetailsComponent = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const showHighlights = useSelector((state) => state.poolForm.showHighlights);
   const isPoolFormOpen = useSelector((state) => state.poolForm.isPoolFormOpen);
-  const poolCreatorOverviewData = useSelector(
-    (state) => state.poolForm.poolCreatorOverviewData
-  );
 
-  console.log(showHighlights);
-  console.log(poolCreatorOverviewData);
-  // const marginTopValue = isPoolFormOpen ? "30px" : "62px";
+  const marginTopValue = isPoolFormOpen ? "30px" : "62px";
 
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const poolAbbreviations = {
     Ethereum: "ETH",
@@ -61,6 +68,38 @@ const PoolCreatorPage = () => {
     Xrp: "XRP",
     Tether: "USDT",
   };
+
+  const handleAddToWhitelist = (record) => {
+    dispatch(addToWhitelist(record));
+
+    // Show the success message
+    setShowSuccessMessage(true);
+
+    // Hide the success message after a certain duration (e.g., 3000ms)
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+
+  const [showDepositModal, setShowDepositModal] = useState(false);
+
+  // Function to handle the click on the "+" icon
+  const handleDepositClick = () => {
+    setShowDepositModal(true);
+  };
+
+  const dummyCoinData = [
+    { src: etherum, alt: "etherum", percentage: 55 },
+    { src: BNB, alt: "BNB", percentage: 55 },
+    { src: SOL, alt: "SOL", percentage: 55 },
+    { src: AVAX, alt: "Avax", percentage: 55 },
+    { src: XRP, alt: "Xrp", percentage: 55 },
+    { src: USDT, alt: "Usdt", percentage: 56 },
+    { src: DOT, alt: "Dot", percentage: 2 },
+    { src: DOGE, alt: "Doge", percentage: 2 },
+    { src: SHIBA, alt: "Shiba", percentage: 2 },
+    { src: LUNA, alt: "Luna", percentage: 2 },
+  ];
 
   const dummyData = [
     {
@@ -340,169 +379,139 @@ const PoolCreatorPage = () => {
 
   const allRows = dummyData;
 
+  const handleRowClick = (params) => {
+    // Redirect to the details page with the selected pool participant's ID
+    navigate(`/pool-participant/${params.row._id}`);
+  };
+
   return (
     <>
       <div className="flex gap-5">
         {/* Left Side */}
-        <PortfolioOverview isPoolCreator={true} />
+        <PortfolioOverview isPoolCreator={false} />
 
         {/* Right Side */}
-        <div
-          style={{
-            marginTop:
-              !isPoolFormOpen && !poolCreatorOverviewData ? "32px" : "0",
-            height:
-              !isPoolFormOpen && !poolCreatorOverviewData ? "84vh" : "100%",
-            width: "70%",
-          }}
-        >
-          <PortfolioInfo isParticipantDetailsPage={false} />
+        <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
+          <PortfolioInfo isParticipantDetailsPage={true} />
           {/* Charts */}
           <div className="container mt-7">
             <HighlightComponentsContainer
               showHighlights={showHighlights}
-              isPoolCreator={true}
+              isPoolCreator={false}
             />
           </div>
-          {/* Pool Form  */}
-          {isPoolFormOpen && <PoolFormSection />}
 
-          {/* Pool Overview Data */}
-          {poolCreatorOverviewData && (
-            <div className="flex flex-col gap-6 mt-3">
-              {/* Top Cards */}
-              <div className="flex justify-between space-x-4">
-                <div
-                  className="flex-shrink-0 md:w-[20%] shadow p-4 bg-white rounded-lg"
-                  style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
-                >
-                  <div className="text-left">
-                    <p className="text-sm mb-2 text-[#838A9B] font-semibold">
-                      All-time profit
-                    </p>
-                    <div className="text-[#71C489] text-2xl mb-2 font-semibold">
-                      + $208.02
-                    </div>
-                    <div className="text-[#71C489] text-lg flex items-center gap-2">
-                      <img
-                        src={Polygon}
-                        alt="arrow-icon-up"
-                        className="w-3 h-3"
-                      />
-                      <span>01.5%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="flex-shrink-0 md:w-[20%]  shadow p-4 bg-white  rounded-lg"
-                  style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
-                >
-                  {" "}
-                  <div className="text-left">
-                    <div className="flex items-center justify-between ">
-                      <div className="text-sm mb-2 text-[#838A9B] font-semibold">
-                        Pool Sharing Income
-                      </div>
-                      <img src={copy} alt="copy" className="w-5 h-5 mb-2" />
-                    </div>
-                    <div className="text-[#3840CD] text-2xl mb-2 font-semibold ">
-                      $18.02
-                    </div>
-                    <div className="text-[#838A9B] text-lg">1/8 Followers</div>
-                  </div>
-                </div>
+          <div
+            className="flex-shrink-0 md:w-[15%] shadow p-2 bg-white rounded-lg"
+            style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
+          >
+            <div className="text-left">
+              <p className="text-[10px] mb-2 text-[#838A9B] font-semibold">
+                All-time profit
+              </p>
+              <div className="text-[#71C489] text-[18px] mb-2 font-semibold">
+                + $59,208.02
               </div>
-
-              {/* Chart Details */}
-              <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-                <div className="flex flex-1">
-                  <ChartComponent className="w-full" />
-                </div>
-                <div className="flex flex-1 ">
-                  <Box
-                    backgroundColor="#FFFFFF"
-                    boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
-                    border="1px solid #F1F2F5"
-                    p="20px"
-                    borderRadius="10px"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    className="w-full relative"
-                  >
-                    <div className="flex items-center justify-center ">
-                      <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
-                        Allocation
-                      </h1>
-                      <img
-                        src={info_main}
-                        alt="info_main"
-                        className="w-3 h-3 absolute left-[83px]"
-                      />
-                    </div>
-                    <ProgressCircle size="30" colorLabel="color1" />
-                  </Box>
-                </div>
-              </div>
-
-              {/* Table */}
-              <div className={showHighlights ? "mt-7" : ""}>
-                <Box
-                  sx={{
-                    "& .MuiDataGrid-root": {
-                      border: "none",
-                      borderRadius: "5rem",
-                    },
-                    "& .MuiDataGrid-cell": {},
-                    "& .MuiDataGrid-columnHeaders": {
-                      backgroundColor: "white",
-                      color: "black",
-                    },
-                    "& .MuiDataGrid-virtualScroller": {
-                      backgroundColor: "white",
-                    },
-                    "& .MuiDataGrid-footerContainer": {
-                      backgroundColor: "white",
-                      color: "black",
-                      borderTop: "none",
-                    },
-                    "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                      color: `#ffedc2 !important`,
-                    },
-                  }}
-                >
-                  <DataGrid
-                    loading={false}
-                    getRowId={(row) => row._id}
-                    rows={allRows}
-                    columns={columns}
-                    rowCount={dummyData.length}
-                    rowsPerPageOptions={[20, 50, 100]}
-                    pagination
-                    page={page}
-                    pageSize={pageSize}
-                    paginationMode="server"
-                    sortingMode="server"
-                    onPageChange={(newPage) => setPage(newPage)}
-                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                    onSortModelChange={(newSortModel) =>
-                      setSort(...newSortModel)
-                    }
-                    components={{ Toolbar: PoolSearchComponent }}
-                    componentsProps={{
-                      toolbar: { searchInput, setSearchInput, setSearch },
-                    }}
-                  />
-                </Box>
+              <div className="text-[#71C489] text-[10px] flex items-center gap-2">
+                <img src={Polygon} alt="arrow-icon-up" className="w-3 h-3" />
+                <span>01.5%</span>
               </div>
             </div>
-          )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
+            {/* ChartComponent */}
+            <div className="col-span-1 md:col-span-1">
+              <ChartComponent />
+            </div>
+
+            {/* ProgressCircle */}
+            <div className="flex flex-1 ">
+              <Box
+                backgroundColor="#FFFFFF"
+                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+                border="1px solid #F1F2F5"
+                borderRadius="10px"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                className="w-full relative"
+              >
+                <div className="flex items-center justify-center mt-[15px]">
+                  <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
+                    Allocation
+                  </h1>
+                  <img
+                    src={info_main}
+                    alt="info_main"
+                    className="w-3 h-3 absolute left-[83px]"
+                  />
+                </div>
+                <ProgressCircle size="30" colorLabel="color1" />
+              </Box>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6 mt-3">
+            {/* Table */}
+            <div className={showHighlights ? "mt-7" : ""}>
+              <Box
+                sx={{
+                  "& .MuiDataGrid-root": {
+                    border: "none",
+                    borderRadius: "5rem",
+                  },
+                  "& .MuiDataGrid-cell": {},
+                  "& .MuiDataGrid-columnHeaders": {
+                    backgroundColor: "white",
+                    color: "black",
+                  },
+                  "& .MuiDataGrid-virtualScroller": {
+                    backgroundColor: "white",
+                  },
+                  "& .MuiDataGrid-footerContainer": {
+                    backgroundColor: "white",
+                    color: "black",
+                    borderTop: "none",
+                  },
+                  "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                    color: `#ffedc2 !important`,
+                  },
+                }}
+              >
+                <DataGrid
+                  loading={false}
+                  getRowId={(row) => row._id}
+                  rows={allRows}
+                  columns={columns}
+                  rowCount={dummyData.length}
+                  rowsPerPageOptions={[20, 50, 100]}
+                  pagination
+                  page={page}
+                  pageSize={pageSize}
+                  paginationMode="server"
+                  sortingMode="server"
+                  onPageChange={(newPage) => setPage(newPage)}
+                  onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                  onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+                  components={{ Toolbar: PoolSearchComponent }}
+                  componentsProps={{
+                    toolbar: { searchInput, setSearchInput, setSearch },
+                  }}
+                  onRowClick={handleRowClick}
+                />
+              </Box>
+            </div>
+          </div>
         </div>
       </div>
-      {/* <AddTokenModal /> */}
+      {/* Render the DepositModalComponent based on the state */}
+      <DepositModalComponent
+        open={showDepositModal}
+        handleClose={() => setShowDepositModal(false)}
+      />
     </>
   );
 };
 
-export default PoolCreatorPage;
+export default PoolParticipantDetailsComponent;

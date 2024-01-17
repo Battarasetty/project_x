@@ -49,8 +49,8 @@ const AddTokenModal = ({
     width: "90%",
     maxWidth: 500,
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
+    borderRadius: "10px",
     p: 4,
     zIndex: 1300,
   };

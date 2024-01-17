@@ -11,9 +11,16 @@ import {
   GridToolbarContainer,
   GridToolbarColumnsButton,
 } from "@mui/x-data-grid";
-import FlexBetween from "./FlexBetween";
-import { add_pool, filterSearch, ic_search, insert, minus_x } from "../assets";
-import WithdrawModal from "./WithdrawModal";
+import FlexBetween from "../FlexBetween";
+import {
+  add_pool,
+  filterSearch,
+  ic_search,
+  insert,
+  minus_x,
+} from "../../assets";
+import WithdrawModal from "../WithdrawModal";
+import DepositModalComponent from "../DepositModalComponent";
 
 const SearchContainer = styled("div")({
   display: "flex",
@@ -41,6 +48,8 @@ const StyledInputBase = styled("input")({
 const PoolSearchComponent = ({ searchInput, setSearchInput, setSearch }) => {
   const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
 
+  const [showDepositModal, setShowDepositModal] = useState(false);
+
   const handleWithdrawClick = () => {
     setWithdrawModalOpen(true);
   };
@@ -48,6 +57,11 @@ const PoolSearchComponent = ({ searchInput, setSearchInput, setSearch }) => {
   const handleCloseWithdrawModal = () => {
     console.log("Closing modal");
     setWithdrawModalOpen(false);
+  };
+
+  // Function to handle the click on the "+" icon
+  const handleDepositClick = () => {
+    setShowDepositModal(true);
   };
 
   return (
@@ -77,10 +91,14 @@ const PoolSearchComponent = ({ searchInput, setSearchInput, setSearch }) => {
             </SearchContainer>
 
             <div className="flex items-center p-2.5 border-none rounded-lg">
-              <div className="flex cursor-pointer items-center gap-2 bg-white text-blue-500 px-6 py-2 rounded-l-lg border-t border-b border-l border-blue-500">
+              <div
+                onClick={handleDepositClick}
+                className="flex cursor-pointer items-center gap-2 bg-white text-blue-500 px-6 py-2 rounded-l-lg border-t border-b border-l border-blue-500"
+              >
                 <img src={add_pool} alt="Add" className="w-3 h-3" />
                 <p>Deposit</p>
               </div>
+
               <div
                 className="flex cursor-pointer items-center gap-2 bg-blue-500 text-white px-6 py-2 rounded-r-lg border-t border-b border-r border-blue-500"
                 onClick={handleWithdrawClick} // Call the same function to open the Withdraw modal
@@ -96,6 +114,12 @@ const PoolSearchComponent = ({ searchInput, setSearchInput, setSearch }) => {
       <WithdrawModal
         open={withdrawModalOpen}
         handleClose={handleCloseWithdrawModal}
+      />
+
+      {/* Render the DepositModalComponent based on the state */}
+      <DepositModalComponent
+        open={showDepositModal}
+        handleClose={() => setShowDepositModal(false)}
       />
     </>
   );

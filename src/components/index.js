@@ -16,8 +16,8 @@ import PortfolioOverview from './PortfolioOverview';
 import WhiteListModal from './WhiteListModal';
 import ProgressCircle from './ProgressCircle.jsx'
 import BigChartBox from './BigChartBox.jsx'
-import PoolSearchComponent from './PoolSearchComponent.jsx'
-
+import PoolSearchComponent from './PoolCreatorComponents/PoolSearchComponent.jsx';
+import PoolParticipantDetailsComponent from './PoolParticipantsComponents/PoolParticipantDetailsComponent.jsx'
 
 export {
     ChartComponent,
@@ -38,4 +38,5 @@ export {
     ProgressCircle,
     BigChartBox,
     PoolSearchComponent,
+    PoolParticipantDetailsComponent,
 }

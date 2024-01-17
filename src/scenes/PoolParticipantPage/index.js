@@ -16,11 +16,16 @@ import {
   PoolSearchComponent,
   ProgressCircle,
 } from "../../components";
+
 import { DataGrid } from "@mui/x-data-grid";
 import {
   AVAX,
   BNB,
+  DOGE,
+  DOT,
+  LUNA,
   Polygon,
+  SHIBA,
   SOL,
   USDT,
   XRP,
@@ -33,9 +38,14 @@ import {
   plus_x,
   star,
 } from "../../assets";
+import { addToWhitelist } from "../../redux/whitelistSlice/whitelistSlice";
+import DepositModalComponent from "../../components/DepositModalComponent";
+import { useNavigate } from "react-router-dom";
 
 const PoolParticipantPage = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const showHighlights = useSelector((state) => state.poolForm.showHighlights);
   const isPoolFormOpen = useSelector((state) => state.poolForm.isPoolFormOpen);
@@ -48,6 +58,8 @@ const PoolParticipantPage = () => {
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   const poolAbbreviations = {
     Ethereum: "ETH",
     Binance: "BNB",
@@ -57,201 +69,192 @@ const PoolParticipantPage = () => {
     Tether: "USDT",
   };
 
+  const handleAddToWhitelist = (record) => {
+    dispatch(addToWhitelist(record));
+
+    // Show the success message
+    setShowSuccessMessage(true);
+
+    // Hide the success message after a certain duration (e.g., 3000ms)
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+
+  const [showDepositModal, setShowDepositModal] = useState(false);
+
+  // Function to handle the click on the "+" icon
+  const handleDepositClick = (event) => {
+    // Stop the propagation of the click event to prevent handleRowClick from triggering
+    event.stopPropagation();
+
+    // Your existing logic for handling the "+" icon click
+    setShowDepositModal(true);
+  };
+
+  const dummyCoinData = [
+    { src: etherum, alt: "etherum", percentage: 55 },
+    { src: BNB, alt: "BNB", percentage: 55 },
+    { src: SOL, alt: "SOL", percentage: 55 },
+    { src: AVAX, alt: "Avax", percentage: 55 },
+    { src: XRP, alt: "Xrp", percentage: 55 },
+    { src: USDT, alt: "Usdt", percentage: 56 },
+    { src: DOT, alt: "Dot", percentage: 2 },
+    { src: DOGE, alt: "Doge", percentage: 2 },
+    { src: SHIBA, alt: "Shiba", percentage: 2 },
+    { src: LUNA, alt: "Luna", percentage: 2 },
+  ];
+
   const dummyData = [
     {
       _id: 1,
       "#": 1,
-      Pools: {
-        name: "Ethereum",
-        action: (
-          <div>
-            <img
-              src={etherum}
-              alt=""
-              className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
-            />
-          </div>
-        ),
-      },
-      Price: "$12,120.12",
+      "Pool ID": "XBR1084378",
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
+      Tokens: 10,
+      "Token PoolCap": "$384,321,120.12",
       "24 %": "18.7%",
       "7D %": "18.7%",
       "30D %": "18.7%",
-      Holdings: "$3,282.87",
-      "ETH Holdings": 1.2,
-      "Avg-Buy Price": "$2305.67",
-      Yield: "$282.87",
-      "Yield Percentage": "0.15%",
-      Allocation: "30%",
+      Volume: "$263,282.87",
+      Yield: "$23,456.67",
+      Action: "Icons",
     },
     {
       _id: 2,
       "#": 2,
-      Pools: {
-        name: "Binance",
-        action: (
-          <div>
-            <img
-              src={BNB}
-              alt=""
-              className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
-            />
-          </div>
-        ),
-      },
-      Price: "$2,120.12",
-      "24 %": "18.7%",
-      "7D %": "18.7%",
-      "30D %": "18.7%",
-      Holdings: "$3,282.87",
-      "ETH Holdings": 1.5,
-      "Avg-Buy Price": "$2305.67",
-      Yield: "$389.78",
-      "Yield Percentage": "0.20%",
-      Allocation: "15%",
+      "Pool ID": "XBR1084379",
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
+      Tokens: 15,
+      "Token PoolCap": "$512,456,789.45",
+      "24 %": "22.5%",
+      "7D %": "22.5%",
+      "30D %": "22.5%",
+      Volume: "$375,890.23",
+      Yield: "$32,145.89",
+      Action: "Icons",
     },
     {
       _id: 3,
       "#": 3,
-      Pools: {
-        name: "Solana",
-        action: (
-          <div>
-            <img
-              src={SOL}
-              alt=""
-              className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
-            />
-          </div>
-        ),
-      },
-      Price: "$107.09",
-      "24 %": "24.36%",
-      "7D %": "18.7%",
-      "30D %": "18.7%",
-      Holdings: "$3,282.87",
-      "ETH Holdings": 1.8,
-      "Avg-Buy Price": "$2305.67",
-      Yield: "$456.95",
-      "Yield Percentage": "0.25%",
-      Allocation: "38%",
+      "Pool ID": "XBR1084380",
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
+      Tokens: 8,
+      "Token PoolCap": "$240,987,654.32",
+      "24 %": "15.2%",
+      "7D %": "15.2%",
+      "30D %": "15.2%",
+      Volume: "$182,345.67",
+      Yield: "$15,678.90",
+      Action: "Icons",
     },
     {
       _id: 4,
       "#": 4,
-      Pools: {
-        name: "Avalanche",
-        action: (
-          <div>
-            <img
-              src={AVAX}
-              alt=""
-              className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
-            />
-          </div>
-        ),
-      },
-      Price: "$107.09",
-      "24 %": "24.36%",
-      "7D %": "18.7%",
-      "30D %": "18.7%",
-      Holdings: "$3,282.87",
-      "ETH Holdings": 1.8,
-      "Avg-Buy Price": "$2305.67",
-      Yield: "$456.95",
-      "Yield Percentage": "0.25%",
-      Allocation: "38%",
+      "Pool ID": "XBR1084381",
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
+      Tokens: 12,
+      "Token PoolCap": "$643,210,987.65",
+      "24 %": "28.3%",
+      "7D %": "28.3%",
+      "30D %": "28.3%",
+      Volume: "$498,765.43",
+      Yield: "$45,678.12",
+      Action: "Icons",
     },
     {
       _id: 5,
       "#": 5,
-      Pools: {
-        name: "Xrp",
-        action: (
-          <div>
-            <img
-              src={XRP}
-              alt=""
-              className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
-            />
-          </div>
-        ),
-      },
-      Price: "$107.09",
-      "24 %": "24.36%",
-      "7D %": "18.7%",
-      "30D %": "18.7%",
-      Holdings: "$3,282.87",
-      "ETH Holdings": 1.8,
-      "Avg-Buy Price": "$2305.67",
-      Yield: "$456.95",
-      "Yield Percentage": "0.25%",
-      Allocation: "38%",
+      "Pool ID": "XBR1084382",
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
+      Tokens: 20,
+      "Token PoolCap": "$820,123,456.78",
+      "24 %": "35.6%",
+      "7D %": "35.6%",
+      "30D %": "35.6%",
+      Volume: "$689,012.34",
+      Yield: "$58,901.23",
+      Action: "Icons",
     },
     {
       _id: 6,
       "#": 6,
-      Pools: {
-        name: "Tether",
-        action: (
-          <div>
-            <img
-              src={USDT}
-              alt=""
-              className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
-            />
-          </div>
-        ),
-      },
-      Price: "$107.09",
-      "24 %": "24.36%",
-      "7D %": "18.7%",
-      "30D %": "18.7%",
-      Holdings: "$3,282.87",
-      "ETH Holdings": 1.8,
-      "Avg-Buy Price": "$2305.67",
-      Yield: "$456.95",
-      "Yield Percentage": "0.25%",
-      Allocation: "38%",
+      "Pool ID": "XBR1084383",
+      Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
+      Tokens: 18,
+      "Token PoolCap": "$735,468,912.54",
+      "24 %": "31.9%",
+      "7D %": "31.9%",
+      "30D %": "31.9%",
+      Volume: "$567,123.45",
+      Yield: "$51,234.56",
+      Action: "Icons",
     },
   ];
 
   const columns = [
+    {
+      field: "id",
+      headerName: "",
+      flex: 0.5,
+      renderCell: (params) => (
+        <img
+          src={star}
+          alt=""
+          className="w-5 h-5 ml-2 transform cursor-pointer transition-transform hover:scale-110"
+          onClick={() => handleAddToWhitelist(params.row)}
+        />
+      ),
+    },
     {
       field: "#",
       headerName: "#",
       flex: 0.5,
     },
     {
-      field: "Pools",
-      headerName: "Pools",
-      flex: 2,
-      renderCell: (params) => (
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div>{params.row.Pools.action}</div>
-          <div style={{ margin: "0 2px" }}>{params.row.Pools.name}</div>
-          <div style={{ margin: "0 5px", color: "#9DA1B2" }}>
-            {poolAbbreviations[params.row.Pools.name]}
-          </div>
+      field: "Pool ID",
+      headerName: "Pool ID",
+      flex: 1,
+      headerRender: (params) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {params.title}
+          <img src={info} alt="" className="w-5 h-5 ml-2 " />
         </div>
       ),
     },
     {
-      field: "Price",
-      headerName: "Price",
+      field: "Pools",
+      headerName: "Pools",
       flex: 1,
-      renderCell: (params) => params.row.Price,
+      renderCell: (params) => params.row.Pools,
       headerRender: (params) => (
         <div style={{ display: "flex", alignItems: "center" }}>
           {params.title}
-          <img src={info} alt="" className="w-5 h-5 ml-2" />
+          <img src={info} alt="" className="w-5 h-5 ml-2 " />
+        </div>
+      ),
+    },
+    {
+      field: "Tokens",
+      headerName: "Tokens",
+      flex: 0.5,
+      renderCell: (params) => params.row.Tokens,
+      headerRender: (params) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {params.title}
+          <img src={info} alt="" className="w-5 h-5 ml-2 " />
+        </div>
+      ),
+    },
+    {
+      field: "Token PoolCap",
+      headerName: "Token PoolCap",
+      flex: 1,
+      renderCell: (params) => params.row["Token PoolCap"],
+      headerRender: (params) => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {params.title}
+          <img src={info} alt="" className="w-5 h-5 " />
         </div>
       ),
     },
@@ -259,9 +262,7 @@ const PoolParticipantPage = () => {
       field: "24h %",
       headerName: "24h %",
       flex: 0.5,
-      renderCell: (params) => (
-        <div style={{ margin: "0 4px" }}>{params.row["24 %"]}</div>
-      ),
+      renderCell: (params) => params.row["24 %"],
     },
     {
       field: "7D %",
@@ -273,67 +274,49 @@ const PoolParticipantPage = () => {
       field: "30D %",
       headerName: "30D %",
       flex: 0.5,
-      renderCell: (params) => (
-        <div style={{ marginRight: "5px" }}>{params.row["24 %"]}</div>
-      ),
+      renderCell: (params) => params.row["30D %"],
     },
     {
-      field: "Holdings",
-      headerName: (
-        <div
-          style={{ margin: "0 25px", display: "flex", alignItems: "center" }}
-        >
-          Holdings
-          <img src={info} alt="" className="w-2 h-2 ml-2" />
-        </div>
-      ),
-      flex: 1.5,
-      renderCell: (params) => (
-        <div style={{ margin: "0 25px" }}>
-          <div>{params.row.Holdings}</div>
-          <div className="text-xs text-right" style={{ color: "#9DA1B2" }}>
-            {params.row["ETH Holdings"]} ETH
-          </div>
-        </div>
-      ),
-      headerRender: (params) => (
-        <div style={{ margin: "0 25px" }}>
-          {params.title}
-          <img src={info} alt="" className="w-5 h-5 ml-2" />
-        </div>
-      ),
-    },
-    {
-      field: "Avg-Buy Price",
-      headerName: "Avg-Buy Price",
-      flex: 1.5,
-      renderCell: (params) => params.row["Avg-Buy Price"],
+      field: "Volume",
+      headerName: "Volume",
+      flex: 1,
+      renderCell: (params) => params.row.Volume,
     },
     {
       field: "Yield",
       headerName: "Yield",
-      flex: 1.5,
+      flex: 1,
+      renderCell: (params) => params.row.Yield,
+    },
+    {
+      field: "Action",
+      headerName: "Action",
+      flex: 1,
       renderCell: (params) => (
-        <div>
-          <div>{params.row.Yield}</div>
-          <div className="text-xs flex items-center gap-1">
-            <img src={Polygon} alt="arrow-icon-up" className="w-2 h-2" />
-            <div className="text-[#71C489] text-[10px]">
-              {params.row["Yield Percentage"]}
-            </div>
+        <div className="flex items-center">
+          {/* <div className="border-2 border-gray-300 bg-white p-1 rounded-lg">
+            <img src={eye_x} alt="" className="w-3 h-3 " />
+          </div> */}
+          <div
+            className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg cursor-pointer"
+            onClick={(event) => handleDepositClick(event)}
+          >
+            <img src={plus_x} alt="" className="w-3 h-3" />
+          </div>
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
+            <img src={minus_x} alt="" className="w-3 h-3" />
           </div>
         </div>
       ),
     },
-    {
-      field: "Allocation",
-      headerName: "Allocation",
-      flex: 1,
-      renderCell: (params) => params.row.Allocation,
-    },
   ];
 
   const allRows = dummyData;
+
+  const handleRowClick = (params) => {
+    // Redirect to the details page with the selected pool participant's ID
+    navigate(`/pool-participant/${params.row._id}`);
+  };
 
   return (
     <>
@@ -343,13 +326,13 @@ const PoolParticipantPage = () => {
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
-          <PortfolioInfo
-            showHighlights={showHighlights}
-            setShowHighlights={(value) => dispatch(setShowHighlights(value))}
-          />
+          <PortfolioInfo isParticipantDetailsPage={false} />
           {/* Charts */}
           <div className="container mt-7">
-            <HighlightComponentsContainer showHighlights={showHighlights} isPoolCreator={false} />
+            <HighlightComponentsContainer
+              showHighlights={showHighlights}
+              isPoolCreator={false}
+            />
           </div>
           {/* Pool Form  */}
 
@@ -361,6 +344,7 @@ const PoolParticipantPage = () => {
                   "& .MuiDataGrid-root": {
                     border: "none",
                     borderRadius: "5rem",
+                    cursor: "pointer"
                   },
                   "& .MuiDataGrid-cell": {},
                   "& .MuiDataGrid-columnHeaders": {
@@ -395,17 +379,22 @@ const PoolParticipantPage = () => {
                   onPageChange={(newPage) => setPage(newPage)}
                   onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                   onSortModelChange={(newSortModel) => setSort(...newSortModel)}
-                  components={{ Toolbar: PoolSearchComponent }}
+                  components={{ Toolbar: DataGridCustomToolbar }}
                   componentsProps={{
                     toolbar: { searchInput, setSearchInput, setSearch },
                   }}
+                  onRowClick={handleRowClick}
                 />
               </Box>
             </div>
           </div>
         </div>
       </div>
-      {/* <AddTokenModal /> */}
+      {/* Render the DepositModalComponent based on the state */}
+      <DepositModalComponent
+        open={showDepositModal}
+        handleClose={() => setShowDepositModal(false)}
+      />
     </>
   );
 };

@@ -66,10 +66,10 @@ const DataGridCustomToolbar = ({ searchInput, setSearchInput, setSearch }) => {
             <StyledInputBase placeholder="Search by Pool" aria-label="search" />
             <img src={filterSearch} alt="" className="w-5 h-5" />
           </SearchContainer>
-          <div className="flex items-center gap-2 sm:p-2.5 p-[15px] sm:w-[120px] border-none border-2 rounded-lg bg-blue-500 text-white">
+          {/* <div className="flex items-center gap-2 sm:p-2.5 p-[15px] sm:w-[120px] border-none border-2 rounded-lg bg-blue-500 text-white">
             <img src={insert} alt="Add" className="w-3 h-3" />
             <p className="hidden sm:block">Create Pool</p>
-          </div>
+          </div> */}
         </FlexBetween>
       </FlexBetween>
     </GridToolbarContainer>

@@ -1,26 +1,46 @@
 import React from "react";
-import SwitchWithLabel from "./SwitchWithLabel"; // Import SwitchWithLabel
+import SwitchWithLabel from "./SwitchWithLabel";
 import { eye_x, person } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowHighlights } from "../redux/poolFormSection/poolFormSectionSlice";
 
-const PortfolioInfo = () => {
+const PortfolioInfo = ({ isParticipantDetailsPage }) => {
   const dispatch = useDispatch();
 
   const showHighlights = useSelector((state) => state.poolForm.showHighlights);
   console.log(showHighlights);
 
+  const portfolioLabelText = isParticipantDetailsPage
+    ? "XBR474392"
+    : "Total Portfolio Value";
+
   return (
     <div className="flex mt-8 items-center justify-between">
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-3">
-          <img src={person} alt="Person" className="w-5 h-5" />
-          <p className="text-[#838A9B] text-[10px]">Total Portfolio Value</p>
+      <div className="">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <img src={person} alt="Person" className="w-5 h-5" />
+            <p className="text-[#838A9B] text-[10px]">{portfolioLabelText}</p>
+          </div>
+          <div className="flex items-center gap-3">
+            {/* Conditionally render based on whether it's the details page or not */}
+            <p className="font-bold">
+              {isParticipantDetailsPage ? "$384,321,120.12" : "$00.00"}
+            </p>
+            <img src={eye_x} alt="Person" className="w-3 h-3" />
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <p className="font-bold">$00.00</p>
-          <img src={eye_x} alt="Person" className="w-3 h-3" />
-        </div>
+
+        {/* Additional paragraph for 24h change */}
+        {isParticipantDetailsPage && (
+          <p
+            className={
+              isParticipantDetailsPage ? "text-green-500 text-[10px]" : ""
+            }
+          >
+            + $8,540.45 (24h)
+          </p>
+        )}
       </div>
 
       <div>

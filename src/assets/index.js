@@ -44,6 +44,7 @@ import Polygon from './Polygon.svg'
 import info_main from './info_main.svg'
 import hamburger from './hamburger.svg'
 import clear from './clear.svg'
+import Arrow_down from './Arrow_down.svg'
 
 
 
@@ -95,4 +96,5 @@ export {
     info_main,
     hamburger,
     clear,
+    Arrow_down,
 }
