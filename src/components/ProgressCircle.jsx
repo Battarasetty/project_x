@@ -11,6 +11,7 @@ const data = [
 ];
 
 const ProgressCircle = ({ isDeposit }) => {
+  console.log(isDeposit)
   return (
     <div className="flex">
       <div className="pieChartBox h-full flex gap-6 items-center justify-between mr-[40px] ">

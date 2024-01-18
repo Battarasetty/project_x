@@ -5,10 +5,12 @@ import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import Topbar from "./scenes/global/Topbar";
 import Home from "./scenes/home";
-import { EmailComponent, PoolParticipantDetailsComponent } from "./components";
+import { EmailComponent, PoolCreatorDetailComponent } from "./components";
 import FooterComponent from "./components/FooterComponent";
 import PoolCreatorPage from "./scenes/PoolCreatorPage";
 import PoolParticipantPage from "./scenes/PoolParticipantPage";
+import InvestedPoolsPage from "./components/PoolParticipantsComponents/InvestedPoolsPage";
+import InvestedPoolParticipantDetailPage from "./components/PoolParticipantsComponents/InvestedPoolParticipantDetailPage";
 
 function App() {
   return (
@@ -21,9 +23,11 @@ function App() {
           <Route path="/pool-participant" element={<PoolParticipantPage />} />
           {/* Add a new route for PoolParticipantDetailsComponent */}
           <Route
-            path="/pool-participant/:id"
-            element={<PoolParticipantDetailsComponent />}
+            path="/pool-creator/:id"
+            element={<PoolCreatorDetailComponent />}
           />
+          <Route path="/participant-investedPool" element={<InvestedPoolsPage />} />
+          <Route path="/participant/:id" element={<InvestedPoolParticipantDetailPage />} />
         </Routes>
       </div>
       <div className="">

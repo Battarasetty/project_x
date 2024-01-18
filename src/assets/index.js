@@ -45,6 +45,9 @@ import info_main from './info_main.svg'
 import hamburger from './hamburger.svg'
 import clear from './clear.svg'
 import Arrow_down from './Arrow_down.svg'
+import pinned from './pinned.svg'
+import unpinned from './unpinned.svg'
+
 
 
 
@@ -97,4 +100,6 @@ export {
     hamburger,
     clear,
     Arrow_down,
+    pinned,
+    unpinned
 }

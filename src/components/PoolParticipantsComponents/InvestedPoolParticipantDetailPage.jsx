@@ -8,13 +8,15 @@ import AddTokenModal from "../../components/AddTokenModal";
 import { setShowHighlights } from "../../redux/pool/poolSlice";
 import ChartComponent from "../../components/HighLightComponents/ChartComponent";
 import TrendingArticle from "../../components/HighLightComponents/TrendingArticle";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import {
   BigChartBox,
   CoinAvatarGroup,
+  CustomInvestedBox,
   DataGridCustomToolbar,
   PoolSearchComponent,
   ProgressCircle,
+  VolumeLeaderComponent,
 } from "../../components";
 
 import { DataGrid } from "@mui/x-data-grid";
@@ -35,14 +37,16 @@ import {
   info,
   info_main,
   minus_x,
+  pinned,
   plus_x,
   star,
+  unpinned,
 } from "../../assets";
 import { addToWhitelist } from "../../redux/whitelistSlice/whitelistSlice";
 import DepositModalComponent from "../../components/DepositModalComponent";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const PoolParticipantDetailsComponent = () => {
+const InvestedPoolParticipantDetailPage = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -384,15 +388,65 @@ const PoolParticipantDetailsComponent = () => {
     navigate(`/pool-participant/${params.row._id}`);
   };
 
+  const investedBoxData = [
+    { id: 1, name: "XBR random name1", value: "$32,874.00", imageSrc: pinned },
+    {
+      id: 2,
+      name: "XBR random name2",
+      value: "$27,078.00",
+      imageSrc: unpinned,
+    },
+    {
+      id: 3,
+      name: "XBR random name3",
+      value: "$2457,078.00",
+      imageSrc: unpinned,
+    },
+    {
+      id: 4,
+      name: "XBR random name4",
+      value: "$2337,078.00",
+      imageSrc: unpinned,
+    },
+  ];
+
+  const handleBoxClick = (id) => {
+    navigate(`/participant/${id}`);
+  };
+
   return (
     <>
-      <div className="flex gap-5">
+      <div className="flex gap-7">
         {/* Left Side */}
-        <PortfolioOverview isPoolCreator={false} />
+        <div className="flex flex-col gap-4" style={{ width: "18%" }}>
+          <PortfolioOverview isPoolCreator={false} />
+          <div className="flex flex-col gap-2 ml-5">
+            <div className="mb-4 border-b border-[#D3D6E3] pb-2">
+              <h1 className="text-xs font-bold mb-2">Invested Pools (4)</h1>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              {investedBoxData.map((box) => (
+                <Link to={`/participant/${box.id}`} key={box.id}>
+                  <CustomInvestedBox
+                    name={box.name}
+                    value={box.value}
+                    imageSrc={box.imageSrc}
+                    onClick={() => handleBoxClick(box.id)}
+                  />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
-          <PortfolioInfo isParticipantDetailsPage={true} />
+          <PortfolioInfo
+            isParticipantDetailsPage={false}
+            totalValue="$79,283.93"
+            twentyFourHourChange="12,540.45"
+          />
           {/* Charts */}
           <div className="container mt-7">
             <HighlightComponentsContainer
@@ -401,43 +455,65 @@ const PoolParticipantDetailsComponent = () => {
             />
           </div>
 
-          <div
-            className="flex-shrink-0 md:w-[15%] shadow p-2 bg-white rounded-lg"
-            style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
-          >
-            <div className="text-left">
-              <p className="text-[10px] mb-2 text-[#838A9B] font-semibold">
-                All-time profit
-              </p>
-              <div className="text-[#71C489] text-[18px] mb-2 font-semibold">
-                + $59,208.02
+          <div className="flex items-center gap-4">
+            <div
+              className="flex-shrink-0 md:w-[15%] shadow p-2 bg-white rounded-lg"
+              style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
+            >
+              <div className="text-left">
+                <p className="text-[10px] mb-2 text-[#838A9B] font-semibold">
+                  All-time profit
+                </p>
+                <div className="text-[#71C489] text-[18px] mb-2 font-semibold">
+                  + $59,208.02
+                </div>
+                <div className="text-[#71C489] text-[10px] flex items-center gap-1">
+                  <img src={Polygon} alt="arrow-icon-up" className="w-2 h-2" />
+                  <span>01.5%</span>
+                </div>
               </div>
-              <div className="text-[#71C489] text-[10px] flex items-center gap-2">
-                <img src={Polygon} alt="arrow-icon-up" className="w-3 h-3" />
-                <span>01.5%</span>
+            </div>
+            <div
+              className="flex-shrink-0 md:w-[15%] shadow p-2 bg-white rounded-lg"
+              style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
+            >
+              <div className="text-left">
+                <p className="text-[10px] mb-2 text-[#838A9B] font-semibold">
+                  XRB random name1
+                </p>
+                <div className="text-[18px] mb-2 font-semibold">32,874.02</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-[#71C489] text-[10px]">+ $1,208.02</div>
+                  <div className="text-[#71C489] text-[10px] flex items-center gap-1">
+                    <img
+                      src={Polygon}
+                      alt="arrow-icon-up"
+                      className="w-2 h-2"
+                    />
+                    <span>01.5%</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
-            {/* ChartComponent */}
-            <div className="col-span-1 md:col-span-1">
-              <ChartComponent />
+          <div className="grid mt-5 gap-5 grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-1">
+              <ChartComponent className="w-full" />
             </div>
-
-            {/* ProgressCircle */}
             <div className="flex flex-1 ">
               <Box
                 backgroundColor="#FFFFFF"
                 boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
                 border="1px solid #F1F2F5"
+                p="20px"
                 borderRadius="10px"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 className="w-full relative"
               >
-                <div className="flex items-center justify-center mt-[15px]">
+                <div className="flex items-center justify-center ">
                   <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
                     Allocation
                   </h1>
@@ -514,4 +590,4 @@ const PoolParticipantDetailsComponent = () => {
   );
 };
 
-export default PoolParticipantDetailsComponent;
+export default InvestedPoolParticipantDetailPage;

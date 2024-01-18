@@ -17,7 +17,8 @@ import WhiteListModal from './WhiteListModal';
 import ProgressCircle from './ProgressCircle.jsx'
 import BigChartBox from './BigChartBox.jsx'
 import PoolSearchComponent from './PoolCreatorComponents/PoolSearchComponent.jsx';
-import PoolParticipantDetailsComponent from './PoolParticipantsComponents/PoolParticipantDetailsComponent.jsx'
+import PoolCreatorDetailComponent from './PoolCreatorComponents/PoolCreatorDetailComponent.jsx'
+import CustomInvestedBox from './CustomInvestedBox.jsx'
 
 export {
     ChartComponent,
@@ -38,5 +39,6 @@ export {
     ProgressCircle,
     BigChartBox,
     PoolSearchComponent,
-    PoolParticipantDetailsComponent,
+    PoolCreatorDetailComponent,
+    CustomInvestedBox,
 }

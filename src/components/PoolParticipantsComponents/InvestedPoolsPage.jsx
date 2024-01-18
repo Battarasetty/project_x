@@ -8,13 +8,15 @@ import AddTokenModal from "../../components/AddTokenModal";
 import { setShowHighlights } from "../../redux/pool/poolSlice";
 import ChartComponent from "../../components/HighLightComponents/ChartComponent";
 import TrendingArticle from "../../components/HighLightComponents/TrendingArticle";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import {
   BigChartBox,
   CoinAvatarGroup,
+  CustomInvestedBox,
   DataGridCustomToolbar,
   PoolSearchComponent,
   ProgressCircle,
+  VolumeLeaderComponent,
 } from "../../components";
 
 import { DataGrid } from "@mui/x-data-grid";
@@ -35,15 +37,16 @@ import {
   info,
   info_main,
   minus_x,
+  pinned,
   plus_x,
   star,
+  unpinned,
 } from "../../assets";
 import { addToWhitelist } from "../../redux/whitelistSlice/whitelistSlice";
 import DepositModalComponent from "../../components/DepositModalComponent";
-import { useNavigate } from "react-router-dom";
-import WithdrawModal from "../../components/WithdrawModal";
+import { Link, useNavigate } from "react-router-dom";
 
-const PoolParticipantPage = () => {
+const InvestedPoolsPage = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -85,21 +88,8 @@ const PoolParticipantPage = () => {
   const [showDepositModal, setShowDepositModal] = useState(false);
 
   // Function to handle the click on the "+" icon
-  const handleDepositClick = (event) => {
-    // Stop the propagation of the click event to prevent handleRowClick from triggering
-    event.stopPropagation();
-
-    // Your existing logic for handling the "+" icon click
+  const handleDepositClick = () => {
     setShowDepositModal(true);
-  };
-
-  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
-
-
-  const handleWithdrawClick = (event) => {
-    event.stopPropagation();
-
-    setWithdrawModalOpen(true);
   };
 
   const dummyCoinData = [
@@ -307,15 +297,10 @@ const PoolParticipantPage = () => {
           {/* <div className="border-2 border-gray-300 bg-white p-1 rounded-lg">
             <img src={eye_x} alt="" className="w-3 h-3 " />
           </div> */}
-          <div
-            className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg cursor-pointer"
-            onClick={(event) => handleDepositClick(event)}
-          >
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg cursor-pointer">
             <img src={plus_x} alt="" className="w-3 h-3" />
           </div>
-          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg"
-            onClick={(event) => handleWithdrawClick(event)}
-          >
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
             <img src={minus_x} alt="" className="w-3 h-3" />
           </div>
         </div>
@@ -327,20 +312,69 @@ const PoolParticipantPage = () => {
 
   const handleRowClick = (params) => {
     // Redirect to the details page with the selected pool participant's ID
-    navigate(`/pool-creator/${params.row._id}`);
+    navigate(`/pool-participant/${params.row._id}`);
   };
 
+  const investedBoxData = [
+    { id: 1, name: "XBR random name1", value: "$32,874.00", imageSrc: pinned },
+    {
+      id: 2,
+      name: "XBR random name2",
+      value: "$27,078.00",
+      imageSrc: unpinned,
+    },
+    {
+      id: 3,
+      name: "XBR random name3",
+      value: "$2457,078.00",
+      imageSrc: unpinned,
+    },
+    {
+      id: 4,
+      name: "XBR random name4",
+      value: "$2337,078.00",
+      imageSrc: unpinned,
+    },
+  ];
 
+  const handleBoxClick = (id) => {
+    navigate(`/participant/${id}`);
+  };
 
   return (
     <>
-      <div className="flex gap-5">
+      <div className="flex gap-7">
         {/* Left Side */}
-        <PortfolioOverview isPoolCreator={false} />
+        <div className="flex flex-col gap-4" style={{ width: "18%" }}>
+          <PortfolioOverview isPoolCreator={false} />
+          <div className="flex flex-col gap-2 ml-5">
+            <div className="mb-4 border-b border-[#D3D6E3] pb-2">
+              <h1 className="text-xs font-bold mb-2">Invested Pools (4)</h1>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              {investedBoxData.map((box) => (
+                <Link to={`/participant/${box.id}`} key={box.id}>
+                  <CustomInvestedBox
+                    name={box.name}
+                    value={box.value}
+                    imageSrc={box.imageSrc}
+                    onClick={() => handleBoxClick(box.id)}
+                  />
+                </Link>
+              ))}
+            </div>
+
+          </div>
+        </div>
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
-          <PortfolioInfo isParticipantDetailsPage={false} totalValue="$00.00" twentyFourHourChange="" />
+          <PortfolioInfo
+            isParticipantDetailsPage={false}
+            totalValue="$79,283.93"
+            twentyFourHourChange="12,540.45"
+          />
           {/* Charts */}
           <div className="container mt-7">
             <HighlightComponentsContainer
@@ -348,7 +382,63 @@ const PoolParticipantPage = () => {
               isPoolCreator={false}
             />
           </div>
-          {/* Pool Form  */}
+
+          <div className="flex items-center gap-4">
+            <div
+              className="flex-shrink-0 md:w-[15%] shadow p-2 bg-white rounded-lg"
+              style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
+            >
+              <div className="text-left">
+                <p className="text-[10px] mb-2 text-[#838A9B] font-semibold">
+                  All-time profit
+                </p>
+                <div className="text-[#71C489] text-[18px] mb-2 font-semibold">
+                  + $59,208.02
+                </div>
+                <div className="text-[#71C489] text-[10px] flex items-center gap-1">
+                  <img src={Polygon} alt="arrow-icon-up" className="w-2 h-2" />
+                  <span>01.5%</span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="flex-shrink-0 md:w-[15%] shadow p-2 bg-white rounded-lg"
+              style={{ boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.09)" }}
+            >
+              <div className="text-left">
+                <p className="text-[10px] mb-2 text-[#838A9B] font-semibold">
+                  XRB random name1
+                </p>
+                <div className="text-[18px] mb-2 font-semibold">32,874.02</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-[#71C489] text-[10px]">+ $1,208.02</div>
+                  <div className="text-[#71C489] text-[10px] flex items-center gap-1">
+                    <img
+                      src={Polygon}
+                      alt="arrow-icon-up"
+                      className="w-2 h-2"
+                    />
+                    <span>01.5%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Grid container spacing={2} sx={{ marginTop: "5px" }}>
+            {/* ChartComponent */}
+            <Grid item xs={12} md={6}>
+              <ChartComponent />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <VolumeLeaderComponent />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <VolumeLeaderComponent />
+            </Grid>
+          </Grid>
 
           <div className="flex flex-col gap-6 mt-3">
             {/* Table */}
@@ -358,7 +448,6 @@ const PoolParticipantPage = () => {
                   "& .MuiDataGrid-root": {
                     border: "none",
                     borderRadius: "5rem",
-                    cursor: "pointer"
                   },
                   "& .MuiDataGrid-cell": {},
                   "& .MuiDataGrid-columnHeaders": {
@@ -393,7 +482,7 @@ const PoolParticipantPage = () => {
                   onPageChange={(newPage) => setPage(newPage)}
                   onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                   onSortModelChange={(newSortModel) => setSort(...newSortModel)}
-                  components={{ Toolbar: DataGridCustomToolbar }}
+                  components={{ Toolbar: PoolSearchComponent }}
                   componentsProps={{
                     toolbar: { searchInput, setSearchInput, setSearch },
                   }}
@@ -409,14 +498,8 @@ const PoolParticipantPage = () => {
         open={showDepositModal}
         handleClose={() => setShowDepositModal(false)}
       />
-
-      {/* Render your WithdrawModal component */}
-      <WithdrawModal
-        open={withdrawModalOpen}
-        handleClose={() => setWithdrawModalOpen(false)}
-      />
     </>
   );
 };
 
-export default PoolParticipantPage;
+export default InvestedPoolsPage;

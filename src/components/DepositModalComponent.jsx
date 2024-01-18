@@ -10,8 +10,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Polygon, USDT, info_main } from "../assets";
 import ProgressCircle from "./ProgressCircle";
 import SwitchWithLabel from "./SwitchWithLabel";
+import { useNavigate } from "react-router-dom";
 
 const DepositModalComponent = ({ open, handleClose }) => {
+  const navigate = useNavigate();
+
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -41,6 +44,11 @@ const DepositModalComponent = ({ open, handleClose }) => {
 
   const handleColumnClick = (column) => {
     setSelectedColumn(column);
+  };
+
+  const handleDepositClick = () => {
+    navigate("/participant-investedPool");
+    handleClose();
   };
 
   return (
@@ -222,7 +230,7 @@ const DepositModalComponent = ({ open, handleClose }) => {
                   Approve
                 </button>
                 <button
-                  onClick={handleClose}
+                  onClick={handleDepositClick}
                   style={{ width: "210px" }}
                   className="px-6 py-3 bg-[#5763F3] text-white rounded-md text-xs font-semibold focus:outline-none"
                 >

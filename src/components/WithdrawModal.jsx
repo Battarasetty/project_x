@@ -9,8 +9,12 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { Polygon, USDT, info, info_main } from "../assets";
 import SwitchWithLabel from "./SwitchWithLabel";
+import { useNavigate } from "react-router-dom";
 
 const WithdrawModal = ({ open, handleClose }) => {
+
+  const navigate = useNavigate();
+
   const modalStyle = {
     position: "absolute",
     top: "50%",
@@ -41,6 +45,11 @@ const WithdrawModal = ({ open, handleClose }) => {
   const handleColumnClick = (column) => {
     setSelectedColumn(column);
   };
+
+  const handleWithdrawClick = () => {
+    navigate("/participant-investedPool");
+    handleClose();
+  }
 
   return (
     <Modal
@@ -320,7 +329,7 @@ const WithdrawModal = ({ open, handleClose }) => {
                   Approve
                 </button>
                 <button
-                  onClick={handleClose}
+                  onClick={handleWithdrawClick}
                   style={{ width: "210px" }}
                   className="px-6 py-3 bg-[#5763F3] text-white rounded-md text-xs font-semibold focus:outline-none"
                 >

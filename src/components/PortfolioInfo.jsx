@@ -4,15 +4,21 @@ import { eye_x, person } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowHighlights } from "../redux/poolFormSection/poolFormSectionSlice";
 
-const PortfolioInfo = ({ isParticipantDetailsPage }) => {
+const PortfolioInfo = ({
+  isParticipantDetailsPage,
+  totalValue,
+  twentyFourHourChange,
+}) => {
   const dispatch = useDispatch();
 
   const showHighlights = useSelector((state) => state.poolForm.showHighlights);
-  console.log(showHighlights);
 
   const portfolioLabelText = isParticipantDetailsPage
     ? "XBR474392"
     : "Total Portfolio Value";
+
+  const displayTotalValue =
+    totalValue || (isParticipantDetailsPage ? "$00.00" : "$384,321,120.12");
 
   return (
     <div className="flex mt-8 items-center justify-between">
@@ -23,22 +29,15 @@ const PortfolioInfo = ({ isParticipantDetailsPage }) => {
             <p className="text-[#838A9B] text-[10px]">{portfolioLabelText}</p>
           </div>
           <div className="flex items-center gap-3">
-            {/* Conditionally render based on whether it's the details page or not */}
-            <p className="font-bold">
-              {isParticipantDetailsPage ? "$384,321,120.12" : "$00.00"}
-            </p>
+            <p className="font-bold">{displayTotalValue}</p>
             <img src={eye_x} alt="Person" className="w-3 h-3" />
           </div>
         </div>
 
         {/* Additional paragraph for 24h change */}
-        {isParticipantDetailsPage && (
-          <p
-            className={
-              isParticipantDetailsPage ? "text-green-500 text-[10px]" : ""
-            }
-          >
-            + $8,540.45 (24h)
+        {twentyFourHourChange && (
+          <p className="text-green-500 text-[10px]">
+            + {twentyFourHourChange} (24h)
           </p>
         )}
       </div>
