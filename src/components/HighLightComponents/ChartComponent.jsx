@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { Box, Typography, Switch, FormControlLabel } from "@mui/material";
-import { Line } from "react-chartjs-2";
+// import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
-import {getMainChartData, mainChartOptions} from '../../constants/Data'
+// import { getMainChartData, mainChartOptions } from "../../constants/Data";
 import { fuse, shock1 } from "../../assets";
+import AreaChart from "./AreaChart";
+import CandlestickChart from "./CandlestickChart";
 
 const ChartComponent = () => {
-  const [chartData, setChartData] = useState(getMainChartData());
+  // const [chartData, setChartData] = useState(getMainChartData());
 
-  const handleChangeTimeRange = (event) => {
-    // Handle the switch button change here
-    const newChartData = generateChartData(event.target.checked);
-    setChartData(newChartData);
-  };
+  // const handleChangeTimeRange = (event) => {
+  //   // Handle the switch button change here
+  //   const newChartData = generateChartData(event.target.checked);
+  //   setChartData(newChartData);
+  // };
 
   const generateChartData = (is24Hours) => {
     // Modify this function to generate data based on the selected time range
@@ -57,13 +59,47 @@ const ChartComponent = () => {
     setSelectedValue(option);
   };
 
+  const seriesData = [
+    90, 40, 65, 50, 100, 60, 150, 60, 125, 195, 150, 200, 190, 270, 230,
+  ];
+
+  const datesData = [
+    "2022-01-01",
+    "2022-01-02",
+    "2022-01-03",
+    "2022-01-04",
+    "2022-01-05",
+    "2022-01-06",
+    "2022-01-07",
+    "2022-01-08",
+    "2022-01-09",
+    "2022-01-10",
+    "2022-01-11",
+    "2022-01-12",
+    "2022-01-13",
+    "2022-01-14",
+    "2022-01-15",
+  ];
+
+  const candlestickData = [
+    { x: new Date(1538778600000), y: [6629.81, 6650.5, 6623.04, 6633.33] },
+    { x: new Date(1538780400000), y: [6632.01, 6643.59, 6620, 6630.11] },
+    { x: new Date(1538782200000), y: [6630.71, 6648.95, 6623.34, 6635.65] },
+    { x: new Date(1538784000000), y: [6635.65, 6651, 6629.67, 6638.24] },
+    { x: new Date(1538785800000), y: [6638.24, 6640, 6620, 6624.47] },
+  ];
+
+  const chartHeight = 200;
+
+
   return (
     <Box
       bg="white"
       boxShadow="0px 0px 12px rgba(0, 0, 0, 0.09)"
       border="1px solid #F1F2F5"
       borderRadius="8px"
-      className="px-4 py-2 flex flex-col gap-1 w-full"
+      className="px-2 pt-2 flex flex-col"
+      sx={{height: "250px"}}
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <div className="flex items-center gap-[4px]">
@@ -171,7 +207,13 @@ const ChartComponent = () => {
         </div>
       </Box>
       <Box>
-        <Line options={mainChartOptions} data={chartData} />
+        {selectedImage === "shock1" ? (
+          <AreaChart series={seriesData} dates={datesData} height={chartHeight} />
+        ) : (
+          <CandlestickChart candlestickData={candlestickData} height={chartHeight} />
+        )}
+
+        {/* <Line options={mainChartOptions} data={chartData} /> */}
       </Box>
     </Box>
   );

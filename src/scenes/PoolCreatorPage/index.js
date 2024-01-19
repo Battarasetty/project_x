@@ -10,7 +10,6 @@ import ChartComponent from "../../components/HighLightComponents/ChartComponent"
 import TrendingArticle from "../../components/HighLightComponents/TrendingArticle";
 import { Box, Typography } from "@mui/material";
 import {
-  BigChartBox,
   CoinAvatarGroup,
   DataGridCustomToolbar,
   PoolSearchComponent,
@@ -416,7 +415,7 @@ const PoolCreatorPage = () => {
 
               {/* Chart Details */}
               <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-                <div className="flex flex-1">
+                <div className="">
                   <ChartComponent className="w-full" />
                 </div>
                 <div className="flex flex-1 ">

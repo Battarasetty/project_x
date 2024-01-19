@@ -1,5 +1,5 @@
-import React from "react";
-import { Avatar, AvatarGroup, Stack } from "@mui/material";
+import React, { useState } from "react";
+import { Avatar, AvatarGroup, Stack, Button } from "@mui/material";
 
 const CoinAvatar = ({ src, alt }) => (
   <Avatar
@@ -11,6 +11,8 @@ const CoinAvatar = ({ src, alt }) => (
 );
 
 const CoinAvatarGroup = ({ coinData }) => {
+  const [showAll, setShowAll] = useState(false);
+
   // Ensure that coinData is an array
   const coins = Array.isArray(coinData) ? coinData : [];
 
@@ -23,20 +25,33 @@ const CoinAvatarGroup = ({ coinData }) => {
     0
   );
 
+  const visibleCoins = showAll ? sortedCoins : sortedCoins.slice(0, 7);
+
   return (
     <Stack spacing={2} className="flex justify-start items-start">
-      <AvatarGroup max={totalPercentage} className="-space-x-2">
-        {sortedCoins.map((coin, index) => (
-          <CoinAvatar
-            key={index}
-            src={coin.src}
-            alt={coin.alt}
-            style={{
-              opacity: (coin.percentage || 0) / 100,
-            }}
-          />
-        ))}
-      </AvatarGroup>
+      <div className="flex items-center relative">
+        <AvatarGroup max={totalPercentage} className="-space-x-2">
+          {visibleCoins.map((coin, index) => (
+            <CoinAvatar
+              key={index}
+              src={coin.src}
+              alt={coin.alt}
+              style={{
+                opacity: (coin.percentage || 0) / 100,
+              }}
+            />
+          ))}
+        </AvatarGroup>
+        {coins.length > 7 && !showAll && (
+          <Button
+            onClick={() => setShowAll(true)}
+            variant="text"
+            className="rounded-full p-1 absolute left-[-20px]"
+          >
+            +{coins.length - 7}
+          </Button>
+        )}
+      </div>
     </Stack>
   );
 };

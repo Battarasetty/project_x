@@ -15,19 +15,9 @@ import {
 } from "../../assets";
 import CoinAvatarGroup from "../CoinAvatarGroup";
 
-const VolumeLeaderComponent = () => {
-  const dummyCoinData = [
-    { src: etherum, alt: "etherum", percentage: 15 },
-    { src: BNB, alt: "BNB", percentage: 15 },
-    { src: SOL, alt: "SOL", percentage: 15 },
-    { src: AVAX, alt: "Avax", percentage: 15 },
-    { src: XRP, alt: "Xrp", percentage: 15 },
-    { src: USDT, alt: "Usdt", percentage: 15 },
-    { src: DOT, alt: "Dot", percentage: 2 },
-    { src: DOGE, alt: "Doge", percentage: 2 },
-    { src: SHIBA, alt: "Shiba", percentage: 2 },
-    { src: LUNA, alt: "Luna", percentage: 2 },
-  ];
+const VolumeLeaderComponent = ({ poolData }) => {
+  const { title, coinData, coinLabels, apy, volume, totalPoolValue, btnText } = poolData;
+
   return (
     <Box
       bg="white"
@@ -35,56 +25,56 @@ const VolumeLeaderComponent = () => {
       border="1px solid #F1F2F5"
       borderRadius="8px"
       className="px-3 pt-3 pb-2 flex flex-col gap-1"
+      sx={{height: "250px"}}
     >
       <div className="bg-[#DDE0FD] shadow-md rounded-lg p-0.5 flex items-center justify-center gap-1">
         <img src={Bigli} alt="Shock" className="w-2 h-3 opacity-100" />
         <span className="text-[#5763F3] text-[12px] opacity-100 max-w-full truncate">
-          Highest Volume Pool
+          {title}
         </span>
       </div>
 
-      <div className="mt-4">
-        <div className="flex gap-1 flex-col">
-          <div className="flex flex-col gap-1 items-start">
-            <CoinAvatarGroup coinData={dummyCoinData} />
+      <div className="mt-1">
+        <div className="flex gap-2 flex-col">
+          <div className="flex flex-col mt-1 gap-1 items-start">
+            <CoinAvatarGroup coinData={coinData} />
             <p
-              className="text-[8px] text-[#000000] font-semibold ml-1"
+              className="text-[10px] text-[#000000] font-semibold ml-1"
               style={{ width: "128px" }}
             >
-              ETH-BNB-SOL-AVAX-XRP-USDT-DOT-DOGE-SHIBA-LUNA
+              {coinLabels}
             </p>
           </div>
 
-          <div className="flex justify-end border-t border-b mt-1 pt-1 pb-1">
-            <div className="flex items-center gap-1 justify-center mr-2">
+          <div className="flex justify-center border-t border-b pt-3 pb-3">
+            <div className="flex items-center gap-1 justify-center mr-2 mt-1.5">
               <p
                 style={{
-                  fontWeight: "semibold",
-                  fontSize: "15px",
+                  fontWeight: 600,
+                  fontSize: "12px",
                 }}
               >
-                225.01%
+                {apy}
               </p>
               <p className="text-[12px] text-[#838A9B]">APY</p>
             </div>
 
             <div>
-              <div className="flex items-center justify-end text-[6px]">
-                <p style={{ fontWeight: "bold" }}>$634,928.98:</p>
+              <div className="flex items-center justify-end text-[8px]">
+                <p style={{ fontWeight: "bold" }}>{volume}:</p>
                 <p>Volume</p>
               </div>
-              <div className="text-[6px] flex items-center justify-end">
-                <p style={{ fontWeight: "bold" }}>$235.03m:</p>
-                <p>Total Pool</p>
-                Value
+              <div className="text-[7px] flex items-center justify-end">
+                <p style={{ fontWeight: "bold" }}>{totalPoolValue}:</p>
+                <p>Total Pool Value</p>
               </div>
             </div>
           </div>
           <button
-            className="mt-2 border text-[8px] border-[#5763F3] rounded-lg text-[#5763F3] hover:bg-[#5763F3] hover:text-white px-2 py-2 ml-auto mr-auto"
+            className="mt-1 border text-[8px] border-[#5763F3] rounded-lg text-[#5763F3] hover:bg-[#5763F3] hover:text-white px-4 py-2 ml-auto mr-auto"
             style={{ fontWeight: "semibold", width: "100px", fontSize: "10px" }}
           >
-            Let's Earn
+            {btnText}
           </button>
         </div>
       </div>
@@ -95,3 +85,4 @@ const VolumeLeaderComponent = () => {
 };
 
 export default VolumeLeaderComponent;
+

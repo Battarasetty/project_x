@@ -10,7 +10,6 @@ import ChartComponent from "../../components/HighLightComponents/ChartComponent"
 import TrendingArticle from "../../components/HighLightComponents/TrendingArticle";
 import { Box, Grid, Typography } from "@mui/material";
 import {
-  BigChartBox,
   CoinAvatarGroup,
   CustomInvestedBox,
   DataGridCustomToolbar,

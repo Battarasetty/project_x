@@ -10,7 +10,6 @@ import ChartComponent from "../../components/HighLightComponents/ChartComponent"
 import TrendingArticle from "../../components/HighLightComponents/TrendingArticle";
 import { Box, Grid, Typography } from "@mui/material";
 import {
-  BigChartBox,
   CoinAvatarGroup,
   CustomInvestedBox,
   DataGridCustomToolbar,
@@ -93,12 +92,12 @@ const InvestedPoolsPage = () => {
   };
 
   const dummyCoinData = [
-    { src: etherum, alt: "etherum", percentage: 55 },
-    { src: BNB, alt: "BNB", percentage: 55 },
-    { src: SOL, alt: "SOL", percentage: 55 },
-    { src: AVAX, alt: "Avax", percentage: 55 },
-    { src: XRP, alt: "Xrp", percentage: 55 },
-    { src: USDT, alt: "Usdt", percentage: 56 },
+    { src: etherum, alt: "etherum", percentage: 15 },
+    { src: BNB, alt: "BNB", percentage: 15 },
+    { src: SOL, alt: "SOL", percentage: 15 },
+    { src: AVAX, alt: "Avax", percentage: 15 },
+    { src: XRP, alt: "Xrp", percentage: 15 },
+    { src: USDT, alt: "Usdt", percentage: 15 },
     { src: DOT, alt: "Dot", percentage: 2 },
     { src: DOGE, alt: "Doge", percentage: 2 },
     { src: SHIBA, alt: "Shiba", percentage: 2 },
@@ -217,8 +216,8 @@ const InvestedPoolsPage = () => {
       flex: 1,
       headerRender: (params) => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          {params.title}
-          <img src={info} alt="" className="w-5 h-5 ml-2 " />
+          <span>{params.title}</span>
+          <img src={info} alt="Info" className="w-5 h-5 ml-2" />
         </div>
       ),
     },
@@ -341,6 +340,27 @@ const InvestedPoolsPage = () => {
     navigate(`/participant/${id}`);
   };
 
+  const poolDataArray = [
+    {
+      title: "Highest Volume Pool",
+      coinData: dummyCoinData,
+      coinLabels: "ETH-BNB-SOL-AVAX-XRP-USDT-DOT-DOGE-SHIBA-LUNA",
+      apy: "225.01%",
+      volume: "$634,928.98",
+      totalPoolValue: "$235.03m",
+      btnText: "Let's Earn",
+    },
+    {
+      title: "Lowest Performing Pool",
+      coinData: dummyCoinData,
+      coinLabels: "ETH-BNB-SOL-AVAX-XRP-USDT-DOT-DOGE-SHIBA-LUNA",
+      apy: "-45.34%",
+      volume: "$634,928.98",
+      totalPoolValue: "$235.03m",
+      btnText: "View Details",
+    },
+  ];
+
   return (
     <>
       <div className="flex gap-7">
@@ -364,7 +384,6 @@ const InvestedPoolsPage = () => {
                 </Link>
               ))}
             </div>
-
           </div>
         </div>
 
@@ -427,16 +446,14 @@ const InvestedPoolsPage = () => {
 
           <Grid container spacing={2} sx={{ marginTop: "5px" }}>
             {/* ChartComponent */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={7}>
               <ChartComponent />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <VolumeLeaderComponent />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <VolumeLeaderComponent />
+            <Grid item xs={12} md={4} style={{ display: "flex", gap:"5px" }}>
+              {poolDataArray.map((poolData, index) => (
+                <VolumeLeaderComponent key={index} poolData={poolData} />
+              ))}
             </Grid>
           </Grid>
 

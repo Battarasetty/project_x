@@ -55,7 +55,7 @@ const Home = () => {
       "#": 1,
       "Pool ID": "XBR1084378",
       Pools: <CoinAvatarGroup coinData={dummyCoinData} />,
-      Tokens: 10,
+      Tokens: 108,
       "Token PoolCap": "$384,321,120.12",
       "24 %": "18.7%",
       "7D %": "18.7%",
@@ -227,8 +227,8 @@ const Home = () => {
       renderCell: (params) => params.row.Volume,
     },
     {
-      field: "Yield",
-      headerName: "Yield",
+      field: "Yield (YLD)",
+      headerName: "Yield (YLD)",
       flex: 1,
       renderCell: (params) => params.row.Yield,
     },
@@ -238,13 +238,13 @@ const Home = () => {
       flex: 1,
       renderCell: (params) => (
         <div className="flex items-center">
-          <div className="border-2 border-gray-300 bg-white p-1 rounded-lg">
+          <div className="border-2 border-gray-300 bg-white p-1 rounded-lg hover:bg-gray-200">
             <img src={eye_x} alt="" className="w-3 h-3 " />
           </div>
-          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg hover:bg-gray-200">
             <img src={plus_x} alt="" className="w-3 h-3" />
           </div>
-          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg">
+          <div className=" ml-2 border-2 border-gray-300 bg-white p-1 rounded-lg hover:bg-gray-200">
             <img src={minus_x} alt="" className="w-3 h-3" />
           </div>
         </div>

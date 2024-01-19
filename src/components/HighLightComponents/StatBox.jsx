@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { Arrow, currentCircle, defaultCircle, Logo, pool, portfolio } from "../../assets";
 
 const StatBox = () => {
-  const [reducedFontSize, setReducedFontSize] = useState("7px");
+  const [reducedFontSize, setReducedFontSize] = useState("5px");
   const [reducedImageSize, setReducedImageSize] = useState("40px");
   const [imageMargin, setImageMargin] = useState("55px");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,7 +22,7 @@ const StatBox = () => {
       ],
       logo: Logo,
     },
-    {
+	{
       id: 2,
       name: "Harish",
       description: [
@@ -88,9 +88,9 @@ const StatBox = () => {
       borderRadius="8px"
       border="1px solid #F1F2F5"
       className="px-3 h-[197px] pt-3 pb-2 flex flex-col gap-1 relative overflow-hidden"
-      sx={{ backgroundColor: "#F1F2F5", boxShadow: "0px 0px 12px #F1F2F5" }}
+      sx={{ backgroundColor: "#F1F2F5", boxShadow: "0px 0px 12px #F1F2F5", height: "250px" }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-1">
         <h3 className="text-[16px] font-semibold text-[#000000]">
           Be on the top
         </h3>
@@ -98,12 +98,12 @@ const StatBox = () => {
           more <img src={Arrow} alt="" className="ml-1 w-2 h-2" />
         </span>
       </div>
-      <div className="carousel-container">
+      <div className="carousel-container mt-2">
         <div key={currentSlide} className={`slide active`}>
           <div className="flex items-center">
             <img
               src={slides[currentSlide].logo}
-              className="w-[120px] h-[130px]"
+              className="w-[150px] h-[150px]"
               alt="Logo"
             />
             <div
@@ -113,8 +113,8 @@ const StatBox = () => {
                 flexDirection: "column",
                 height: reducedImageSize,
                 marginLeft: "3px",
-                fontSize: reducedFontSize,
-                marginBottom: imageMargin,
+                fontSize: "6px",
+                marginBottom: "78px",
                 fontWeight: "600",
               }}
             >
@@ -127,7 +127,7 @@ const StatBox = () => {
         </div>
       </div>
 
-      <div className="flex justify-center mt-2 absolute bottom-2 w-full">
+      <div className="flex justify-center absolute bottom-4 w-full">
         {slides.map((_, index) => (
           <img
             key={index}

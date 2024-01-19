@@ -10,7 +10,7 @@ import ChartComponent from "../../components/HighLightComponents/ChartComponent"
 import TrendingArticle from "../../components/HighLightComponents/TrendingArticle";
 import { Box, Typography } from "@mui/material";
 import {
-  BigChartBox,
+  ApexChart,
   CoinAvatarGroup,
   DataGridCustomToolbar,
   PoolSearchComponent,
@@ -384,6 +384,53 @@ const PoolCreatorDetailComponent = () => {
     navigate(`/pool-participant/${params.row._id}`);
   };
 
+  const chartOptions = {
+    chart: {
+      type: "donut",
+      height: 350,
+    },
+    labels: ["UNI", "SAND", "CAKE", "EGOLD", "GALA", "VTHO", "FLR"],
+    fill: {
+      colors: [
+        "#008FFB",
+        "#00E396",
+        "#FEB019",
+        "#FF4560",
+        "#775DD0",
+        "#DC3545",
+        "#343A40",
+      ],
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    plotOptions: {
+      pie: {
+        customScale: 0.8,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          return val + "%";
+        },
+      },
+    },
+    annotations: {
+      points: [
+        { x: "50%", y: "50%", marker: { size: 0 }, label: { text: "23.41%", style: { fontSize: "16px" } } },
+        { x: "90%", y: "50%", marker: { size: 0 }, label: { text: "18.46%", style: { fontSize: "16px" } } },
+        // Repeat the above block for other data points
+      ],
+    },
+  };
+  
+  const series = [23.41, 18.46, 16.29, 11.25, 9.6, 7.45, 5.35];
+  
+  
   return (
     <>
       <div className="flex gap-5">
@@ -392,7 +439,11 @@ const PoolCreatorDetailComponent = () => {
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
-          <PortfolioInfo isParticipantDetailsPage={true} totalValue="$384,321,120.12" twentyFourHourChange="$8,540.45" />
+          <PortfolioInfo
+            isParticipantDetailsPage={true}
+            totalValue="$384,321,120.12"
+            twentyFourHourChange="$8,540.45"
+          />
           {/* Charts */}
           <div className="container mt-7">
             <HighlightComponentsContainer
@@ -447,7 +498,9 @@ const PoolCreatorDetailComponent = () => {
                     className="w-3 h-3 absolute left-[83px]"
                   />
                 </div>
-                <ProgressCircle size="30" colorLabel="color1" />
+                <ApexChart options={chartOptions} series={series} type="donut" height={230} />
+
+                {/* <ProgressCircle size="30" colorLabel="color1" /> */}
               </Box>
             </div>
           </div>

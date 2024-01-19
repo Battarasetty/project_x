@@ -15,10 +15,12 @@ import PortfolioInfo from './PortfolioInfo';
 import PortfolioOverview from './PortfolioOverview';
 import WhiteListModal from './WhiteListModal';
 import ProgressCircle from './ProgressCircle.jsx'
-import BigChartBox from './BigChartBox.jsx'
 import PoolSearchComponent from './PoolCreatorComponents/PoolSearchComponent.jsx';
 import PoolCreatorDetailComponent from './PoolCreatorComponents/PoolCreatorDetailComponent.jsx'
 import CustomInvestedBox from './CustomInvestedBox.jsx'
+import AreaChart from './HighLightComponents/AreaChart'
+import CandlestickChart from './HighLightComponents/CandlestickChart.jsx';
+import ApexChart from './ApexChart.jsx'
 
 export {
     ChartComponent,
@@ -37,8 +39,10 @@ export {
     PortfolioOverview,
     WhiteListModal,
     ProgressCircle,
-    BigChartBox,
     PoolSearchComponent,
     PoolCreatorDetailComponent,
     CustomInvestedBox,
+    AreaChart,
+    CandlestickChart,
+    ApexChart
 }

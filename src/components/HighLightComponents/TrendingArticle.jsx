@@ -66,11 +66,10 @@ const TrendingArticle = () => {
       border="1px solid #F1F2F5"
       borderRadius="8px"
       overflow="hidden"
+      sx={{ height: "250px", width: "400px" }}
     >
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-medium text-gray-800">
-          Top Community Article
-        </h3>
+        <h3 className="text-xl font-medium text-gray-800">Top Community Article</h3>
         <span className="flex items-center gap-0.05 text-blue-500 text-xs font-normal">
           more
           <img src={Arrow} alt="" className="ml-1 w-2 h-2" />
@@ -84,48 +83,45 @@ const TrendingArticle = () => {
         {slides.map((slide, index) => (
           <div
             key={index}
-            className="w-full flex-shrink-0 "
+            className="w-full flex-shrink-0"
             style={{ minWidth: "100%" }}
           >
-            <div className="flex items-center mt-1 p-4">
+            <div className="flex pt-7 px-3">
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="bg-transparent bg-no-repeat bg-cover opacity-70"
-                style={{ width: "100px", height: "100px" }}
+                className="bg-transparent bg-no-repeat bg-cover opacity-70 w-[150px] h-[150px]"
               />
-              <div className="ml-3 flex flex-col gap-1">
-                <h2 className="font-semibold text-sm text-gray-800">
+              <div className="ml-3 mt-2 flex flex-col gap-1">
+                <h2 className="font-semibold text-sm text-[#838A9B]">
                   {slide.title}
                 </h2>
-                <p className="font-semibold text-xs text-gray-700">
+                <p className="font-semibold text-[12px] mt-2 text-gray-700">
                   {slide.content}
                 </p>
-                <div className="flex items-center mt-1">
-                  <span className="mr-1 text-gray-600 font-semibold text-xs">
+                <div className="flex items-center mt-2">
+                  <span className="mr-1 text-[#ABB0C1] font-semibold text-xs">
                     {slide.time}
                   </span>
                   <img src={circle} alt="" className="w-1 h-1 mx-2 my-1" />
                   <div className="flex items-center ml-1">
                     <img src={Eye} alt="" className="w-3 h-3 mr-0.5" />
-                    <span className="mr-2 text-gray-600 font-semibold text-xs">
+                    <span className="mr-2 text-[#ABB0C1] font-semibold text-xs">
                       {slide.views}
                     </span>
                   </div>
                   <img src={circle} alt="" className="w-1 h-1 mx-2 my-1" />
                   <div className="flex items-center ml-1">
                     <img src={Heart} alt="" className="w-3 h-3 mr-0.5" />
-                    <span className="mr-2 text-gray-600 font-semibold text-xs">
+                    <span className="mr-2 text-[#ABB0C1] font-semibold text-xs">
                       {slide.likes}
                     </span>
                   </div>
-                  <div className="flex items-center ml-2 bg-gray-200 rounded-lg">
-                    <img
-                      src={nativeBitcoin}
-                      alt=""
-                      className="w-3 h-3 mr-0.5"
-                    />
-                    <span className="text-xs">{slide.currency}</span>
+                  <div className="flex items-center ml-2 p-1 bg-gray-200 rounded-lg">
+                    <img src={nativeBitcoin} alt="" className="w-3 h-3 mr-0.5" />
+                    <span className="text-xs text-[#ABB0C1]">
+                      {slide.currency}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -134,7 +130,7 @@ const TrendingArticle = () => {
         ))}
       </div>
 
-      <div className="flex justify-center mt-1 mb-1">
+      <div className="flex justify-center mt-3">
         {slides.map((_, index) => (
           <img
             key={index}

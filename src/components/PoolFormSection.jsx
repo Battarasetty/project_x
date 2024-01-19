@@ -353,6 +353,7 @@ const PoolFormSection = () => {
                   latestTokenEntry ? latestTokenEntry.selectedToken : null
                 }
               />
+
               <div className="flex items-center gap-2 text-[12px] font-bold">
                 Pool Percentage Left
                 <img src={info} alt="" className="w-2 h-2" />
