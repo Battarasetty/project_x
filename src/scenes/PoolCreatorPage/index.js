@@ -14,6 +14,7 @@ import {
   DataGridCustomToolbar,
   PoolSearchComponent,
   ProgressCircle,
+  SwitchWithLabel,
 } from "../../components";
 import { DataGrid } from "@mui/x-data-grid";
 import {
@@ -29,6 +30,7 @@ import {
   info,
   info_main,
   minus_x,
+  person,
   plus_x,
   star,
 } from "../../assets";
@@ -339,6 +341,12 @@ const PoolCreatorPage = () => {
 
   const allRows = dummyData;
 
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+  const handleSwitchChange = () => {
+    setIsSwitchOn((prev) => !prev);
+  };
+
   return (
     <>
       <div className="flex gap-5">
@@ -355,12 +363,25 @@ const PoolCreatorPage = () => {
             width: "70%",
           }}
         >
-          <PortfolioInfo isParticipantDetailsPage={false} totalValue="$00.00" twentyFourHourChange="" />
-          {/* Charts */}
-          <div className="container mt-7">
-            <HighlightComponentsContainer
-              showHighlights={showHighlights}
-              isPoolCreator={true}
+          <div className="flex items-center justify-between mt-10 mb-6">
+            <div className="">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <img src={person} alt="Person" className="w-5 h-5" />
+                  <p className="text-[#838A9B] text-[10px]">Total Portfolio Value</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <p className="font-bold">$00.00</p>
+                  <img src={eye_x} alt="Person" className="w-3 h-3" />
+                </div>
+              </div>
+            </div>
+
+            <SwitchWithLabel
+              label="Show Charts"
+              checked={isSwitchOn}
+              onChange={handleSwitchChange}
+              labelPlacement="start"
             />
           </div>
           {/* Pool Form  */}
@@ -414,36 +435,39 @@ const PoolCreatorPage = () => {
               </div>
 
               {/* Chart Details */}
-              <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-                <div className="">
-                  <ChartComponent className="w-full" />
+              {isSwitchOn && (
+
+                <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
+                  <div className="">
+                    <ChartComponent className="w-full" />
+                  </div>
+                  <div className="flex flex-1 ">
+                    <Box
+                      backgroundColor="#FFFFFF"
+                      boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+                      border="1px solid #F1F2F5"
+                      p="20px"
+                      borderRadius="10px"
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      className="w-full relative"
+                    >
+                      <div className="flex items-center justify-center ">
+                        <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
+                          Allocation
+                        </h1>
+                        <img
+                          src={info_main}
+                          alt="info_main"
+                          className="w-3 h-3 absolute left-[83px]"
+                        />
+                      </div>
+                      <ProgressCircle size="30" colorLabel="color1" />
+                    </Box>
+                  </div>
                 </div>
-                <div className="flex flex-1 ">
-                  <Box
-                    backgroundColor="#FFFFFF"
-                    boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
-                    border="1px solid #F1F2F5"
-                    p="20px"
-                    borderRadius="10px"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    className="w-full relative"
-                  >
-                    <div className="flex items-center justify-center ">
-                      <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
-                        Allocation
-                      </h1>
-                      <img
-                        src={info_main}
-                        alt="info_main"
-                        className="w-3 h-3 absolute left-[83px]"
-                      />
-                    </div>
-                    <ProgressCircle size="30" colorLabel="color1" />
-                  </Box>
-                </div>
-              </div>
+              )}
 
               {/* Table */}
               <div className={showHighlights ? "mt-7" : ""}>

@@ -15,6 +15,7 @@ import {
   DataGridCustomToolbar,
   PoolSearchComponent,
   ProgressCircle,
+  SwitchWithLabel,
   VolumeLeaderComponent,
 } from "../../components";
 
@@ -36,6 +37,7 @@ import {
   info,
   info_main,
   minus_x,
+  person,
   pinned,
   plus_x,
   star,
@@ -361,6 +363,12 @@ const InvestedPoolsPage = () => {
     },
   ];
 
+  const [isGridVisible, setIsGridVisible] = useState(false);
+
+  const handleSwitchChange = () => {
+    setIsGridVisible((prev) => !prev);
+  };
+
   return (
     <>
       <div className="flex gap-7">
@@ -389,16 +397,41 @@ const InvestedPoolsPage = () => {
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
-          <PortfolioInfo
+          {/* <PortfolioInfo
             isParticipantDetailsPage={false}
             totalValue="$79,283.93"
             twentyFourHourChange="12,540.45"
-          />
+          /> */}
           {/* Charts */}
-          <div className="container mt-7">
+          {/* <div className="container mt-7">
             <HighlightComponentsContainer
               showHighlights={showHighlights}
               isPoolCreator={false}
+            />
+          </div> */}
+          <div className="flex items-center justify-between mt-10 mb-6">
+            <div className="">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <img src={person} alt="Person" className="w-5 h-5" />
+                  <p className="text-[#838A9B] text-[10px]">
+                    Total Portfolio Value
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <p className="font-bold">$79,283.93</p>
+                  <img src={eye_x} alt="Person" className="w-3 h-3" />
+                </div>
+              </div>
+
+              {/* Additional paragraph for 24h change */}
+              <p className="text-green-500 text-[10px]">+ $12,540.45 (24h)</p>
+            </div>
+            <SwitchWithLabel
+              label="Show Grid"
+              checked={isGridVisible}
+              onChange={handleSwitchChange}
+              labelPlacement="start"
             />
           </div>
 
@@ -443,19 +476,20 @@ const InvestedPoolsPage = () => {
               </div>
             </div>
           </div>
+          {isGridVisible && (
+            <Grid container spacing={2} sx={{ marginTop: "5px" }}>
+              {/* ChartComponent */}
+              <Grid item xs={12} md={7}>
+                <ChartComponent />
+              </Grid>
 
-          <Grid container spacing={2} sx={{ marginTop: "5px" }}>
-            {/* ChartComponent */}
-            <Grid item xs={12} md={7}>
-              <ChartComponent />
+              <Grid item xs={12} md={4} style={{ display: "flex", gap: "5px" }}>
+                {poolDataArray.map((poolData, index) => (
+                  <VolumeLeaderComponent key={index} poolData={poolData} />
+                ))}
+              </Grid>
             </Grid>
-
-            <Grid item xs={12} md={4} style={{ display: "flex", gap:"5px" }}>
-              {poolDataArray.map((poolData, index) => (
-                <VolumeLeaderComponent key={index} poolData={poolData} />
-              ))}
-            </Grid>
-          </Grid>
+          )}
 
           <div className="flex flex-col gap-6 mt-3">
             {/* Table */}

@@ -222,7 +222,11 @@ const AddTokenModal = ({
               </div>
 
               <div className="flex flex-col gap-6 items-center justify-center mt-5 mb-5">
-                <CircularProgressBar percentage={currentPercentage} />
+              <CircularProgressBar
+                percentage={currentPercentage}
+                enteredValue=""
+                selectedToken=""
+              />
                 <div className="flex items-center gap-2 text-[12px] font-bold">
                   Pool Percentage Left
                   <img src={info} alt="" className="w-2 h-2" />

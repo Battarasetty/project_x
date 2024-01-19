@@ -15,6 +15,7 @@ import {
   DataGridCustomToolbar,
   PoolSearchComponent,
   ProgressCircle,
+  SwitchWithLabel,
 } from "../../components";
 
 import { DataGrid } from "@mui/x-data-grid";
@@ -35,6 +36,7 @@ import {
   info,
   info_main,
   minus_x,
+  person,
   plus_x,
   star,
 } from "../../assets";
@@ -421,16 +423,31 @@ const PoolCreatorDetailComponent = () => {
     },
     annotations: {
       points: [
-        { x: "50%", y: "50%", marker: { size: 0 }, label: { text: "23.41%", style: { fontSize: "16px" } } },
-        { x: "90%", y: "50%", marker: { size: 0 }, label: { text: "18.46%", style: { fontSize: "16px" } } },
+        {
+          x: "50%",
+          y: "50%",
+          marker: { size: 0 },
+          label: { text: "23.41%", style: { fontSize: "16px" } },
+        },
+        {
+          x: "90%",
+          y: "50%",
+          marker: { size: 0 },
+          label: { text: "18.46%", style: { fontSize: "16px" } },
+        },
         // Repeat the above block for other data points
       ],
     },
   };
-  
+
   const series = [23.41, 18.46, 16.29, 11.25, 9.6, 7.45, 5.35];
-  
-  
+
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+  const handleSwitchChange = () => {
+    setIsSwitchOn((prev) => !prev);
+  };
+
   return (
     <>
       <div className="flex gap-5">
@@ -439,16 +456,28 @@ const PoolCreatorDetailComponent = () => {
 
         {/* Right Side */}
         <div className={`mt-[${marginTopValue}]`} style={{ width: "70%" }}>
-          <PortfolioInfo
-            isParticipantDetailsPage={true}
-            totalValue="$384,321,120.12"
-            twentyFourHourChange="$8,540.45"
-          />
-          {/* Charts */}
-          <div className="container mt-7">
-            <HighlightComponentsContainer
-              showHighlights={showHighlights}
-              isPoolCreator={false}
+          <div className="flex items-center justify-between mt-10 mb-6">
+            <div className="">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <img src={person} alt="Person" className="w-5 h-5" />
+                  <p className="text-[#838A9B] text-[10px]">XBR474392</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <p className="font-bold">$384,321,120.12</p>
+                  <img src={eye_x} alt="Person" className="w-3 h-3" />
+                </div>
+              </div>
+
+              {/* Additional paragraph for 24h change */}
+              <p className="text-green-500 text-[10px]">+ $8,540.45 (24h)</p>
+            </div>
+
+            <SwitchWithLabel
+              label="Show Charts"
+              checked={isSwitchOn}
+              onChange={handleSwitchChange}
+              labelPlacement="start"
             />
           </div>
 
@@ -470,40 +499,48 @@ const PoolCreatorDetailComponent = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
-            {/* ChartComponent */}
-            <div className="col-span-1 md:col-span-1">
-              <ChartComponent />
-            </div>
+          {isSwitchOn && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-3">
+              {/* ChartComponent */}
 
-            {/* ProgressCircle */}
-            <div className="flex flex-1 ">
-              <Box
-                backgroundColor="#FFFFFF"
-                boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
-                border="1px solid #F1F2F5"
-                borderRadius="10px"
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                className="w-full relative"
-              >
-                <div className="flex items-center justify-center mt-[15px]">
-                  <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
-                    Allocation
-                  </h1>
-                  <img
-                    src={info_main}
-                    alt="info_main"
-                    className="w-3 h-3 absolute left-[83px]"
+              <div className="col-span-1 md:col-span-1">
+                <ChartComponent />
+              </div>
+
+              {/* ProgressCircle */}
+              <div className="flex flex-1 ">
+                <Box
+                  backgroundColor="#FFFFFF"
+                  boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+                  border="1px solid #F1F2F5"
+                  borderRadius="10px"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  className="w-full relative"
+                >
+                  <div className="flex items-center justify-center mt-[15px]">
+                    <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
+                      Allocation
+                    </h1>
+                    <img
+                      src={info_main}
+                      alt="info_main"
+                      className="w-3 h-3 absolute left-[83px]"
+                    />
+                  </div>
+                  <ApexChart
+                    options={chartOptions}
+                    series={series}
+                    type="donut"
+                    height={230}
                   />
-                </div>
-                <ApexChart options={chartOptions} series={series} type="donut" height={230} />
 
-                {/* <ProgressCircle size="30" colorLabel="color1" /> */}
-              </Box>
+                  {/* <ProgressCircle size="30" colorLabel="color1" /> */}
+                </Box>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex flex-col gap-6 mt-3">
             {/* Table */}
