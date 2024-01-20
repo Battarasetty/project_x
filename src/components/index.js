@@ -21,6 +21,7 @@ import CustomInvestedBox from './CustomInvestedBox.jsx'
 import AreaChart from './HighLightComponents/AreaChart'
 import CandlestickChart from './HighLightComponents/CandlestickChart.jsx';
 import ApexChart from './ApexChart.jsx'
+import PoolFormSectionProgressBar from './PoolFormSectionProgressBar.jsx';
 
 export {
     ChartComponent,
@@ -44,5 +45,6 @@ export {
     CustomInvestedBox,
     AreaChart,
     CandlestickChart,
-    ApexChart
+    ApexChart,
+    PoolFormSectionProgressBar
 }

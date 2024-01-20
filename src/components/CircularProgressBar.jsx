@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
+  console.log( percentage, enteredValue, selectedToken);
   const [progress, setProgress] = useState(0);
 
   const tokenColorsWithValues = {
@@ -95,10 +96,10 @@ const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
 
     return paths;
   };
-
+  
   const selectedTokenColor = tokenColorsWithValues[selectedToken]
-    ? tokenColorsWithValues[selectedToken].color
-    : "#000000"; // Default color if selectedToken is not found
+  ? tokenColorsWithValues[selectedToken].color
+  : "#000000"; // Default color if selectedToken is not found
 
   return (
     <div className="w-50 h-40 relative">

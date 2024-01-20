@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Logo,
   Favorite,
@@ -24,12 +24,40 @@ const Topbar = () => {
   const [selectedOption, setSelectedOption] = useState("Pool Participants");
   const [arrowRotation, setArrowRotation] = useState(0);
   const [arrowRotation2, setArrowRotation2] = useState(0);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen2, setDropdownOpen2] = useState(false);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isWhitelistModalOpen, setWhitelistModalOpen] = useState(false);
   const [drawerState, setDrawerState] = useState({
     left: false,
   });
+
+  const dropdownRef = useRef(null);
+  const dropdownRef2 = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        dropdownRef2.current &&
+        !dropdownRef2.current.contains(event.target)
+      ) {
+        setDropdownOpen(false);
+        setArrowRotation(0);
+
+        setDropdownOpen2(false);
+        setArrowRotation2(0);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isDropdownOpen, isDropdownOpen2]);
 
   const navigate = useNavigate();
   const whitelist = useSelector((state) => state.whitelist.whitelist);
@@ -121,7 +149,6 @@ const Topbar = () => {
   const closeWhitelistModal = () => {
     setWhitelistModalOpen(false);
   };
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownChange = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -141,7 +168,6 @@ const Topbar = () => {
     }
   };
 
-  const [isDropdownOpen2, setDropdownOpen2] = useState(false); // Make sure you have this state variable
   const [selectedOption2, setSelectedOption2] = useState("Ethereum"); // Make sure you have this state variable
   const options2 = ["Ethereum", "Binance", "Avalanche", "Fantom", "Arbitrum"]; // Make sure you have this array
 
@@ -329,17 +355,24 @@ const Topbar = () => {
               }`}
             >
               {/* Dropdown 1 */}
-              <div className={`relative ${isMobile ? "hidden" : "block"}`}>
+              <div
+                ref={dropdownRef}
+                className={`relative ${isMobile ? "hidden" : "block"}`}
+              >
                 <div
-                  className="flex items-center gap-[4px] cursor-pointer"
+                  className="flex items-center justify-between gap-[4px] cursor-pointer"
                   onClick={handleDropdownChange}
                   style={{
                     backgroundColor: "#ffffff",
-                    padding: "5px",
+                    padding: "6px", // Increase padding for better spacing
                     borderRadius: "10px",
-                    border: `1px solid ${
+                    border: `2px solid ${
                       isDropdownOpen ? "#1890ff" : "#808080"
                     }`, // Blue border color when open, grey when closed
+                    width: "170px", // Set a fixed width for the container
+                    boxShadow: isDropdownOpen
+                      ? "0px 4px 8px rgba(0, 0, 0, 0.1)"
+                      : "none", // Add box shadow when open
                   }}
                 >
                   <div className="dropdown-style cursor-pointer">
@@ -352,23 +385,24 @@ const Topbar = () => {
                     style={{
                       fill: isDropdownOpen ? "#1890ff" : "#808080", // Set fill color dynamically
                       transform: `rotate(${arrowRotation}deg)`, // Rotate the arrow
+                      transition: "transform 0.3s ease", // Add transition for smoother rotation
                     }}
                   />
                 </div>
 
                 {isDropdownOpen && (
-                  <div className="absolute w-[145px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
+                  <div className="absolute w-[170px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
                     {selectedOption === "Pool Participants" ? (
                       <div
                         onClick={() => handleOptionClick("Pool Creator")}
-                        className="p-2 cursor-pointer transition-all hover:bg-gray-100"
+                        className="p-3 cursor-pointer transition-all hover:bg-gray-100"
                       >
                         Pool Creator
                       </div>
                     ) : (
                       <div
                         onClick={() => handleOptionClick("Pool Participants")}
-                        className="p-2 cursor-pointer transition-all hover:bg-gray-100"
+                        className="p-3 cursor-pointer transition-all hover:bg-gray-100"
                       >
                         Pool Participant
                       </div>
@@ -378,17 +412,24 @@ const Topbar = () => {
               </div>
 
               {/* Dropdown 2 */}
-              <div className={`relative ${isMobile ? "hidden" : "block"}`}>
+              <div
+                ref={dropdownRef2}
+                className={`relative ${isMobile ? "hidden" : "block"}`}
+              >
                 <div
-                  className="flex items-center gap-[4px] cursor-pointer"
+                  className="flex items-center justify-between gap-[4px] cursor-pointer"
                   onClick={handleDropdownChange2}
                   style={{
                     backgroundColor: "#ffffff",
-                    padding: "5px",
+                    padding: "6px", // Increase padding for better spacing
                     borderRadius: "10px",
-                    border: `1px solid ${
+                    border: `2px solid ${
                       isDropdownOpen2 ? "#1890ff" : "#808080"
                     }`, // Blue border color when open, grey when closed
+                    boxShadow: isDropdownOpen2
+                      ? "0px 4px 8px rgba(0, 0, 0, 0.1)"
+                      : "none", // Add box shadow when open
+                    width: "125px", // Set a fixed width for the container
                   }}
                 >
                   <div className="dropdown-style cursor-pointer">
@@ -403,17 +444,18 @@ const Topbar = () => {
                     style={{
                       fill: isDropdownOpen2 ? "#1890ff" : "#808080",
                       transform: `rotate(${arrowRotation2}deg)`,
+                      transition: "transform 0.3s ease", // Add transition for smoother rotation
                     }}
                   />{" "}
                 </div>
 
                 {isDropdownOpen2 && (
-                  <div className="absolute w-[145px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
+                  <div className="absolute w-[170px] top-full left-0 z-10 bg-white border border-gray-300 shadow-md max-h-36 overflow-y-auto mt-2 rounded-md">
                     {options2.map((option, index) => (
                       <div
                         key={index}
                         onClick={() => handleOptionClick2(option)}
-                        className="p-2 cursor-pointer transition-all hover:bg-gray-100"
+                        className="p-3 cursor-pointer transition-all hover:bg-gray-100"
                       >
                         {option}
                       </div>

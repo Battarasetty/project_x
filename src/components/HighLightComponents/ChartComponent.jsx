@@ -59,35 +59,17 @@ const ChartComponent = () => {
     setSelectedValue(option);
   };
 
-  const seriesData = [
-    90, 40, 65, 50, 100, 60, 150, 60, 125, 195, 150, 200, 190, 270, 230,
+  const numericalData = [
+    200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000,
+    2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000,
   ];
 
-  const datesData = [
-    "2022-01-01",
-    "2022-01-02",
-    "2022-01-03",
-    "2022-01-04",
-    "2022-01-05",
-    "2022-01-06",
-    "2022-01-07",
-    "2022-01-08",
-    "2022-01-09",
-    "2022-01-10",
-    "2022-01-11",
-    "2022-01-12",
-    "2022-01-13",
-    "2022-01-14",
-    "2022-01-15",
-  ];
+  const seriesData = [90, 40, 65, 50, 100, 60, 150, 60, 125, 195, 120, 80, 110, 70, 150];
 
-  const candlestickData = [
-    { x: new Date(1538778600000), y: [6629.81, 6650.5, 6623.04, 6633.33] },
-    { x: new Date(1538780400000), y: [6632.01, 6643.59, 6620, 6630.11] },
-    { x: new Date(1538782200000), y: [6630.71, 6648.95, 6623.34, 6635.65] },
-    { x: new Date(1538784000000), y: [6635.65, 6651, 6629.67, 6638.24] },
-    { x: new Date(1538785800000), y: [6638.24, 6640, 6620, 6624.47] },
-  ];
+  const candlestickData = seriesData.map((value, index) => ({
+    x: numericalData[index],
+    y: [value - 10, value + 10, value - 5, value + 5], 
+  }));
 
   const chartHeight = 200;
 
@@ -98,10 +80,10 @@ const ChartComponent = () => {
       boxShadow="0px 0px 12px rgba(0, 0, 0, 0.09)"
       border="1px solid #F1F2F5"
       borderRadius="8px"
-      className="px-2 pt-2 flex flex-col"
+      className="pt-2 flex flex-col"
       sx={{height: "250px"}}
     >
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{padding: "6px"}}>
         <div className="flex items-center gap-[4px]">
           <div className="flex items-center justify-center gap-2 bg-[#F1F2F5] rounded-lg p-1">
             <h5
@@ -208,10 +190,10 @@ const ChartComponent = () => {
       </Box>
       <Box>
         {selectedImage === "shock1" ? (
-          <AreaChart series={seriesData} dates={datesData} height={chartHeight} />
+          <AreaChart series={seriesData} dates={numericalData} height={chartHeight} />
         ) : (
-          <CandlestickChart candlestickData={candlestickData} height={chartHeight} />
-        )}
+          <CandlestickChart candlestickData={candlestickData} numericalData={numericalData} height={chartHeight} />
+          )}
 
         {/* <Line options={mainChartOptions} data={chartData} /> */}
       </Box>

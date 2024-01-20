@@ -46,15 +46,13 @@ const HighlightComponentsContainer = ({ showHighlights, isPoolCreator }) => {
 
   return (
     <Grid container style={{ marginTop: 0, gap: "7px" }}>
-      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} style={{ flex: 1 }}>
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} >
         {/* First component - ChartComponent */}
         {showHighlights && (
-          <div className="flex-grow">
             <ChartComponent />
-          </div>
-        )}
+          )}
       </Grid>
-      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} style={{ flex: 1 }}>
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} >
         {/* Second component - TrendingArticle */}
         {showHighlights && (
           <div className="flex-grow">
@@ -66,8 +64,7 @@ const HighlightComponentsContainer = ({ showHighlights, isPoolCreator }) => {
         item
         xs={12}
         sm={6}
-        md={isPoolCreator ? 2 : 2.5}
-        style={{ flex: 1 }}
+        md={isPoolCreator ? 2 : 3}
       >
         {showHighlights && (
           <div className="flex-grow">

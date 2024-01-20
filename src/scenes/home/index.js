@@ -297,6 +297,7 @@ const Home = () => {
       </div>
 
       {/* Cards */}
+      
       <HighlightComponentsContainer
         showHighlights={showHighlights}
         isPoolCreator={true}

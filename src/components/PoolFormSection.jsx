@@ -17,6 +17,7 @@ import { FormControlLabel, Switch } from "@mui/material";
 import { add_pool, filterSearch, ic_search, info } from "../assets";
 import { setIsPoolFormOpen } from "../redux/poolFormSection/poolFormSectionSlice";
 import SwitchWithLabel from "./SwitchWithLabel";
+import PoolFormSectionProgressBar from "./PoolFormSectionProgressBar";
 
 const PoolFormSection = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const PoolFormSection = () => {
   // console.log(circularProgressBarColor);
   // console.log(poolPercentageLeft);
   const tokenHistory = useSelector((state) => state.poolForm.tokenHistory);
+  // console.log(first);
 
   useEffect(() => {
     console.log("Updated tokenHistory:", tokenHistory);
@@ -41,7 +43,10 @@ const PoolFormSection = () => {
 
   const latestTokenEntry =
     tokenHistory.length > 0 ? tokenHistory[tokenHistory.length - 1] : null;
-  // console.log(latestTokenEntry);
+
+  // Check if the latestTokenEntry is not null and has the necessary properties
+  const enteredValue = latestTokenEntry?.enteredValue ?? null;
+  const selectedToken = latestTokenEntry?.selectedToken ?? null;
 
   const handleSwitchChange = () => {
     dispatch(setSwitchValue(!isEthereumSelected));
@@ -92,6 +97,7 @@ const PoolFormSection = () => {
   const [tokenAllocations, setTokenAllocations] = useState([]);
 
   const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
+    console.log(tokenHistory);
     // Check if the token already exists in tokenHistory
     const existingTokenIndex = tokenHistory.findIndex(
       (entry) => entry.selectedToken.name === selectedToken.name
@@ -344,15 +350,18 @@ const PoolFormSection = () => {
                 percentage={poolPercentageLeft}
                 color={circularProgressBarColor}
               /> */}
-              <CircularProgressBar
-                percentage={poolPercentageLeft}
-                enteredValue={
-                  latestTokenEntry ? latestTokenEntry.enteredValue : null
-                }
-                selectedToken={
-                  latestTokenEntry ? latestTokenEntry.selectedToken : null
-                }
+              <PoolFormSectionProgressBar
+                tokenHistory={tokenHistory}
+                poolPercentageLeftFromRedux={poolPercentageLeft}
               />
+
+              {/* <CircularProgressBar
+                percentage={
+                  latestTokenEntry?.poolPercentageLeft ?? poolPercentageLeft
+                }
+                enteredValue={enteredValue}
+                selectedToken={selectedToken}
+              /> */}
 
               <div className="flex items-center gap-2 text-[12px] font-bold">
                 Pool Percentage Left

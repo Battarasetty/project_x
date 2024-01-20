@@ -384,6 +384,43 @@ const PoolCreatorPage = () => {
               labelPlacement="start"
             />
           </div>
+
+          <div>
+            {isSwitchOn && PoolFormSection && (
+              <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
+                <div className="">
+                  {/* Include your ChartComponent here */}
+                  <ChartComponent className="w-full" />
+                </div>
+                <div className="flex flex-1">
+                  <Box
+                    backgroundColor="#FFFFFF"
+                    boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+                    border="1px solid #F1F2F5"
+                    p="20px"
+                    borderRadius="10px"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    className="w-full relative"
+                  >
+                    <div className="flex items-center justify-center ">
+                      <h1 className="text-[12px] absolute left-[15px] font-semibold xxl:text-4xl">
+                        Allocation
+                      </h1>
+                      <img
+                        src={info_main}
+                        alt="info_main"
+                        className="w-3 h-3 absolute left-[83px]"
+                      />
+                    </div>
+                    {/* Include your ProgressCircle component here */}
+                    <ProgressCircle size="30" colorLabel="color1" />
+                  </Box>
+                </div>
+              </div>
+            )}
+          </div>
           {/* Pool Form  */}
           {isPoolFormOpen && <PoolFormSection />}
 

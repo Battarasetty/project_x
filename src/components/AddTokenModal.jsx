@@ -25,14 +25,19 @@ const AddTokenModal = ({
   poolPercentageValue,
   tokenAllocations,
 }) => {
+  console.log(poolPercentageValue);
+  console.log(tokenAllocations)
   const [allocationPercentage, setAllocationPercentage] = useState("");
+  console.log(allocationPercentage)
   const [currentPercentage, setCurrentPercentage] =
     useState(poolPercentageValue);
+    console.log(currentPercentage)
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedToken, setSelectedToken] = useState({
     name: "ETH",
     image: etherum,
   });
+  console.log(selectedToken);
 
   useEffect(() => {
     // console.log("currentPercentage:", currentPercentage);
@@ -88,6 +93,7 @@ const AddTokenModal = ({
   };
 
   const handleTokenSelect = (token) => {
+    console.log(token)
     setSelectedToken(token);
 
     // If the selected token already has an allocation, pre-fill the input
@@ -222,11 +228,11 @@ const AddTokenModal = ({
               </div>
 
               <div className="flex flex-col gap-6 items-center justify-center mt-5 mb-5">
-              <CircularProgressBar
-                percentage={currentPercentage}
-                enteredValue=""
-                selectedToken=""
-              />
+                <CircularProgressBar
+                  percentage={currentPercentage}
+                  enteredValue=""
+                  selectedToken=""
+                />
                 <div className="flex items-center gap-2 text-[12px] font-bold">
                   Pool Percentage Left
                   <img src={info} alt="" className="w-2 h-2" />
