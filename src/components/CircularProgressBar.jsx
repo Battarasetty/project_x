@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
-  console.log( percentage, enteredValue, selectedToken);
   const [progress, setProgress] = useState(0);
 
   const tokenColorsWithValues = {
@@ -56,10 +55,7 @@ const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
 
-  const strokeDasharray = `${
-    (circumference * progress) / 100
-  } ${circumference}`;
-
+  const strokeDasharray = `${(circumference * progress) / 100} ${circumference}`;
   const backgroundStrokeDasharray = `${circumference} ${circumference}`;
 
   const renderSegments = () => {
@@ -76,10 +72,8 @@ const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
       const endX = 50 + Math.cos((endAngle * Math.PI) / 180) * radius;
       const endY = 50 + Math.sin((endAngle * Math.PI) / 180) * radius;
 
-      // If the segment covers more than 50%, use a large arc
       const largeArcFlag = segmentPercentage > 50 ? 1 : 0;
 
-      // Draw the segment
       const pathData = `
         M 50 50
         L ${startX} ${startY}
@@ -96,10 +90,10 @@ const CircularProgressBar = ({ percentage, enteredValue, selectedToken }) => {
 
     return paths;
   };
-  
+
   const selectedTokenColor = tokenColorsWithValues[selectedToken]
-  ? tokenColorsWithValues[selectedToken].color
-  : "#000000"; // Default color if selectedToken is not found
+    ? tokenColorsWithValues[selectedToken].color
+    : "#000000"; // Default color if selectedToken is not found
 
   return (
     <div className="w-50 h-40 relative">

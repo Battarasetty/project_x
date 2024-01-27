@@ -88,7 +88,7 @@ const StatBox = () => {
       borderRadius="8px"
       border="1px solid #F1F2F5"
       className="px-3 h-[197px] pt-3 pb-2 flex flex-col gap-1 relative overflow-hidden"
-      sx={{ backgroundColor: "#F1F2F5", boxShadow: "0px 0px 12px #F1F2F5", height: "250px" }}
+      sx={{ backgroundColor: "#F1F2F5", marginLeft: "10px", boxShadow: "0px 0px 12px #F1F2F5", height: "250px", width: "240px" }}
     >
       <div className="flex items-center justify-between mt-1">
         <h3 className="text-[16px] font-semibold text-[#000000]">
@@ -103,7 +103,7 @@ const StatBox = () => {
           <div className="flex items-center">
             <img
               src={slides[currentSlide].logo}
-              className="w-[150px] h-[150px]"
+              className="w-[160px] h-[160px]"
               alt="Logo"
             />
             <div
@@ -113,8 +113,8 @@ const StatBox = () => {
                 flexDirection: "column",
                 height: reducedImageSize,
                 marginLeft: "3px",
-                fontSize: "6px",
-                marginBottom: "78px",
+                fontSize: "12px",
+                marginBottom: "90px",
                 fontWeight: "600",
               }}
             >

@@ -255,7 +255,7 @@ const Home = () => {
   const allRows = dummyData;
 
   return (
-    <div className="flex flex-col container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="flex flex-col mx-auto px-4 sm:px-6 lg:px-8 py-8 w-[1380px]">
       {/* Alert for success message */}
       <Alert
         severity="success"

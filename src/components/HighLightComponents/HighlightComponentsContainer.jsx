@@ -45,29 +45,24 @@ const HighlightComponentsContainer = ({ showHighlights, isPoolCreator }) => {
   ];
 
   return (
-    <Grid container style={{ marginTop: 0, gap: "7px" }}>
-      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} >
+    <Grid container style={{ marginTop: 0, gap: "5px" }}>
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5}>
         {/* First component - ChartComponent */}
-        {showHighlights && (
-            <ChartComponent />
-          )}
+        {showHighlights && <ChartComponent />}
       </Grid>
-      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5} >
+      <Grid item xs={12} sm={6} md={isPoolCreator ? 4 : 5}>
         {/* Second component - TrendingArticle */}
-        {showHighlights && (
-          <div className="flex-grow">
-            <TrendingArticle />
-          </div>
-        )}
+        {showHighlights && <TrendingArticle />}
       </Grid>
       <Grid
         item
         xs={12}
         sm={6}
-        md={isPoolCreator ? 2 : 3}
+        md={isPoolCreator ? 2.135 : 3}
+        style={{ marginLeft: "-38px" }}
       >
         {showHighlights && (
-          <div className="flex-grow">
+          <div className="">
             {poolDataArray.map((poolData, index) => (
               <VolumeLeaderComponent key={index} poolData={poolData} />
             ))}
@@ -75,10 +70,10 @@ const HighlightComponentsContainer = ({ showHighlights, isPoolCreator }) => {
         )}
       </Grid>
       {isPoolCreator && (
-        <Grid item xs={12} sm={6} md={2} style={{ flex: 1 }}>
+        <Grid item xs={12} sm={6} md={1.5} style={{ flex: 1 }}>
           {/* Fourth component - StatBox */}
           {showHighlights && (
-            <div className="flex-grow ">
+            <div className="">
               <StatBox />
             </div>
           )}

@@ -59,7 +59,7 @@ const TrendingArticle = () => {
 
   return (
     <Box
-      className="px-[5px] py-2 sliding-box transform ease-in-out duration-500"
+      className="px-[5px] py-2 transform ease-in-out duration-500"
       flex="1 1 100%"
       bg="white"
       boxShadow="0px 0px 12px rgba(0, 0, 0, 0.09)"

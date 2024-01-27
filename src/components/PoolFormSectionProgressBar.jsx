@@ -4,6 +4,8 @@ const PoolFormSectionProgressBar = ({
   tokenHistory,
   poolPercentageLeftFromRedux,
 }) => {
+  console.log(tokenHistory);
+  console.log(poolPercentageLeftFromRedux);
   const [progress, setProgress] = useState(100);
   const [segments, setSegments] = useState([]);
 
@@ -76,7 +78,9 @@ const PoolFormSectionProgressBar = ({
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
 
-  const strokeDasharray = `${(circumference * progress) / 100} ${circumference}`;
+  const strokeDasharray = `${
+    (circumference * progress) / 100
+  } ${circumference}`;
   const backgroundStrokeDasharray = `${circumference} ${circumference}`;
 
   const renderSegments = () => {

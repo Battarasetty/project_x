@@ -28,6 +28,7 @@ const PoolFormSection = () => {
   const poolPercentageLeft = useSelector(
     (state) => state.poolForm.poolPercentageLeft
   );
+  // console.log(first)
   const [isApproveButtonDisabled, setIsApproveButtonDisabled] = useState(true);
   const [isDepositButtonDisabled, setIsDepositButtonDisabled] = useState(true);
 
@@ -95,6 +96,7 @@ const PoolFormSection = () => {
   };
 
   const [tokenAllocations, setTokenAllocations] = useState([]);
+  console.log(tokenAllocations)
 
   const handleAddToken = (enteredValue, selectedToken, poolPercentageLeft) => {
     console.log(tokenHistory);
